@@ -1,0 +1,104 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.2-5"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:1.1.2-5"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    kotlinVersion = "1.1.2-5"
+    // Sdk and tools
+    buildToolsVersion = "25.0.2"
+    compileSdkVersion = 25
+    minSdkVersion = 19
+    targetSdkVersion = 25
+    versionCode = 1
+    versionName = "1.0.0"
+    javaVersion = JavaVersion.VERSION_1_8
+
+    supportLibVersion = "25.3.1"
+    multidexVersion = "1.0.1"
+    daggerVersion = "2.11"
+    javaxAnnotationVersion = "10.0-b28"
+    butterKnifeVersion = "8.6.0"
+    timberVersion = "4.5.1"
+
+    okhttpVersion = "3.8.0"
+    retrofitVersion = "2.3.0"
+    rxjava2Version = "2.1.0"
+    rxAndroid2Version = "2.0.1"
+    rxLifecycle2Version = "2.1.0"
+    rxBinding2Version = "2.0.0"
+    rxPermissionVersion = "0.9.4@aar"
+    glideVersion = "3.8.0"
+
+    arouterApiVersion = "1.2.1.1"
+    arouterCompilerVersion = "1.1.2.1"
+
+    adapterHelperVersion = "2.9.19"
+
+    dependencies = [
+            // tools
+            dagger                  : "com.google.dagger:dagger:$daggerVersion",
+            daggerCompiler          : "com.google.dagger:dagger-compiler:$daggerVersion",
+            javaxAnnotation         : "org.glassfish:javax.annotation:$javaxAnnotationVersion",
+            butterKnife             : "com.jakewharton:butterknife:$butterKnifeVersion",
+            butterKnifeCompiler     : "com.jakewharton:butterknife-compiler:$butterKnifeVersion",
+            timber                  : "com.jakewharton.timber:timber:$timberVersion",
+
+            // Rx
+            rxJava2                 : "io.reactivex.rxjava2:rxjava:$rxjava2Version",
+            rxAndroid2              : "io.reactivex.rxjava2:rxandroid:$rxAndroid2Version",
+            rxPermission2           : "com.tbruyelle.rxpermissions2:rxpermissions:$rxPermissionVersion",
+            rxBinding2              : "com.jakewharton.rxbinding2:rxbinding:$rxBinding2Version",
+            rxLifecycle2            : "com.trello.rxlifecycle2:rxlifecycle-components:$rxLifecycle2Version",
+
+            // Http
+            okhttp3                 : "com.squareup.okhttp3:okhttp:$okhttpVersion",
+            okhttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$okhttpVersion",
+            retrofit                : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitGsonConverter   : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            retrofitRxjavaAdapter2  : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+            glide                   : "com.github.bumptech.glide:glide:$glideVersion",
+
+            // support
+            supportMultidex         : "com.android.support:multidex:$multidexVersion",
+            supportAppCompat        : "com.android.support:appcompat-v7:$supportLibVersion",
+            supportDesign           : "com.android.support:design:$supportLibVersion",
+            supportRecyclerview     : "com.android.support:recyclerview-v7:$supportLibVersion",
+            supportAnnotations      : "com.android.support:support-annotations:$supportLibVersion",
+            supportCardView         : "com.android.support:cardview-v7:$supportLibVersion",
+
+            // ARouter
+            arouter                 : "com.alibaba:arouter-api:$arouterApiVersion",
+            arouterCompiler         : "com.alibaba:arouter-compiler:$arouterCompilerVersion",
+
+            // kotlin
+            kotlinStdlib            : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion",
+            kotlinReflect           : "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",
+
+            adapterHelper           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$adapterHelperVersion",
+
+    ]
+
+}
