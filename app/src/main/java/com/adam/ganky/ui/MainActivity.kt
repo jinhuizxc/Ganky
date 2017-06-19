@@ -1,4 +1,4 @@
-package com.adam.ganky
+package com.adam.ganky.ui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
-import com.adam.ganky.base.BaseLazyFragment
+import com.adam.ganky.base.LazyFragment
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.viewPager
 
@@ -62,15 +62,12 @@ class MainActivityUI : AnkoComponent<MainActivity> {
 }
 
 class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-    val fmList: List<BaseLazyFragment>
+    val fmList: List<LazyFragment>
 
     init {
-        fmList = listOf(BaseLazyFragment(), BaseLazyFragment(), BaseLazyFragment(), BaseLazyFragment())
-
-        fmList[0].arguments = bundleOf(Pair("key", "#ff0000"))
-        fmList[1].arguments = bundleOf(Pair("key", "#00ff00"))
-        fmList[2].arguments = bundleOf(Pair("key", "#0000ff"))
-        fmList[3].arguments = bundleOf(Pair("key", "#ffff00"))
+        fmList = listOf(CategoryFragment.newInstance("iOS"),
+                CategoryFragment.newInstance("Android"),
+                CategoryFragment.newInstance("Girls"))
     }
 
     override fun getItem(position: Int): Fragment {
