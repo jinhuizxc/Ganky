@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.trello.rxlifecycle2.components.support.RxFragment
 
 /**
  * 懒加载的fragment
  * 可以通过[.isRefreshEver]方法来控制是只在第一次可见时加载数据还是每次可见刷新
  * Created by yu on 2017/6/19.
  */
-abstract class LazyFragment : BaseFragment() {
+abstract class LazyFragment : RxFragment() {
 
     private var isVisible2User: Boolean = false
     private var isPrepared: Boolean = false
@@ -29,7 +30,6 @@ abstract class LazyFragment : BaseFragment() {
 
     /**
      * 如果是与ViewPager一起使用，调用的是setUserVisibleHint
-
      * @param isVisibleToUser 页面是否可见
      */
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -46,7 +46,6 @@ abstract class LazyFragment : BaseFragment() {
     /**
      * 如果是通过FragmentTransaction的show和hide的方法来控制显示，调用的是onHiddenChanged.
      * 若是初始就show的Fragment 为了触发该事件 需要先hide再show
-
      * @param hidden 是否隐藏
      */
     override fun onHiddenChanged(hidden: Boolean) {

@@ -17,13 +17,12 @@ import io.reactivex.schedulers.Schedulers
  */
 object RxUtils {
     /**
-     * 访问网络通用Transformer，判断了网络，切换线程，剥离结果
+     * 访问网络通用Transformer，判断了网络，切换线程
      */
-    fun <T> apiTransformer(view: IView): ObservableTransformer<HttpResult<T>, T> {
+    fun <T> apiTransformer(view: IView?): ObservableTransformer<T, T> {
         return ObservableTransformer {
-            it.compose(RxUtils.bindToLifecycle<HttpResult<T>>(view))
-                    .compose(RxUtils.checkNetwork<HttpResult<T>>())
-                    .compose(RxUtils.parseResult<T>())
+            it.compose(RxUtils.bindToLifecycle<T>(view))
+                    .compose(RxUtils.checkNetwork<T>())
                     .compose(RxUtils.ioToMain<T>())
         }
     }
@@ -31,14 +30,20 @@ object RxUtils {
     /**
      * 绑定rx订阅的生命周期
      */
-    fun <T> bindToLifecycle(view: IView): ObservableTransformer<T, T> {
-        return ObservableTransformer {
-            if (view is RxAppCompatActivity) {
-                it.compose(view.bindToLifecycle<T>())
-            } else if (view is RxFragment) {
-                it.compose(view.bindToLifecycle<T>())
-            } else {
-                throw IllegalArgumentException("不支持的IVew类型~~~")
+    fun <T> bindToLifecycle(view: IView?): ObservableTransformer<T, T> {
+        return if (null == view) {
+            ObservableTransformer {
+                throw LifecycleIsNullException("IView == null")
+            }
+        } else {
+            ObservableTransformer {
+                if (view is RxAppCompatActivity) {
+                    it.compose(view.bindToLifecycle<T>())
+                } else if (view is RxFragment) {
+                    it.compose(view.bindToLifecycle<T>())
+                } else {
+                    throw IllegalArgumentException("不支持的IView类型~~~")
+                }
             }
         }
     }
