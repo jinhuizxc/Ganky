@@ -8,9 +8,9 @@ import javax.inject.Inject
 /**
  * Created by yu on 2017/6/20.
  */
-class CategoryPresenter : BasePresenter<ICategory.View>(), ICategory.Presenter {
-
-    @Inject lateinit var repository: CategoryRepository
+class CategoryPresenter
+@Inject constructor(var repository: CategoryRepository)
+    : BasePresenter<ICategory.View>(), ICategory.Presenter {
 
     var pageNum = 1
 
@@ -23,7 +23,7 @@ class CategoryPresenter : BasePresenter<ICategory.View>(), ICategory.Presenter {
         repository.loadData(type, pageSize, pageNum)
                 .compose(RxUtils.apiTransformer(mView))
                 .subscribe(Consumer {
-
+                    mView?.onRefresh(it)
                 })
     }
 
@@ -32,7 +32,7 @@ class CategoryPresenter : BasePresenter<ICategory.View>(), ICategory.Presenter {
         repository.loadData(type, pageSize, pageNum)
                 .compose(RxUtils.apiTransformer(mView))
                 .subscribe(Consumer {
-
+                    mView?.onLoadMore(it)
                 })
     }
 }

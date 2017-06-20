@@ -1,26 +1,23 @@
 package com.adam.ganky.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.adam.ganky.App
 import com.adam.ganky.R
 import com.adam.ganky.base.BaseMvpFragment
 import com.adam.ganky.entity.GankEntity
-import com.adam.ganky.http.ApiService
-import com.adam.ganky.http.RetrofitManager
 import com.adam.ganky.mvp.CategoryPresenter
 import com.adam.ganky.mvp.ICategory
-import com.adam.ganky.rx.RxUtils
 import com.adam.ganky.util.CategoryType
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
+import com.yl.library.common.ItemViewDelegate
+import com.yl.library.common.ViewHolder
+import com.yl.library.recycler.MultiTypeRvAdapter
 import org.jetbrains.anko.AnkoComponent
 import org.jetbrains.anko.AnkoContext
 import org.jetbrains.anko.bundleOf
@@ -45,6 +42,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
     lateinit var type: String
     lateinit var ui: CategoryFragmentUI
     lateinit var adapter: CategoryAdapter
+    val dataList: MutableList<GankEntity> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +52,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
     override fun initView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         ui = CategoryFragmentUI()
         val view = ui.createView(AnkoContext.create(activity, this))
-        adapter = CategoryAdapter(null)
+        adapter = CategoryAdapter(activity, dataList)
 
         ui.rv.adapter = adapter
         ui.srl.onRefresh { mPresenter.refresh(type) }
@@ -62,42 +60,27 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
     }
 
     override fun initData() {
-        Log.e("qwr", "type = $type initData...")
-
-        // test todo
-        RetrofitManager.instance.createService(ApiService::class.java)
-                .gank("Android", "10", "1")
-                .compose(RxUtils.parseResult())
-                .compose(RxUtils.apiTransformer(this))
-                .subscribe(object : Observer<List<GankEntity>> {
-                    override fun onNext(data: List<GankEntity>?) {
-                        adapter.setNewData(data)
-                    }
-
-                    override fun onError(e: Throwable?) {
-                    }
-
-                    override fun onComplete() {
-                    }
-
-                    override fun onSubscribe(d: Disposable?) {
-                    }
-                })
-
+        mPresenter.refresh(type)
     }
 
     override fun onRefresh(data: List<GankEntity>) {
-        adapter.setNewData(data)
+        dataList.clear()
+        dataList.addAll(data)
+        adapter.notifyDataSetChanged()
         ui.srl.isRefreshing = false
     }
 
     override fun onLoadMore(data: List<GankEntity>) {
+        dataList.addAll(data)
+        adapter.notifyDataSetChanged()
     }
 
     override fun onNoMore() {
     }
 
     override fun injectComponent() {
+        App.apiComponent?.inject(this)
+        mPresenter.mView = this
     }
 }
 
@@ -116,28 +99,36 @@ class CategoryFragmentUI : AnkoComponent<CategoryFragment> {
     }
 }
 
-class CategoryAdapter(data: List<GankEntity>?) : BaseMultiItemQuickAdapter<GankEntity, BaseViewHolder>(data) {
+class CategoryAdapter(context: Context, data: List<GankEntity>?) : MultiTypeRvAdapter<GankEntity>(context, data) {
+
     init {
-        addItemType(CategoryType.ANDROID, R.layout.item_android)
-        addItemType(CategoryType.IOS, R.layout.item_android)
-        addItemType(CategoryType.GRILS, R.layout.item_android)
+        addItemViewDelegate(object : ItemViewDelegate<GankEntity> {
+            override fun getItemViewLayoutId(): Int = R.layout.item_android
+
+            override fun bindData(holder: ViewHolder?, entity: GankEntity?, p2: Int) {
+                holder?.setText(R.id.tvDesc, entity?.desc)
+                        ?.setText(R.id.tvAuthor, entity?.who)
+                        ?.setText(R.id.tvDate, entity?.publishedAt)
+            }
+
+            override fun isForThisViewType(entity: GankEntity?, p1: Int): Boolean {
+                return entity?.type.equals(CategoryType.ANDROID_STR, true)
+                        || entity?.type.equals(CategoryType.IOS_STR, true)
+            }
+        })
+//                .addItemViewDelegate(object : ItemViewDelegate<GankEntity> {
+//            override fun getItemViewLayoutId(): Int {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//            }
+//
+//            override fun bindData(p0: ViewHolder?, p1: GankEntity?, p2: Int) {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//            }
+//
+//            override fun isForThisViewType(p0: GankEntity?, p1: Int): Boolean {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//            }
+//        })
     }
 
-    override fun convert(helper: BaseViewHolder?, item: GankEntity?) {
-        when (helper?.itemViewType) {
-            CategoryType.ANDROID -> {
-                helper.setText(R.id.tvDesc, item?.desc)
-                        ?.setText(R.id.tvAuthor, item?.who)
-                        ?.setText(R.id.tvDate, item?.publishedAt)
-            }
-            CategoryType.IOS -> {
-                helper.setText(R.id.tvDesc, item?.desc)
-                        ?.setText(R.id.tvAuthor, item?.who)
-                        ?.setText(R.id.tvDate, item?.publishedAt)
-            }
-            CategoryType.GRILS -> {
-
-            }
-        }
-    }
 }

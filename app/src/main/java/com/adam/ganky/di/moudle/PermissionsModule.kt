@@ -4,7 +4,6 @@ import android.app.Activity
 import com.adam.ganky.di.ActivityScope
 import com.tbruyelle.rxpermissions2.RxPermissions
 
-
 import dagger.Module
 import dagger.Provides
 

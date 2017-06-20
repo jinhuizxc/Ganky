@@ -9,9 +9,8 @@ import javax.inject.Inject
 /**
  * Created by yu on 2017/6/20.
  */
-class CategoryRepository : ICategory.Repository {
-
-    @Inject lateinit var api: ApiService
+class CategoryRepository
+@Inject constructor(var api: ApiService) : ICategory.Repository {
 
     override fun loadData(type: String, pageSize: Int, pageNum: Int): Observable<List<GankEntity>> {
         return api.gank(type, pageSize.toString(), pageNum.toString()).compose(RxUtils.parseResult())

@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8' //for dagger
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.2-5"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:1.1.2-5"
 
@@ -38,7 +39,7 @@ ext {
 
     supportLibVersion = "25.3.1"
     multidexVersion = "1.0.1"
-    daggerVersion = "2.11"
+    daggerVersion = "2.9"
     javaxAnnotationVersion = "10.0-b28"
     butterKnifeVersion = "8.6.0"
     timberVersion = "4.5.1"

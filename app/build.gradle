@@ -21,12 +21,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-//    compileOptions {
-//        sourceCompatibility rootProject.ext.javaVersion
-//        targetCompatibility rootProject.ext.javaVersion
-//    }
-}
 
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -41,7 +42,6 @@ dependencies {
     compile dependencies.supportCardView
     compile dependencies.supportDesign
 
-    compile dependencies.javaxAnnotation
     compile dependencies.dagger
     kapt dependencies.daggerCompiler
 
@@ -57,7 +57,7 @@ dependencies {
 
     compile dependencies.timber
     compile dependencies.glide
-    compile dependencies.adapterHelper
+    compile(name:'library-debug', ext:'aar')
 
     compile dependencies.kotlinStdlib
     compile dependencies.kotlinReflect

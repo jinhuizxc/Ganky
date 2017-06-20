@@ -3,9 +3,10 @@ package com.adam.ganky
 import android.app.Application
 import android.content.Context
 import com.adam.ganky.di.component.ApiComponent
+import com.adam.ganky.di.component.DaggerApiComponent
 import com.adam.ganky.di.moudle.ApiModule
 import com.adam.ganky.di.moudle.AppModule
-import com.adam.ganky.util.Constant
+import com.adam.ganky.util.AppManager
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 
@@ -15,6 +16,7 @@ import okhttp3.Interceptor
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+        AppManager.init(this)
 
         apiComponent = DaggerApiComponent.builder()
                 .appModule(AppModule(this))
@@ -25,12 +27,12 @@ class App : Application() {
                 .build()
     }
 
-    val interceptors: List<Interceptor> = arrayListOf(
-            Interceptor { chain ->
-                val request = chain.request().newBuilder()
-//                        .addHeader("token", "qwe")
+    val interceptors: List<Interceptor> = listOf(
+            Interceptor {
+                val request = it.request().newBuilder()
+                        .addHeader("token", "this is a token for test")
                         .build()
-                chain.proceed(request)
+                it.proceed(request)
             }
     )
 
