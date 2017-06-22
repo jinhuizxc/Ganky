@@ -3,28 +3,30 @@ package com.adam.ganky.mvp.presenter
 import com.adam.ganky.base.BasePresenter
 import com.adam.ganky.entity.GankEntity
 import com.adam.ganky.http.ApiSubscriber
-import com.adam.ganky.mvp.ICategory
-import com.adam.ganky.mvp.repository.CategoryRepository
+import com.adam.ganky.mvp.ICollection
+import com.adam.ganky.mvp.repository.CollectionRepository
 import com.adam.ganky.rx.RxUtils
 import javax.inject.Inject
 
 /**
- * Created by yu on 2017/6/20.
+ * @author yu
+ * Create on 2017/6/22.
  */
-class CategoryPresenter
-@Inject constructor(val repository: CategoryRepository)
-    : BasePresenter<ICategory.View>(), ICategory.Presenter {
+class CollectionPresenter
+@Inject constructor(val repository: CollectionRepository)
+    : BasePresenter<ICollection.View>(), ICollection.Presenter {
 
-    var pageNum = 1
+    var pageNum = 0
 
     override fun create() {
 
     }
 
-    override fun refresh(type: String, pageSize: Int) {
-        pageNum = 1
-        repository.loadData(type, pageSize, pageNum)
-                .compose(RxUtils.apiTransformer(mView))
+    override fun refresh(pageSize: Int) {
+        pageNum = 0
+        repository.getCollections(pageNum, pageSize)
+                .compose(RxUtils.bindToLifecycle(mView))
+                .compose(RxUtils.ioToMain())
                 .subscribe(object : ApiSubscriber<List<GankEntity>>(mView) {
                     override fun onNext(t: List<GankEntity>) {
                         mView?.onRefresh(t)
@@ -32,9 +34,10 @@ class CategoryPresenter
                 })
     }
 
-    override fun loadMore(type: String, pageSize: Int) {
-        repository.loadData(type, pageSize, pageNum)
-                .compose(RxUtils.apiTransformer(mView))
+    override fun loadMore(pageSize: Int) {
+        repository.getCollections(pageNum, pageSize)
+                .compose(RxUtils.bindToLifecycle(mView))
+                .compose(RxUtils.ioToMain())
                 .subscribe(object : ApiSubscriber<List<GankEntity>>(mView) {
                     override fun onNext(data: List<GankEntity>?) {
                         pageNum++
@@ -45,4 +48,5 @@ class CategoryPresenter
                     }
                 })
     }
+
 }

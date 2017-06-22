@@ -32,6 +32,9 @@
     <dimen name="m10">10dp</dimen>
     <dimen name="m12">12dp</dimen>
     <dimen name="m15">15dp</dimen>
+    <dimen name="m16">16dp</dimen>
+    <dimen name="m18">18dp</dimen>
+    <dimen name="m20">20dp</dimen>
 
     <!--corners-->
     <dimen name="r2">2dp</dimen>

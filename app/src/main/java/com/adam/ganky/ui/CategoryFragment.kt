@@ -1,6 +1,5 @@
 package com.adam.ganky.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -10,11 +9,7 @@ import com.adam.ganky.base.BaseMvpFragment
 import com.adam.ganky.entity.GankEntity
 import com.adam.ganky.mvp.ICategory
 import com.adam.ganky.mvp.presenter.CategoryPresenter
-import com.adam.ganky.util.CategoryType
-import com.bumptech.glide.Glide
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
-import kotlinx.android.synthetic.main.fragment_category.*
+import kotlinx.android.synthetic.main.layout_refresh_list.*
 
 /**
  * Created by yu on 2017/6/19.
@@ -39,7 +34,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
         type = arguments.getString("type")
     }
 
-    override fun getLayoutId(): Int = R.layout.fragment_category
+    override fun getLayoutId(): Int = R.layout.layout_refresh_list
     override fun initView() {
         refreshLayout.setOnRefreshListener {
             mPresenter.refresh(type)
@@ -78,28 +73,5 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
     override fun injectComponent() {
         App.appComponent?.inject(this)
         mPresenter.attachView(this)
-    }
-}
-
-class CategoryAdapter(val context: Context, data: List<GankEntity>?)
-    : BaseMultiItemQuickAdapter<GankEntity, BaseViewHolder>(data) {
-
-    init {
-        addItemType(CategoryType.ANDROID_IOS, R.layout.item_android)
-        addItemType(CategoryType.GIRLS, R.layout.item_girls)
-    }
-
-    override fun convert(helper: BaseViewHolder, item: GankEntity) {
-        when (helper.itemViewType) {
-            CategoryType.ANDROID_IOS -> {
-                helper.setText(R.id.tvDesc, item.desc)
-                        .setText(R.id.tvAuthor, item.who)
-                        .setText(R.id.tvDate, item.publishedAt)
-            }
-            else -> {
-                val iv: RoundImageView = helper.getView(R.id.ivImage)
-                Glide.with(context).load(item.url).centerCrop().into(iv)
-            }
-        }
     }
 }

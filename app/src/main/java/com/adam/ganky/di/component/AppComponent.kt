@@ -3,6 +3,7 @@ package com.adam.ganky.di.component
 import com.adam.ganky.di.moudle.AppModule
 import com.adam.ganky.di.moudle.RetrofitModule
 import com.adam.ganky.ui.CategoryFragment
+import com.adam.ganky.ui.CollectionActivity
 import com.adam.ganky.ui.DetailActivity
 import dagger.Component
 import javax.inject.Singleton
@@ -21,4 +22,5 @@ interface AppComponent {
 
     fun inject(fmt: CategoryFragment)
     fun inject(aty: DetailActivity)
+    fun inject(aty: CollectionActivity)
 }
