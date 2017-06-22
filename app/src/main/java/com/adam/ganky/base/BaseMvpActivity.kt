@@ -10,6 +10,10 @@ abstract class BaseMvpActivity<P : IPresenter> : BaseActivity(), IView {
 
     @Inject lateinit var mPresenter: P
 
+    override fun showLoading() {
+        showLoading(null)
+    }
+
     override fun showLoading(message: String?) {
 
     }

@@ -10,12 +10,14 @@ abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment(), IView {
 
     @Inject lateinit var mPresenter: P
 
-    override fun showLoading(message: String?) {
+    override fun showLoading() {
+        showLoading(null)
+    }
 
+    override fun showLoading(message: String?) {
     }
 
     override fun hideLoading() {
-
     }
 
     override fun showTips(message: String?) {
@@ -27,8 +29,8 @@ abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment(), IView {
      */
     override abstract fun injectComponent()
 
-    override fun onDestroyView() {
+    override fun onDestroy() {
         mPresenter.destroy()
-        super.onDestroyView()
+        super.onDestroy()
     }
 }

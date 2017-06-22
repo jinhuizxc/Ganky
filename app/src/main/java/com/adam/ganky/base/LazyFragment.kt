@@ -19,7 +19,12 @@ abstract class LazyFragment : RxFragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         isFirstLoad = true
-        return initView(inflater, container, savedInstanceState)
+        return inflater?.inflate(getLayoutId(), null)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -82,7 +87,9 @@ abstract class LazyFragment : RxFragment() {
     protected val isRefreshEver: Boolean
         get() = false
 
-    protected abstract fun initView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View
+    abstract fun getLayoutId(): Int
 
-    protected abstract fun initData()
+    abstract fun initView()
+
+    abstract fun initData()
 }

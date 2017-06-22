@@ -1,5 +1,7 @@
 package com.adam.ganky.entity
 
+import com.adam.ganky.util.CategoryType
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -17,4 +19,10 @@ data class GankEntity(
         var url: String?,
         var used: Boolean?,
         var who: String?
-)
+) : MultiItemEntity {
+
+    override fun getItemType(): Int {
+        return CategoryType.getTypeByName(type)
+    }
+
+}

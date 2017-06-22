@@ -54,33 +54,15 @@ dependencies {
     compile dependencies.rxLifecycle2
     compile dependencies.rxBinding2
     compile dependencies.rxPermission2
+    compile dependencies.adapterHelper
 
     compile dependencies.timber
     compile dependencies.glide
-    compile(name:'library-debug', ext:'aar')
 
     compile dependencies.kotlinStdlib
     compile dependencies.kotlinReflect
 
-    // Anko Layouts
-    compile "org.jetbrains.anko:anko-sdk25:0.10.1" // sdk15, sdk19, sdk21, sdk23 are also available
-    compile "org.jetbrains.anko:anko-appcompat-v7:0.10.1"
-    compile "org.jetbrains.anko:anko-coroutines:0.10.1"
-
-    // Coroutine listeners for Anko Layouts
-    compile "org.jetbrains.anko:anko-sdk25-coroutines:0.10.1"
-    compile "org.jetbrains.anko:anko-appcompat-v7-coroutines:0.10.1"
-
-    // CardView-v7
-    compile "org.jetbrains.anko:anko-cardview-v7:0.10.1"
-
-    // Design
-    compile "org.jetbrains.anko:anko-design:0.10.1"
-    compile "org.jetbrains.anko:anko-design-coroutines:0.10.1"
-
-    // RecyclerView-v7
-    compile "org.jetbrains.anko:anko-recyclerview-v7:0.10.1"
-    compile "org.jetbrains.anko:anko-recyclerview-v7-coroutines:0.10.1"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
 }
 

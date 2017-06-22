@@ -39,7 +39,7 @@ ext {
 
     supportLibVersion = "25.3.1"
     multidexVersion = "1.0.1"
-    daggerVersion = "2.9"
+    daggerVersion = "2.11"
     javaxAnnotationVersion = "10.0-b28"
     butterKnifeVersion = "8.6.0"
     timberVersion = "4.5.1"

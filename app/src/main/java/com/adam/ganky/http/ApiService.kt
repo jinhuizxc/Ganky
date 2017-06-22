@@ -13,4 +13,8 @@ interface ApiService {
              @Path("page") page: String
     ): Observable<HttpResult<List<GankEntity>>>
 
+    // 随机获取一个妹子
+    @GET("api/random/data/福利/1")
+    fun getRandomGirl(): Observable<HttpResult<List<GankEntity>>>
+
 }

@@ -5,7 +5,7 @@ package com.adam.ganky.base
  */
 abstract class BasePresenter<V : IView> : IPresenter {
 
-    var mView: V? = null
+    protected var mView: V? = null
 
     init {
         // 回调create方法时mView为空，所以不要做view操作

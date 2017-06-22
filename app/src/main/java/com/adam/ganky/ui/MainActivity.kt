@@ -3,26 +3,21 @@ package com.adam.ganky.ui
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import com.adam.ganky.R
 import com.adam.ganky.base.BaseActivity
 import com.adam.ganky.base.BaseFragment
 import com.adam.ganky.util.CategoryType
-import org.jetbrains.anko.AnkoComponent
-import org.jetbrains.anko.AnkoContext
-import org.jetbrains.anko.setContentView
-import org.jetbrains.anko.support.v4.viewPager
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
-    override fun initView() {
-        MainActivityUI().setContentView(this)
-    }
-}
+    override fun getLayoutId(): Int = R.layout.activity_main
 
-class MainActivityUI : AnkoComponent<MainActivity> {
-    override fun createView(ui: AnkoContext<MainActivity>) = with(ui) {
-        viewPager {
-            id = 123
-            adapter = MainAdapter(ui.owner.supportFragmentManager)
-        }
+    override fun initView() {
+        toolbar.title = getString(R.string.app_name)
+        setSupportActionBar(toolbar)
+
+        mainPager.adapter = MainAdapter(supportFragmentManager)
+        tabs.setupWithViewPager(mainPager)
     }
 }
 
@@ -31,7 +26,7 @@ class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         listOf(
                 CategoryFragment.newInstance(CategoryType.ANDROID_STR),
                 CategoryFragment.newInstance(CategoryType.IOS_STR),
-                CategoryFragment.newInstance(CategoryType.GRILS_STR)
+                CategoryFragment.newInstance(CategoryType.GIRLS_STR)
         )
     }
 
@@ -41,5 +36,9 @@ class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getCount(): Int {
         return fmList.size
+    }
+
+    override fun getPageTitle(position: Int): CharSequence {
+        return CategoryType.getPageTitleByPosition(position)
     }
 }

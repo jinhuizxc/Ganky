@@ -31,19 +31,13 @@ object RxUtils {
      * 绑定rx订阅的生命周期
      */
     fun <T> bindToLifecycle(view: IView?): ObservableTransformer<T, T> {
-        return if (null == view) {
-            ObservableTransformer {
-                throw LifecycleIsNullException("IView == null")
-            }
-        } else {
-            ObservableTransformer {
-                if (view is RxAppCompatActivity) {
-                    it.compose(view.bindToLifecycle<T>())
-                } else if (view is RxFragment) {
-                    it.compose(view.bindToLifecycle<T>())
-                } else {
-                    throw IllegalArgumentException("不支持的IView类型~~~")
-                }
+        return ObservableTransformer {
+            if (view is RxAppCompatActivity) {
+                it.compose(view.bindToLifecycle<T>())
+            } else if (view is RxFragment) {
+                it.compose(view.bindToLifecycle<T>())
+            } else {
+                throw IllegalArgumentException("不支持的IView类型~~~")
             }
         }
     }
