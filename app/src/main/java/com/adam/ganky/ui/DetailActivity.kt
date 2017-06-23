@@ -10,6 +10,8 @@ import android.webkit.WebViewClient
 import com.adam.ganky.App
 import com.adam.ganky.R
 import com.adam.ganky.base.BaseMvpActivity
+import com.adam.ganky.di.component.DaggerDetailComponent
+import com.adam.ganky.di.moudle.DetailModule
 import com.adam.ganky.mvp.IDetail
 import com.adam.ganky.mvp.presenter.DetailPresenter
 import com.bumptech.glide.Glide
@@ -74,8 +76,11 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
     }
 
     override fun injectComponent() {
-        App.appComponent?.inject(this)
-        mPresenter.attachView(this)
+        DaggerDetailComponent.builder()
+                .appComponent(App.appComponent)
+                .detailModule(DetailModule(this))
+                .build()
+                .inject(this)
     }
 
     override fun showGirl(url: String) {

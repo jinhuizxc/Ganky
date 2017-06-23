@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import com.adam.ganky.App
 import com.adam.ganky.R
 import com.adam.ganky.base.BaseMvpActivity
+import com.adam.ganky.di.component.DaggerCollectionComponent
+import com.adam.ganky.di.moudle.CollectionModule
 import com.adam.ganky.entity.GankEntity
 import com.adam.ganky.mvp.ICollection
 import com.adam.ganky.mvp.presenter.CollectionPresenter
@@ -38,8 +40,11 @@ class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.V
     }
 
     override fun injectComponent() {
-        App.appComponent?.inject(this)
-        mPresenter.attachView(this)
+        DaggerCollectionComponent.builder()
+                .appComponent(App.appComponent)
+                .collectionModule(CollectionModule(this))
+                .build()
+                .inject(this)
     }
 
     override fun onRefresh(data: List<GankEntity>) {

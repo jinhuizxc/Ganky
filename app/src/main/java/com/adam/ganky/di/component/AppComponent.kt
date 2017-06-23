@@ -1,10 +1,10 @@
 package com.adam.ganky.di.component
 
+import android.content.Context
+import com.adam.ganky.di.ApplicationContext
 import com.adam.ganky.di.moudle.AppModule
 import com.adam.ganky.di.moudle.RetrofitModule
-import com.adam.ganky.ui.CategoryFragment
-import com.adam.ganky.ui.CollectionActivity
-import com.adam.ganky.ui.DetailActivity
+import com.adam.ganky.http.RepositoryManager
 import dagger.Component
 import javax.inject.Singleton
 
@@ -16,11 +16,9 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(RetrofitModule::class, AppModule::class))
 interface AppComponent {
 
-//    fun application(): Application
-//
-//    fun retrofit(): Retrofit
+    @ApplicationContext
+    fun context(): Context
 
-    fun inject(fmt: CategoryFragment)
-    fun inject(aty: DetailActivity)
-    fun inject(aty: CollectionActivity)
+    fun repositoryManager(): RepositoryManager
+
 }

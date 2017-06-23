@@ -13,8 +13,8 @@ import javax.inject.Inject
  * Create on 2017/6/22.
  */
 class CollectionPresenter
-@Inject constructor(val repository: CollectionRepository)
-    : BasePresenter<ICollection.View>(), ICollection.Presenter {
+@Inject constructor(view: ICollection.View, val repository: CollectionRepository)
+    : BasePresenter<ICollection.View>(view), ICollection.Presenter {
 
     var pageNum = 0
 

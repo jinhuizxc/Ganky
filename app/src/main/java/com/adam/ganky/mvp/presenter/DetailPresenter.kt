@@ -12,8 +12,8 @@ import javax.inject.Inject
  * Created by yu on 2017/6/22.
  */
 class DetailPresenter
-@Inject constructor(var repository: DetailRepository)
-    : BasePresenter<IDetail.View>(), IDetail.Presenter {
+@Inject constructor(view: IDetail.View, var repository: DetailRepository)
+    : BasePresenter<IDetail.View>(view), IDetail.Presenter {
 
     override fun create() {
 

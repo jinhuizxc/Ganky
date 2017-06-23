@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager
 import com.adam.ganky.App
 import com.adam.ganky.R
 import com.adam.ganky.base.BaseMvpFragment
+import com.adam.ganky.di.component.DaggerCategoryComponent
+import com.adam.ganky.di.moudle.CategoryModule
 import com.adam.ganky.entity.GankEntity
 import com.adam.ganky.mvp.ICategory
 import com.adam.ganky.mvp.presenter.CategoryPresenter
@@ -71,7 +73,10 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
     }
 
     override fun injectComponent() {
-        App.appComponent?.inject(this)
-        mPresenter.attachView(this)
+        DaggerCategoryComponent.builder()
+                .appComponent(App.appComponent)
+                .categoryModule(CategoryModule(this))
+                .build()
+                .inject(this)
     }
 }

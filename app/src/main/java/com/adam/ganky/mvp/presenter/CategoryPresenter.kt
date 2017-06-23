@@ -12,8 +12,8 @@ import javax.inject.Inject
  * Created by yu on 2017/6/20.
  */
 class CategoryPresenter
-@Inject constructor(val repository: CategoryRepository)
-    : BasePresenter<ICategory.View>(), ICategory.Presenter {
+@Inject constructor(view: ICategory.View, val repository: CategoryRepository)
+    : BasePresenter<ICategory.View>(view), ICategory.Presenter {
 
     var pageNum = 1
 

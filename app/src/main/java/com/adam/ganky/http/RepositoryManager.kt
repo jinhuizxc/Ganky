@@ -4,13 +4,11 @@ import android.util.Log
 import retrofit2.Retrofit
 import java.util.*
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * 提供RetrofitService的管理
  * Created by yu on 2017/6/21.
  */
-@Singleton
 class RepositoryManager
 @Inject constructor(private val mRetrofit: Retrofit) {
 
