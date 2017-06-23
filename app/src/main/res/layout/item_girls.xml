@@ -10,7 +10,7 @@
     app:cardCornerRadius="@dimen/m8"
     app:cardElevation="@dimen/m10">
 
-    <com.adam.ganky.ui.RoundImageView
+    <com.adam.ganky.ui.widget.RoundImageView
         android:id="@+id/ivImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

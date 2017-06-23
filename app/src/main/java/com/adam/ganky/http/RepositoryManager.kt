@@ -1,6 +1,5 @@
 package com.adam.ganky.http
 
-import android.util.Log
 import retrofit2.Retrofit
 import java.util.*
 import javax.inject.Inject
@@ -15,7 +14,6 @@ class RepositoryManager
     private val mRetrofitServiceCache = LinkedHashMap<String, Any>()
 
     fun <T> obtainService(serviceClz: Class<T>): T {
-        Log.e("qwee", this.toString())
         synchronized(mRetrofitServiceCache) {
             var service: T? = mRetrofitServiceCache[serviceClz.name] as T
             if (service == null) {

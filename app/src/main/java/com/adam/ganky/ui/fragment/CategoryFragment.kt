@@ -1,6 +1,5 @@
-package com.adam.ganky.ui
+package com.adam.ganky.ui.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.adam.ganky.App
@@ -9,8 +8,11 @@ import com.adam.ganky.base.BaseMvpFragment
 import com.adam.ganky.di.component.DaggerCategoryComponent
 import com.adam.ganky.di.moudle.CategoryModule
 import com.adam.ganky.entity.GankEntity
+import com.adam.ganky.jump
 import com.adam.ganky.mvp.ICategory
 import com.adam.ganky.mvp.presenter.CategoryPresenter
+import com.adam.ganky.ui.activity.DetailActivity
+import com.adam.ganky.ui.adapter.CategoryAdapter
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 
 /**
@@ -44,17 +46,16 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
         }
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
-        adapter = CategoryAdapter(activity, null)
+        adapter = CategoryAdapter(activity, null) { adapter, view, position ->
+            jump(DetailActivity::class.java, "url", (adapter.getItem(position) as GankEntity).url)
+        }
         adapter.setEnableLoadMore(true)
         adapter.setOnLoadMoreListener({ mPresenter.loadMore(type) }, recyclerView)
-        adapter.setOnItemClickListener { adapter, view, position ->
-            val url = (adapter.getItem(position) as GankEntity).url
-            startActivity(Intent(activity, DetailActivity::class.java).putExtra("url", url))
-        }
         recyclerView.adapter = adapter
     }
 
     override fun initData() {
+        refreshLayout.isRefreshing = true
         mPresenter.refresh(type)
     }
 

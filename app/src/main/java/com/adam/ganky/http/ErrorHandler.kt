@@ -23,12 +23,11 @@ object ErrorHandler {
     private fun parseException(e: Throwable?): ApiException? {
         return when (e) {
             is ApiException -> e
-            is NetworkDisconnectException -> ApiException("网络连接断开，请检查网络")
             is SocketTimeoutException, is ConnectException,
             is UnknownHostException, is HttpException -> ApiException("网络不畅，请稍后再试")
             is JSONException, is ParseException, is JsonParseException -> ApiException("数据解析错误")
 
-            else -> null
+            else -> ApiException("服务器繁忙")
         }
     }
 

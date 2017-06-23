@@ -1,4 +1,4 @@
-package com.adam.ganky.ui
+package com.adam.ganky.ui.activity
 
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
@@ -10,6 +10,7 @@ import com.adam.ganky.di.moudle.CollectionModule
 import com.adam.ganky.entity.GankEntity
 import com.adam.ganky.mvp.ICollection
 import com.adam.ganky.mvp.presenter.CollectionPresenter
+import com.adam.ganky.ui.adapter.CategoryAdapter
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 
 class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.View {
@@ -25,15 +26,13 @@ class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.V
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
-        adapter = CategoryAdapter(this, null)
-        adapter.setEnableLoadMore(true)
-        adapter.setOnLoadMoreListener({ mPresenter.loadMore() }, recyclerView)
-        adapter.setOnItemClickListener { adapter, view, position ->
+        adapter = CategoryAdapter(this, null){ adapter, view, position ->
             val url = (adapter.getItem(position) as GankEntity).url
             startActivity(Intent(this@CollectionActivity, DetailActivity::class.java).putExtra("url", url))
         }
+        adapter.setEnableLoadMore(true)
+        adapter.setOnLoadMoreListener({ mPresenter.loadMore() }, recyclerView)
         recyclerView.adapter = adapter
-
 
         refreshLayout.isRefreshing = true
         mPresenter.refresh()

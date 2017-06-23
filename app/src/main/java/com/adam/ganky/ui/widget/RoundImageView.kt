@@ -1,4 +1,4 @@
-package com.adam.ganky.ui
+package com.adam.ganky.ui.widget
 
 import android.content.Context
 import android.graphics.*
@@ -15,7 +15,6 @@ import java.util.*
  * 如需使用圆角，在布局中使用属性：
  * app:shape_mode="round_rect"
  * app:round_radius="20dp"
-
  * @author yu
  * *         Create on 16/4/18.
  */

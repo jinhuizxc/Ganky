@@ -1,6 +1,5 @@
 package com.adam.ganky.base
 
-import com.adam.ganky.util.ToastUtils
 import javax.inject.Inject
 
 /**
@@ -20,10 +19,6 @@ abstract class BaseMvpActivity<P : IPresenter> : BaseActivity(), IView {
 
     override fun hideLoading() {
 
-    }
-
-    override fun showTips(message: String?) {
-        ToastUtils.show(message)
     }
 
     /**

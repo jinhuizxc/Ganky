@@ -8,6 +8,6 @@ import java.io.Serializable
  */
 class HttpResult<T> : Serializable {
 
-    var isError: Boolean = false
+    var error: Boolean = false
     var results: T? = null
 }

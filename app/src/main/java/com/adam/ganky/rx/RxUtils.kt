@@ -3,7 +3,6 @@ package com.adam.ganky.rx
 import com.adam.ganky.base.IView
 import com.adam.ganky.http.ApiException
 import com.adam.ganky.http.HttpResult
-import com.adam.ganky.http.NetworkDisconnectException
 import com.adam.ganky.util.NetUtils
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import com.trello.rxlifecycle2.components.support.RxFragment
@@ -67,7 +66,7 @@ object RxUtils {
      */
     fun <T> checkNetwork(): ObservableTransformer<T, T> {
         return ObservableTransformer {
-            it.doOnSubscribe { if (!NetUtils.isOnline) throw NetworkDisconnectException() }
+            it.doOnSubscribe { if (!NetUtils.isOnline) throw ApiException("网络无链接，请检查网络") }
         }
     }
 
@@ -77,7 +76,7 @@ object RxUtils {
     fun <T> parseResult(): ObservableTransformer<HttpResult<T>, T> {
         return ObservableTransformer {
             it.flatMap {
-                if (it.isError) {
+                if (it.error) {
                     Observable.error<T>(ApiException("接口返回错误"))
                 } else {
                     Observable.just(it.results)

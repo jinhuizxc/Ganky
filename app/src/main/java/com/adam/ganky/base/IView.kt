@@ -7,6 +7,4 @@ interface IView {
     fun showLoading(message: String?)
 
     fun hideLoading()
-
-    fun showTips(message: String?)
 }

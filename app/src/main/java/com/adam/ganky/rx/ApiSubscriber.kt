@@ -1,9 +1,10 @@
-package com.adam.ganky.http
+package com.adam.ganky.rx
 
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import com.adam.ganky.base.IView
+import com.adam.ganky.http.ErrorHandler
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 

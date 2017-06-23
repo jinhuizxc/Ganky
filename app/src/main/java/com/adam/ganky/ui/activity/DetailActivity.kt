@@ -1,4 +1,4 @@
-package com.adam.ganky.ui
+package com.adam.ganky.ui.activity
 
 import android.graphics.Bitmap
 import android.view.MenuItem
@@ -97,8 +97,6 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
 
     override fun onDestroy() {
         if (webview != null) {
-            webview.loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
-            webview.clearHistory()
             (webview.getParent() as ViewGroup).removeView(webview)
             webview.destroy()
         }

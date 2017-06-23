@@ -2,7 +2,7 @@ package com.adam.ganky.di.component
 
 import com.adam.ganky.di.ActivityScope
 import com.adam.ganky.di.moudle.CategoryModule
-import com.adam.ganky.ui.CategoryFragment
+import com.adam.ganky.ui.fragment.CategoryFragment
 import dagger.Component
 
 /**

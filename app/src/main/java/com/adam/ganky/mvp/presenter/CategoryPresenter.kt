@@ -2,7 +2,7 @@ package com.adam.ganky.mvp.presenter
 
 import com.adam.ganky.base.BasePresenter
 import com.adam.ganky.entity.GankEntity
-import com.adam.ganky.http.ApiSubscriber
+import com.adam.ganky.rx.ApiSubscriber
 import com.adam.ganky.mvp.ICategory
 import com.adam.ganky.mvp.repository.CategoryRepository
 import com.adam.ganky.rx.RxUtils

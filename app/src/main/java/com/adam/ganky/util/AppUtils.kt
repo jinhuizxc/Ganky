@@ -2,7 +2,6 @@ package com.adam.ganky.util
 
 import android.content.Context
 import android.content.Context.TELEPHONY_SERVICE
-import android.content.Intent
 import android.location.LocationManager
 import android.net.wifi.WifiManager
 import android.os.Build
@@ -33,14 +32,6 @@ object AppUtils {
         } else {
             return true
         }
-    }
-
-    fun restartApplication() {
-        val context = AppManager.getCurrentActicity()
-        val intent = context.packageManager
-                .getLaunchIntentForPackage(context.packageName)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        context.startActivity(intent)
     }
 
     /**
