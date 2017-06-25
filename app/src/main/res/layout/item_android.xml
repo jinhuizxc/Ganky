@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/m12"
-    android:layout_marginRight="@dimen/m12"
-    android:layout_marginTop="@dimen/m10"
+    android:layout_marginLeft="@dimen/m16"
+    android:layout_marginRight="@dimen/m16"
+    android:layout_marginTop="@dimen/m12"
     android:background="@drawable/shape_list_item_bg"
     app:cardCornerRadius="@dimen/m8"
     app:cardElevation="@dimen/m10">
@@ -22,12 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <com.adam.ganky.ui.widget.RoundImageView
                 android:id="@+id/ivImage"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
+                app:shape_mode="circle"
                 tools:src="@mipmap/ic_launcher" />
 
             <TextView

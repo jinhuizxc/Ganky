@@ -1,6 +1,7 @@
 package com.adam.ganky.ui.adapter
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.View
 import com.adam.ganky.R
 import com.adam.ganky.entity.GankEntity
@@ -29,8 +30,11 @@ class CategoryAdapter(val context: Context, data: List<GankEntity>?,
         when (helper.itemViewType) {
             CategoryType.ANDROID_IOS -> {
                 helper.setText(R.id.tvDesc, item.desc)
-                        .setText(R.id.tvAuthor, item.who)
+                        .setText(R.id.tvAuthor, if (TextUtils.isEmpty(item.who)) "UnKnow" else item.who)
                         .setText(R.id.tvDate, item.publishedAt)
+                        .setImageResource(R.id.ivImage,
+                                if (item.type == CategoryType.ANDROID_STR) R.mipmap.icon_android
+                                else R.mipmap.icon_apple)
             }
             else -> {
                 val iv: RoundImageView = helper.getView(R.id.ivImage)

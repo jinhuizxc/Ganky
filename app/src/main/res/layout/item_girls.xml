@@ -3,10 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="360dp"
-    android:layout_marginLeft="@dimen/m12"
-    android:layout_marginRight="@dimen/m12"
-    android:layout_marginTop="@dimen/m10"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/m20"
     app:cardCornerRadius="@dimen/m8"
     app:cardElevation="@dimen/m10">
 

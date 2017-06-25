@@ -2,6 +2,7 @@ package com.adam.ganky.ui.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.PagerSnapHelper
 import com.adam.ganky.App
 import com.adam.ganky.R
 import com.adam.ganky.base.BaseMvpFragment
@@ -13,6 +14,8 @@ import com.adam.ganky.mvp.ICategory
 import com.adam.ganky.mvp.presenter.CategoryPresenter
 import com.adam.ganky.ui.activity.DetailActivity
 import com.adam.ganky.ui.adapter.CategoryAdapter
+import com.adam.ganky.util.CategoryType
+import com.chad.library.adapter.base.BaseQuickAdapter
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 
 /**
@@ -40,18 +43,26 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
 
     override fun getLayoutId(): Int = R.layout.layout_refresh_list
     override fun initView() {
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.setHasFixedSize(true)
+
+        adapter = CategoryAdapter(activity, null) { adapter, view, position ->
+            if (type != CategoryType.GIRLS_STR)
+                jump(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
+        }
+        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM)
+        adapter.setEnableLoadMore(true)
+        adapter.setOnLoadMoreListener({ mPresenter.loadMore(type) }, recyclerView)
+
+        recyclerView.adapter = adapter
+
+        if (type == CategoryType.GIRLS_STR)
+            PagerSnapHelper().attachToRecyclerView(recyclerView)
+
         refreshLayout.setOnRefreshListener {
             mPresenter.refresh(type)
             adapter.setEnableLoadMore(true)
         }
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.setHasFixedSize(true)
-        adapter = CategoryAdapter(activity, null) { adapter, view, position ->
-            jump(DetailActivity::class.java, "url", (adapter.getItem(position) as GankEntity).url)
-        }
-        adapter.setEnableLoadMore(true)
-        adapter.setOnLoadMoreListener({ mPresenter.loadMore(type) }, recyclerView)
-        recyclerView.adapter = adapter
     }
 
     override fun initData() {
@@ -64,13 +75,18 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
         refreshLayout.isRefreshing = false
     }
 
-    override fun onLoadMore(data: List<GankEntity>) {
+    override fun onLoadMore(data: List<GankEntity>, hasMore: Boolean) {
         adapter.addData(data)
-        adapter.loadMoreComplete()
+        if (hasMore)
+            adapter.loadMoreComplete()
+        else
+            adapter.loadMoreEnd()
     }
 
-    override fun onNoMore() {
-        adapter.loadMoreEnd()
+    override fun onError() {
+        super.onError()
+        refreshLayout.isRefreshing = false
+        adapter.loadMoreComplete()
     }
 
     override fun injectComponent() {

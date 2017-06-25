@@ -1,10 +1,9 @@
 package com.adam.ganky.mvp.repository
 
+import com.adam.ganky.db.DbHelper
 import com.adam.ganky.entity.GankEntity
-import com.adam.ganky.http.ApiService
-import com.adam.ganky.http.RepositoryManager
 import com.adam.ganky.mvp.ICollection
-import com.adam.ganky.rx.RxUtils
+import com.adam.ganky.util.AppManager
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -14,13 +13,15 @@ import javax.inject.Inject
 class CollectionRepository
 @Inject constructor() : ICollection.Repository {
 
-    @Inject
-    lateinit var rm: RepositoryManager
+    val dbHelper: DbHelper by lazy {
+        DbHelper(AppManager.appContext())
+    }
 
     override fun getCollections(page: Int, pageSize: Int): Observable<List<GankEntity>> {
-        // todo this is a test
-        return rm.obtainService(ApiService::class.java)
-                .gank("Android", pageSize.toString(), page.toString())
-                .compose(RxUtils.parseResult())
+        return Observable.just(dbHelper.query(page, pageSize))
+    }
+
+    override fun removeById(id: String) {
+        dbHelper.deleteByGankId(id)
     }
 }

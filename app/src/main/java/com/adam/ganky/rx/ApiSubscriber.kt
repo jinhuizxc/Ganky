@@ -33,7 +33,7 @@ abstract class ApiSubscriber<T>() : Observer<T> {
         }
     }
 
-    override fun onSubscribe(d: Disposable?) {
+    override fun onSubscribe(d: Disposable) {
         progressHandler?.sendEmptyMessage(MSG_SHOW_PROGRESS)
     }
 
@@ -41,13 +41,13 @@ abstract class ApiSubscriber<T>() : Observer<T> {
         progressHandler?.sendEmptyMessage(MSG_HIDE_PROGRESS)
     }
 
-    override final fun onError(e: Throwable?) {
+    override final fun onError(e: Throwable) {
         progressHandler?.sendEmptyMessage(MSG_HIDE_PROGRESS)
         ErrorHandler.handleException(e, loadingView != null)
         onFail(e)
     }
 
-    fun onFail(e: Throwable?) {}
+    open fun onFail(e: Throwable?) {}
 
     companion object {
         const val MSG_SHOW_PROGRESS = 1100

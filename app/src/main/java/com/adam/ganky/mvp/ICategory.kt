@@ -12,8 +12,7 @@ import io.reactivex.Observable
 interface ICategory {
     interface View : IView {
         fun onRefresh(data: List<GankEntity>)
-        fun onLoadMore(data: List<GankEntity>)
-        fun onNoMore()
+        fun onLoadMore(data: List<GankEntity>, hasMore: Boolean)
     }
 
     interface Presenter : IPresenter {

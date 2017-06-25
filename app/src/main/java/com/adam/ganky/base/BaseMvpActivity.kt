@@ -21,6 +21,10 @@ abstract class BaseMvpActivity<P : IPresenter> : BaseActivity(), IView {
 
     }
 
+    override fun onError() {
+
+    }
+
     /**
      * 初始化dagger注入，完成后需要调用mPresenter.attachView注入view
      */

@@ -6,8 +6,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.2-5"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:1.1.2-5"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.3"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:1.1.3"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -26,7 +26,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    kotlinVersion = "1.1.2-5"
+    kotlinVersion = "1.1.3"
     // Sdk and tools
     buildToolsVersion = "25.0.2"
     compileSdkVersion = 25

@@ -10,6 +10,7 @@ import com.adam.ganky.util.AppManager
 import com.adam.ganky.util.Constant
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
+import kotlin.properties.Delegates
 
 /**
  * Created by yu on 2017/6/20.
@@ -17,6 +18,7 @@ import okhttp3.Interceptor
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+        context = this
         AppManager.init(this)
 
         appComponent = DaggerAppComponent.builder()
@@ -39,7 +41,7 @@ class App : Application() {
     )
 
     companion object {
-        var context: Context? = null
+        var context: Context by Delegates.notNull<Context>()
             private set
         var appComponent: AppComponent? = null
             private set

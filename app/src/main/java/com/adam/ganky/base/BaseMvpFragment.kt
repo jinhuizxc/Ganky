@@ -19,6 +19,9 @@ abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment(), IView {
     override fun hideLoading() {
     }
 
+    override fun onError() {
+    }
+
     /**
      * 初始化dagger注入，完成后需要调用mPresenter.attachView注入view
      */
