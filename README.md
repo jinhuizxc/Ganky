@@ -4,8 +4,8 @@
 ## 演示
 
  ![image](https://github.com/LambertCoding/Ganky/blob/master/image/image1.jpg)
- ![image](https://github.com/LambertCoding/Ganky/blob/master/image/image1.jpg)
- ![image](https://github.com/LambertCoding/Ganky/blob/master/image/image1.jpg)
+ ![image](https://github.com/LambertCoding/Ganky/blob/master/image/image2.jpg)
+ ![image](https://github.com/LambertCoding/Ganky/blob/master/image/image3.jpg)
 
 ### 用到的技术有：
 
