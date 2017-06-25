@@ -57,6 +57,7 @@ class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.V
                     .show()
             true
         }
+        adapter.setEmptyView(R.layout.layout_empty)
 
         refreshLayout.isRefreshing = true
         mPresenter.refresh()
