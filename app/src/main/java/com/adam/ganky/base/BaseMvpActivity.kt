@@ -25,9 +25,6 @@ abstract class BaseMvpActivity<P : IPresenter> : BaseActivity(), IView {
 
     }
 
-    /**
-     * 初始化dagger注入，完成后需要调用mPresenter.attachView注入view
-     */
     override abstract fun injectComponent()
 
     override fun onDestroy() {

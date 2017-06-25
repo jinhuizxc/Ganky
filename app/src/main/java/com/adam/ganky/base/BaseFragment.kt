@@ -3,7 +3,7 @@ package com.adam.ganky.base
 import android.os.Bundle
 
 /**
- * Created by yu on 2017/3/10.
+ * Created by yu on 2017/6/20.
  */
 abstract class BaseFragment : LazyFragment() {
 
@@ -13,6 +13,5 @@ abstract class BaseFragment : LazyFragment() {
     }
 
     open fun injectComponent() {}
-
 
 }

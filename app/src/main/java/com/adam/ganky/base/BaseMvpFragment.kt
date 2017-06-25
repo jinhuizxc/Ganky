@@ -3,7 +3,7 @@ package com.adam.ganky.base
 import javax.inject.Inject
 
 /**
- * Created by yu on 2017/3/10.
+ * Created by yu on 2017/6/20.
  */
 abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment(), IView {
 
@@ -22,9 +22,6 @@ abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment(), IView {
     override fun onError() {
     }
 
-    /**
-     * 初始化dagger注入，完成后需要调用mPresenter.attachView注入view
-     */
     override abstract fun injectComponent()
 
     override fun onDestroy() {

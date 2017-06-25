@@ -81,10 +81,9 @@ abstract class LazyFragment : RxFragment() {
 
     /**
      * 这个方法表示是否需要每次回到页面都刷新一次数据
-
      * @return true 每次刷新    false 只有第一次显示页面时自动加载一次数据
      */
-    protected val isRefreshEver: Boolean
+    protected open val isRefreshEver: Boolean
         get() = false
 
     abstract fun getLayoutId(): Int
