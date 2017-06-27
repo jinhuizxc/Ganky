@@ -2,7 +2,6 @@ package com.adam.ganky.ui.activity
 
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.view.MenuItem
 import com.adam.ganky.App
 import com.adam.ganky.R
 import com.adam.ganky.base.BaseMvpActivity
@@ -28,6 +27,7 @@ class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.V
         setSupportActionBar(toolbar)
         getSupportActionBar()?.setHomeButtonEnabled(true)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
 
         refreshLayout.setOnRefreshListener {
             mPresenter.refresh()
@@ -61,13 +61,6 @@ class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.V
 
         refreshLayout.isRefreshing = true
         mPresenter.refresh()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            android.R.id.home -> onBackPressed()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun injectComponent() {

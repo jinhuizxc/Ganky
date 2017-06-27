@@ -2,7 +2,6 @@ package com.adam.ganky.ui.activity
 
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
-import android.view.MenuItem
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
@@ -42,6 +41,7 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
         setSupportActionBar(toolbar)
         getSupportActionBar()?.setHomeButtonEnabled(true)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
 
         entity = intent.getSerializableExtra("entity") as GankEntity
         mPresenter.getGirl()
@@ -58,13 +58,6 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
 
         mPresenter.isFavorite(entity.id!!)
         initWebView()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            android.R.id.home -> onBackPressed()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun initWebView() {
