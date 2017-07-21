@@ -23,41 +23,48 @@ class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.V
     override fun getLayoutId() = R.layout.activity_collection
 
     override fun initView() {
-        toolbar.title = "我的收藏"
-        setSupportActionBar(toolbar)
-        getSupportActionBar()?.setHomeButtonEnabled(true)
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener { onBackPressed() }
+        with(toolbar) {
+            title = "我的收藏"
+            setSupportActionBar(this)
+            getSupportActionBar()?.setHomeButtonEnabled(true)
+            getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+            setNavigationOnClickListener { onBackPressed() }
+        }
+
+        adapter = CollectionAdapter(this, R.layout.item_collection, null) { adapter, view, position ->
+            jump(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
+        }.apply {
+            setEnableLoadMore(true)
+            setOnLoadMoreListener({ mPresenter.loadMore() }, recyclerView)
+            disableLoadMoreIfNotFullPage()
+            setOnItemLongClickListener { adapter, view, position ->
+
+                AlertDialog.Builder(this@CollectionActivity)
+                        .setMessage("你要把此条目移出收藏夹吗？")
+                        .setNegativeButton("cancel", { dialog, which ->
+                            dialog.dismiss()
+                        })
+                        .setPositiveButton("ok", { dialog, which ->
+                            mPresenter.removeById((adapter.getItem(position) as GankEntity).id!!)
+                            adapter.remove(position)
+                        })
+                        .create()
+                        .show()
+                true
+            }
+            setEmptyView(R.layout.layout_empty)
+        }
+
+        with(recyclerView) {
+            layoutManager = LinearLayoutManager(this@CollectionActivity)
+            setHasFixedSize(true)
+            adapter = this@CollectionActivity.adapter
+        }
 
         refreshLayout.setOnRefreshListener {
             mPresenter.refresh()
             adapter.setEnableLoadMore(true)
         }
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.setHasFixedSize(true)
-        adapter = CollectionAdapter(this, R.layout.item_collection, null) { adapter, view, position ->
-            jump(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
-        }
-        adapter.setEnableLoadMore(true)
-        adapter.setOnLoadMoreListener({ mPresenter.loadMore() }, recyclerView)
-        recyclerView.adapter = adapter
-        adapter.disableLoadMoreIfNotFullPage()
-        adapter.setOnItemLongClickListener { adapter, view, position ->
-
-            AlertDialog.Builder(this@CollectionActivity)
-                    .setMessage("你要把此条目移出收藏夹吗？")
-                    .setNegativeButton("cancel", { dialog, which ->
-                        dialog.dismiss()
-                    })
-                    .setPositiveButton("ok", { dialog, which ->
-                        mPresenter.removeById((adapter.getItem(position) as GankEntity).id!!)
-                        adapter.remove(position)
-                    })
-                    .create()
-                    .show()
-            true
-        }
-        adapter.setEmptyView(R.layout.layout_empty)
 
         refreshLayout.isRefreshing = true
         mPresenter.refresh()

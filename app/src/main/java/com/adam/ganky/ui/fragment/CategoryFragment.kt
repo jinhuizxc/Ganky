@@ -3,6 +3,7 @@ package com.adam.ganky.ui.fragment
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
+import android.util.Log
 import com.adam.ganky.App
 import com.adam.ganky.R
 import com.adam.ganky.base.BaseMvpFragment
@@ -43,18 +44,27 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
 
     override fun getLayoutId(): Int = R.layout.layout_refresh_list
     override fun initView() {
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.setHasFixedSize(true)
 
         adapter = CategoryAdapter(activity, null) { adapter, view, position ->
             if (type != CategoryType.GIRLS_STR)
                 jump(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
+        }.apply {
+            // apply 调用对象的方法（内部隐含this），返回对象自己
+            openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM)
+            setEnableLoadMore(true)
+            setOnLoadMoreListener({ mPresenter.loadMore(type) }, recyclerView)
+        }.let {
+            // let 内部隐含it，表示调用的对象，返回值为最后一行
+            Log.e("tag", "init adapter success")
+            it // 这里没有it返回的就是上一行，即Unit
         }
-        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM)
-        adapter.setEnableLoadMore(true)
-        adapter.setOnLoadMoreListener({ mPresenter.loadMore(type) }, recyclerView)
 
-        recyclerView.adapter = adapter
+        // with 调用参数对象的方法（内部隐含this）,返回闭包
+        with(recyclerView) {
+            layoutManager = LinearLayoutManager(activity)
+            setHasFixedSize(true)
+            adapter = this@CategoryFragment.adapter
+        }
 
         if (type == CategoryType.GIRLS_STR)
             PagerSnapHelper().attachToRecyclerView(recyclerView)

@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter
 import com.adam.ganky.R
 import com.adam.ganky.base.BaseActivity
 import com.adam.ganky.base.BaseFragment
-import com.adam.ganky.db.DbHelper
 import com.adam.ganky.jump
 import com.adam.ganky.ui.fragment.CategoryFragment
 import com.adam.ganky.util.CategoryType

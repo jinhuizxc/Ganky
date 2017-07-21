@@ -37,11 +37,13 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
     override fun getLayoutId(): Int = R.layout.web_activity
 
     override fun initView() {
-        toolbar.title = getString(R.string.app_name)
-        setSupportActionBar(toolbar)
-        getSupportActionBar()?.setHomeButtonEnabled(true)
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener { onBackPressed() }
+        with(toolbar){
+            title = getString(R.string.app_name)
+            setSupportActionBar(toolbar)
+            getSupportActionBar()?.setHomeButtonEnabled(true)
+            getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+            setNavigationOnClickListener { onBackPressed() }
+        }
 
         entity = intent.getSerializableExtra("entity") as GankEntity
         mPresenter.getGirl()
@@ -57,39 +59,40 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
         }
 
         mPresenter.isFavorite(entity.id!!)
+
         initWebView()
     }
 
     private fun initWebView() {
-        val webSettings = webview.getSettings()
+        webview.apply {
+            getSettings().let {
+                it.setUseWideViewPort(true)
+                it.setLoadWithOverviewMode(true)
 
-        webSettings.setUseWideViewPort(true)
-        webSettings.setLoadWithOverviewMode(true)
-
-        webSettings.setSupportZoom(true)
-        webSettings.setBuiltInZoomControls(true)
-        webSettings.setDisplayZoomControls(false)
-
-        webview.setWebViewClient(object : WebViewClient() {
-            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                super.onPageStarted(view, url, favicon)
+                it.setSupportZoom(true)
+                it.setBuiltInZoomControls(true)
+                it.setDisplayZoomControls(false)
             }
+            setWebViewClient(object : WebViewClient() {
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    super.onPageStarted(view, url, favicon)
+                }
 
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
-            }
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                }
 
-            override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest?): Boolean {
-                return true
-            }
-        })
-        webview.setWebChromeClient(object : WebChromeClient() {
-            override fun onProgressChanged(view: WebView?, newProgress: Int) {
-                super.onProgressChanged(view, newProgress)
-            }
-        })
+                override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest?): Boolean {
+                    return true
+                }
+            })
+            setWebChromeClient(object : WebChromeClient() {
+                override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                    super.onProgressChanged(view, newProgress)
+                }
+            })
+        }.loadUrl(entity.url)
 
-        webview.loadUrl(entity.url)
     }
 
     override fun injectComponent() {

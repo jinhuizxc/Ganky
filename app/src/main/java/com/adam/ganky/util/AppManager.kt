@@ -16,7 +16,6 @@ object AppManager {
 
     private var sContext: Context? = null
     private var activeCount = 0
-    private var isForground = false
     private val STACK = LinkedList<Activity>()
 
     fun init(application: Application) {
@@ -27,18 +26,19 @@ object AppManager {
             }
 
             override fun onActivityStarted(activity: Activity?) {
-                activeCount++
+                synchronized(LOCK) {
+                    activeCount++
+                }
             }
 
-            override fun onActivityResumed(activity: Activity?) {
-                isForground = true
-            }
+            override fun onActivityResumed(activity: Activity?) {}
 
             override fun onActivityPaused(activity: Activity?) {}
 
             override fun onActivityStopped(activity: Activity?) {
-                activeCount--
-                isForground = activeCount > 0
+                synchronized(LOCK) {
+                    activeCount--
+                }
             }
 
             override fun onActivityDestroyed(activity: Activity?) {
@@ -49,7 +49,7 @@ object AppManager {
         })
     }
 
-    fun isFroground(): Boolean = isForground
+    fun isFroground(): Boolean = activeCount > 0
     fun appContext(): Context = sContext!!
 
     // 入栈

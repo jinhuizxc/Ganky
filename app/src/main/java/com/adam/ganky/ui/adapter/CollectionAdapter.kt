@@ -23,7 +23,6 @@ class CollectionAdapter(val context: Context, layoutId: Int, data: List<GankEnti
     override fun convert(helper: BaseViewHolder, item: GankEntity) {
         helper.setText(R.id.tvDesc, item.desc)
                 .setImageResource(R.id.ivImage,
-                        if (item.type == CategoryType.ANDROID_STR) R.mipmap.icon_android
-                        else R.mipmap.icon_apple)
+                        if (item.type == CategoryType.ANDROID_STR) R.mipmap.icon_android else R.mipmap.icon_apple)
     }
 }
