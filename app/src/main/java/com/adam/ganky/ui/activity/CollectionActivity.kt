@@ -52,13 +52,13 @@ class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.V
                         .show()
                 true
             }
-            setEmptyView(R.layout.layout_empty)
         }
 
         with(recyclerView) {
             layoutManager = LinearLayoutManager(this@CollectionActivity)
             setHasFixedSize(true)
             adapter = this@CollectionActivity.adapter
+            this@CollectionActivity.adapter.setEmptyView(R.layout.layout_empty)
         }
 
         refreshLayout.setOnRefreshListener {
