@@ -1,9 +1,9 @@
 package com.adam.ganky.mvp
 
+import com.adam.ganky.base.IModel
 import com.adam.ganky.base.IPresenter
 import com.adam.ganky.base.IView
 import com.adam.ganky.entity.GankEntity
-import com.adam.ganky.base.IModel
 import io.reactivex.Observable
 
 /**
@@ -23,7 +23,7 @@ interface IDetail {
 
         fun addToFavorites(entity: GankEntity)
 
-        fun removeById(id: String)
+        fun remove(entity: GankEntity)
     }
 
     interface Repository : IModel {
@@ -33,7 +33,7 @@ interface IDetail {
 
         fun addToFavorites(entity: GankEntity)
 
-        fun removeById(id: String)
+        fun remove(entity: GankEntity)
     }
 
 }

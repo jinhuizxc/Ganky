@@ -10,22 +10,22 @@ import com.adam.ganky.entity.GankEntity
  * @author yu
  * Create on 2017/6/23.
  */
-class DbHelper(context: Context) : SQLiteOpenHelper(context, "gankDb", null, 1) {
+class MyDb(context: Context) : SQLiteOpenHelper(context, "gankDb", null, 1) {
 
-    val TABLE_NAME = "gankytable"
-    val KEY_GANK_ID = "gankid"
-    val KEY_URL = "url"
-    val KEY_DESC = "desc"
-    val KEY_TYPE = "type"
+    private val TABLE_NAME = "gankytable"
+    private val KEY_GANK_ID = "gankid"
+    private val KEY_URL = "url"
+    private val KEY_DESC = "desc"
+    private val KEY_TYPE = "type"
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val sb: StringBuffer = StringBuffer()
-        sb.append("CREATE TABLE ${TABLE_NAME} (")
+        val sb = StringBuffer()
+                .append("CREATE TABLE $TABLE_NAME (")
                 .append("_id INTEGER PRIMARY KEY AUTOINCREMENT,")
-                .append("${KEY_GANK_ID} TEXT NOT NULL,")
-                .append("${KEY_DESC} TEXT NOT NULL,")
-                .append("${KEY_URL} TEXT NOT NULL,")
-                .append("${KEY_TYPE} TEXT NOT NULL")
+                .append("$KEY_GANK_ID TEXT NOT NULL,")
+                .append("$KEY_DESC TEXT NOT NULL,")
+                .append("$KEY_URL TEXT NOT NULL,")
+                .append("$KEY_TYPE TEXT NOT NULL")
                 .append(")")
         db?.execSQL(sb.toString())
     }
@@ -46,9 +46,9 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context, "gankDb", null, 1) 
         db.close()
     }
 
-    fun deleteByGankId(gankid: String) {
+    fun delete(entity: GankEntity) {
         val db = writableDatabase
-        writableDatabase.delete(TABLE_NAME, "${KEY_GANK_ID}=?", arrayOf(gankid))
+        writableDatabase.delete(TABLE_NAME, "$KEY_GANK_ID=?", arrayOf(entity.id))
         db.close()
     }
 
@@ -59,14 +59,14 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context, "gankDb", null, 1) 
         values.put(KEY_TYPE, entity.type)
 
         val db = writableDatabase
-        db.update(TABLE_NAME, values, "${KEY_GANK_ID}=?", arrayOf(entity.id))
+        db.update(TABLE_NAME, values, "$KEY_GANK_ID=?", arrayOf(entity.id))
         db.close()
     }
 
     fun queryById(gankid: String): GankEntity? {
 
         val cursor = writableDatabase.query(TABLE_NAME, null,
-                "${KEY_GANK_ID}=?", arrayOf(gankid),
+                "$KEY_GANK_ID=?", arrayOf(gankid),
                 null, null, null, null)
 
         var entity: GankEntity? = null
@@ -83,7 +83,7 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context, "gankDb", null, 1) 
 
         val cursor = writableDatabase.query(TABLE_NAME, null,
                 null, null,
-                null, null, "_id desc", "${offset * size},${size}")
+                null, null, "_id desc", "$offset,$size")
 
         val dataList = mutableListOf<GankEntity>()
         if (cursor.moveToFirst()) {

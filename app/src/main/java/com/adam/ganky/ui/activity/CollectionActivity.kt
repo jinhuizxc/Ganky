@@ -45,7 +45,7 @@ class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.V
                             dialog.dismiss()
                         })
                         .setPositiveButton("ok", { _, _ ->
-                            mPresenter.removeById((adapter.getItem(position) as GankEntity).id!!)
+                            mPresenter.remove(adapter.getItem(position) as GankEntity)
                             adapter.remove(position)
                         })
                         .create()

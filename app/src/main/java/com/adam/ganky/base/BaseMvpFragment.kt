@@ -21,8 +21,8 @@ abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment(), IView {
 
     override abstract fun injectComponent()
 
-    override fun onDestroyView() {
+    override fun onDestroy() {
         mPresenter.destroy()
-        super.onDestroyView()
+        super.onDestroy()
     }
 }

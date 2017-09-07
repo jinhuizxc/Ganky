@@ -49,7 +49,7 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
 
         fab.setOnClickListener {
             if (isFavorite) {
-                mPresenter.removeById(entity.id!!)
+                mPresenter.remove(entity)
                 ToastUtils.show("已移除收藏夹")
             } else {
                 mPresenter.addToFavorites(entity)

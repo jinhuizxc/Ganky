@@ -1,9 +1,9 @@
 package com.adam.ganky.mvp
 
+import com.adam.ganky.base.IModel
 import com.adam.ganky.base.IPresenter
 import com.adam.ganky.base.IView
 import com.adam.ganky.entity.GankEntity
-import com.adam.ganky.base.IModel
 import io.reactivex.Observable
 
 /**
@@ -21,11 +21,11 @@ interface ICollection {
     interface Presenter : IPresenter {
         fun refresh(pageSize: Int = 10)
         fun loadMore(pageSize: Int = 10)
-        fun removeById(id: String)
+        fun remove(entity: GankEntity)
     }
 
     interface Repository : IModel {
         fun getCollections(page: Int, pageSize: Int): Observable<List<GankEntity>>
-        fun removeById(id: String)
+        fun remove(entity: GankEntity)
     }
 }

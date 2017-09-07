@@ -18,7 +18,7 @@ class DetailPresenter
     override fun getGirl() {
         repository.getGirl()
                 .compose(RxUtils.defaultTransformer(mView))
-                .subscribe({ mView?.showGirl(it.get(0).url!!) }, { ErrorHandler.handleException(it) })
+                .subscribe({ mView?.showGirl(it[0].url!!) }, { ErrorHandler.handleException(it) })
                 .apply { addDisposable(this) }
     }
 
@@ -31,8 +31,8 @@ class DetailPresenter
         mView?.onFavoriteChange(true)
     }
 
-    override fun removeById(id: String) {
-        repository.removeById(id)
+    override fun remove(entity: GankEntity) {
+        repository.remove(entity)
         mView?.onFavoriteChange(false)
     }
 }

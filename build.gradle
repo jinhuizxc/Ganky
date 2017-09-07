@@ -3,10 +3,11 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url 'https://maven.google.com' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.4-2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.4-3"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:1.1.4"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -17,6 +18,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url 'https://maven.google.com' }
         maven { url "https://jitpack.io" }
     }
 }
@@ -56,6 +58,7 @@ ext {
     arouterCompilerVersion = "1.1.2.1"
 
     adapterHelperVersion = "2.9.19"
+    archVersion = 'latest.release'
 
     dependencies = [
             // tools
@@ -98,6 +101,10 @@ ext {
             kotlinReflect           : "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",
 
             adapterHelper           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$adapterHelperVersion",
+
+            // room
+            roomRuntime             : "android.arch.persistence.room:runtime:$archVersion",
+            roomCompiler            : "android.arch.persistence.room:compiler:$archVersion"
 
     ]
 

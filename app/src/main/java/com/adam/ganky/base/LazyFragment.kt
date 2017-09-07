@@ -1,17 +1,17 @@
 package com.adam.ganky.base
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.trello.rxlifecycle2.components.support.RxFragment
 
 /**
  * 懒加载的fragment
  * 可以通过[.isRefreshEver]方法来控制是只在第一次可见时加载数据还是每次可见刷新
  * Created by yu on 2017/6/19.
  */
-abstract class LazyFragment : RxFragment() {
+abstract class LazyFragment : Fragment() {
 
     private var isVisible2User: Boolean = false
     private var isPrepared: Boolean = false

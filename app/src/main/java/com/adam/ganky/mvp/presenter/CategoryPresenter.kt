@@ -30,8 +30,10 @@ class CategoryPresenter
         repository.loadData(type, pageSize, pageNum)
                 .compose(RxUtils.defaultTransformer(mView))
                 .subscribe({
-                    if (isLoadmore) mView?.onLoadMore(it, it.size == pageSize)
-                    else mView?.onRefresh(it)
+                    if (isLoadmore)
+                        mView?.onLoadMore(it, it.size == pageSize)
+                    else
+                        mView?.onRefresh(it)
                 }, { ErrorHandler.handleException(it) })
                 .apply { addDisposable(this) }
     }

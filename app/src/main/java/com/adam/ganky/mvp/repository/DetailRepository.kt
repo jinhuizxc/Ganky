@@ -1,6 +1,6 @@
 package com.adam.ganky.mvp.repository
 
-import com.adam.ganky.db.DbHelper
+import com.adam.ganky.db.MyDb
 import com.adam.ganky.entity.GankEntity
 import com.adam.ganky.http.ApiService
 import com.adam.ganky.http.RepositoryManager
@@ -16,8 +16,8 @@ import javax.inject.Inject
 class DetailRepository
 @Inject constructor(private var rpm: RepositoryManager) : IDetail.Repository {
 
-    val dbHelper: DbHelper by lazy {
-        DbHelper(AppManager.appContext())
+    private val dbHelper: MyDb by lazy {
+        MyDb(AppManager.appContext())
     }
 
     override fun queryById(id: String): GankEntity? {
@@ -28,8 +28,8 @@ class DetailRepository
         dbHelper.insert(entity)
     }
 
-    override fun removeById(id: String) {
-        dbHelper.deleteByGankId(id)
+    override fun remove(entity: GankEntity) {
+        dbHelper.delete(entity)
     }
 
     override fun getGirl(): Observable<List<GankEntity>> {

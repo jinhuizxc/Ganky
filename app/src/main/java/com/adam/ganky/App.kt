@@ -29,6 +29,8 @@ class App : Application() {
                         .interceptors(interceptors)
                         .create())
                 .build()
+
+//        db = Room.databaseBuilder(this, RoomDb::class.java, "gank-database").build()
     }
 
     // 添加okhttp拦截器，这里只是个示例...
@@ -46,5 +48,7 @@ class App : Application() {
             private set
         var appComponent: AppComponent? = null
             private set
+//        var db: RoomDb? = null
+//            private set
     }
 }

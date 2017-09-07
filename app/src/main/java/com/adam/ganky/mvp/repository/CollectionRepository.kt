@@ -1,6 +1,6 @@
 package com.adam.ganky.mvp.repository
 
-import com.adam.ganky.db.DbHelper
+import com.adam.ganky.db.MyDb
 import com.adam.ganky.entity.GankEntity
 import com.adam.ganky.mvp.ICollection
 import com.adam.ganky.util.AppManager
@@ -13,15 +13,15 @@ import javax.inject.Inject
 class CollectionRepository
 @Inject constructor() : ICollection.Repository {
 
-    val dbHelper: DbHelper by lazy {
-        DbHelper(AppManager.appContext())
+    private val dbHelper: MyDb by lazy {
+        MyDb(AppManager.appContext())
     }
 
     override fun getCollections(page: Int, pageSize: Int): Observable<List<GankEntity>> {
-        return Observable.just(dbHelper.query(page, pageSize))
+        return Observable.just(dbHelper.query(page * pageSize, pageSize))
     }
 
-    override fun removeById(id: String) {
-        dbHelper.deleteByGankId(id)
+    override fun remove(entity: GankEntity) {
+        dbHelper.delete(entity)
     }
 }

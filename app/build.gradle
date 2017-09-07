@@ -41,8 +41,10 @@ dependencies {
     compile dependencies.supportCardView
     compile dependencies.supportDesign
 
-    compile dependencies.dagger
     kapt dependencies.daggerCompiler
+    compile dependencies.dagger
+//    kapt dependencies.roomCompiler
+//    compile dependencies.roomRuntime
 
     compile dependencies.retrofit
     compile dependencies.retrofitGsonConverter
@@ -50,7 +52,7 @@ dependencies {
     compile dependencies.okhttpLoggingInterceptor
     compile dependencies.rxJava2
     compile dependencies.rxAndroid2
-    compile dependencies.rxLifecycle2
+//    compile dependencies.rxLifecycle2
     compile dependencies.rxBinding2
     compile dependencies.rxPermission2
     compile dependencies.adapterHelper

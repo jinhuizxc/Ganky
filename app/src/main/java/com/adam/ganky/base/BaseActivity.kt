@@ -1,10 +1,10 @@
 package com.adam.ganky.base
 
 import android.os.Bundle
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
+import android.support.v7.app.AppCompatActivity
 
 
-abstract class BaseActivity : RxAppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

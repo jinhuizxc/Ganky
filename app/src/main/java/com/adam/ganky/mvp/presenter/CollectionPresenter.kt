@@ -1,6 +1,7 @@
 package com.adam.ganky.mvp.presenter
 
 import com.adam.ganky.base.BasePresenter
+import com.adam.ganky.entity.GankEntity
 import com.adam.ganky.http.ErrorHandler
 import com.adam.ganky.mvp.ICollection
 import com.adam.ganky.mvp.repository.CollectionRepository
@@ -37,8 +38,8 @@ class CollectionPresenter
                 .apply { addDisposable(this) }
     }
 
-    override fun removeById(id: String) {
-        repository.removeById(id)
+    override fun remove(entity: GankEntity) {
+        repository.remove(entity)
         mView?.onRemove()
     }
 }
