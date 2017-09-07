@@ -1,3 +1,3 @@
-package com.yu.gank4k2.base
+package com.adam.ganky.base
 
 interface IModel

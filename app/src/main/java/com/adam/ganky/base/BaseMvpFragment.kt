@@ -19,13 +19,10 @@ abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment(), IView {
     override fun hideLoading() {
     }
 
-    override fun onError() {
-    }
-
     override abstract fun injectComponent()
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         mPresenter.destroy()
-        super.onDestroy()
+        super.onDestroyView()
     }
 }

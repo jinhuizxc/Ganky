@@ -25,8 +25,7 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
 
     lateinit var entity: GankEntity
 
-    var isFavorite by Delegates.observable(false) {
-        d, old, new ->
+    private var isFavorite by Delegates.observable(false) { _, _, new ->
         fab.backgroundTintList = if (new) {
             ColorStateList.valueOf(resources.getColor(R.color.colorAccent))
         } else {
@@ -37,11 +36,11 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
     override fun getLayoutId(): Int = R.layout.web_activity
 
     override fun initView() {
-        with(toolbar){
+        with(toolbar) {
             title = getString(R.string.app_name)
             setSupportActionBar(toolbar)
-            getSupportActionBar()?.setHomeButtonEnabled(true)
-            getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setHomeButtonEnabled(true)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
             setNavigationOnClickListener { onBackPressed() }
         }
 
@@ -65,13 +64,13 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
 
     private fun initWebView() {
         webview.apply {
-            getSettings().let {
-                it.setUseWideViewPort(true)
-                it.setLoadWithOverviewMode(true)
+            settings.let {
+                it.useWideViewPort = true
+                it.loadWithOverviewMode = true
 
                 it.setSupportZoom(true)
-                it.setBuiltInZoomControls(true)
-                it.setDisplayZoomControls(false)
+                it.builtInZoomControls = true
+                it.displayZoomControls = false
             }
             setWebViewClient(object : WebViewClient() {
                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
@@ -82,9 +81,7 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
                     super.onPageFinished(view, url)
                 }
 
-                override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest?): Boolean {
-                    return true
-                }
+                override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest?): Boolean = true
             })
             setWebChromeClient(object : WebChromeClient() {
                 override fun onProgressChanged(view: WebView?, newProgress: Int) {
@@ -121,7 +118,7 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
 
     override fun onDestroy() {
         if (webview != null) {
-            (webview.getParent() as ViewGroup).removeView(webview)
+            (webview.parent as ViewGroup).removeView(webview)
             webview.destroy()
         }
         super.onDestroy()

@@ -20,6 +20,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 
 /**
+ * tab
  * Created by yu on 2017/6/19.
  */
 class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
@@ -35,7 +36,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
     }
 
     lateinit var type: String
-    lateinit var adapter: CategoryAdapter
+    private lateinit var adapter: CategoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +46,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
     override fun getLayoutId(): Int = R.layout.layout_refresh_list
     override fun initView() {
 
-        adapter = CategoryAdapter(activity, null) { adapter, view, position ->
+        adapter = CategoryAdapter(activity, null) { adapter, _, position ->
             if (type != CategoryType.GIRLS_STR)
                 jump(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
         }.apply {
@@ -64,10 +65,10 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
             layoutManager = LinearLayoutManager(activity)
             setHasFixedSize(true)
             adapter = this@CategoryFragment.adapter
-        }
 
-        if (type == CategoryType.GIRLS_STR)
-            PagerSnapHelper().attachToRecyclerView(recyclerView)
+            if (type == CategoryType.GIRLS_STR)
+                PagerSnapHelper().attachToRecyclerView(this)
+        }
 
         refreshLayout.setOnRefreshListener {
             mPresenter.refresh(type)
@@ -86,15 +87,23 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
     }
 
     override fun onLoadMore(data: List<GankEntity>, hasMore: Boolean) {
-        adapter.addData(data)
-        if (hasMore)
-            adapter.loadMoreComplete()
-        else
-            adapter.loadMoreEnd()
+        with(adapter) {
+            addData(data)
+            if (hasMore)
+                loadMoreComplete()
+            else
+                loadMoreEnd()
+        }
     }
 
-    override fun onError() {
-        super.onError()
+    override fun hideLoading() {
+        resetLoading()
+    }
+
+    /**
+     * 加载过程中发送错误时，重置刷新头或者footer的状态
+     */
+    private fun resetLoading() {
         refreshLayout.isRefreshing = false
         adapter.loadMoreComplete()
     }

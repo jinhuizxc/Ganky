@@ -26,11 +26,11 @@ object AppUtils {
      */
     fun exitTwice(): Boolean {
         val newExitTime = System.currentTimeMillis()
-        if (newExitTime - mExitTime > EXIT_TWICE_INTERVAL) {
+        return if (newExitTime - mExitTime > EXIT_TWICE_INTERVAL) {
             mExitTime = newExitTime
-            return false
+            false
         } else {
-            return true
+            true
         }
     }
 
@@ -82,9 +82,8 @@ object AppUtils {
     /**
      * 获取Android id
      */
-    private fun getAndroidId(context: Context): String {
-        return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-    }
+    private fun getAndroidId(context: Context): String =
+            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
 
     /**
      * 获取 MAC 地址

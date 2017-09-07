@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.layout_refresh_list.*
 
 class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.View {
 
-    lateinit var adapter: CollectionAdapter
+    private lateinit var adapter: CollectionAdapter
 
     override fun getLayoutId() = R.layout.activity_collection
 
@@ -26,25 +26,25 @@ class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.V
         with(toolbar) {
             title = "我的收藏"
             setSupportActionBar(this)
-            getSupportActionBar()?.setHomeButtonEnabled(true)
-            getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setHomeButtonEnabled(true)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
             setNavigationOnClickListener { onBackPressed() }
         }
 
-        adapter = CollectionAdapter(this, R.layout.item_collection, null) { adapter, view, position ->
+        adapter = CollectionAdapter(this, R.layout.item_collection, null) { adapter, _, position ->
             jump(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
         }.apply {
             setEnableLoadMore(true)
             setOnLoadMoreListener({ mPresenter.loadMore() }, recyclerView)
             disableLoadMoreIfNotFullPage()
-            setOnItemLongClickListener { adapter, view, position ->
+            setOnItemLongClickListener { adapter, _, position ->
 
                 AlertDialog.Builder(this@CollectionActivity)
                         .setMessage("你要把此条目移出收藏夹吗？")
-                        .setNegativeButton("cancel", { dialog, which ->
+                        .setNegativeButton("cancel", { dialog, _ ->
                             dialog.dismiss()
                         })
-                        .setPositiveButton("ok", { dialog, which ->
+                        .setPositiveButton("ok", { _, _ ->
                             mPresenter.removeById((adapter.getItem(position) as GankEntity).id!!)
                             adapter.remove(position)
                         })
@@ -82,8 +82,14 @@ class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.V
         ToastUtils.show("已经移出收藏夹")
     }
 
-    override fun onError() {
-        super.onError()
+    override fun hideLoading() {
+        resetLoading()
+    }
+
+    /**
+     * 加载过程中发送错误时，重置刷新头或者footer的状态
+     */
+    private fun resetLoading() {
         refreshLayout.isRefreshing = false
         adapter.loadMoreComplete()
     }

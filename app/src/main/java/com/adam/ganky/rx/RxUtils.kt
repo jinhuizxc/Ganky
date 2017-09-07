@@ -4,8 +4,6 @@ import com.adam.ganky.base.IView
 import com.adam.ganky.http.ApiException
 import com.adam.ganky.http.HttpResult
 import com.adam.ganky.util.NetUtils
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
-import com.trello.rxlifecycle2.components.support.RxFragment
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,29 +13,20 @@ import io.reactivex.schedulers.Schedulers
  * Created by yu on 2017/6/19.
  */
 object RxUtils {
-    /**
-     * 访问网络通用Transformer，判断了网络，切换线程
-     */
-    fun <T> apiTransformer(view: IView?): ObservableTransformer<T, T> {
-        return ObservableTransformer {
-            it.compose(RxUtils.bindToLifecycle<T>(view))
-                    .compose(RxUtils.checkNetwork<T>())
-                    .compose(RxUtils.ioToMain<T>())
-        }
-    }
 
     /**
-     * 绑定rx订阅的生命周期
+     * 剥离data，显示progressBar，判断网络，切换线程
      */
-    fun <T> bindToLifecycle(view: IView?): ObservableTransformer<T, T> {
+    fun <T> defaultTransformer(view: IView?): ObservableTransformer<T, T> {
         return ObservableTransformer {
-            if (view is RxAppCompatActivity) {
-                it.compose(view.bindToLifecycle<T>())
-            } else if (view is RxFragment) {
-                it.compose(view.bindToLifecycle<T>())
-            } else {
-                throw IllegalArgumentException("不支持的IView类型~~~")
-            }
+            it.subscribeOn(Schedulers.io())
+                    .doOnSubscribe {
+                        view?.showLoading()
+                        if (!NetUtils.isOnline) throw ApiException("网络无链接，请检查网络")
+                    }
+                    .subscribeOn(AndroidSchedulers.mainThread())// 指定doOnSubscribe的线程
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doAfterTerminate { view?.hideLoading() }
         }
     }
 
@@ -58,15 +47,6 @@ object RxUtils {
         return ObservableTransformer {
             it.subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.io())
-        }
-    }
-
-    /**
-     * 检查网络
-     */
-    fun <T> checkNetwork(): ObservableTransformer<T, T> {
-        return ObservableTransformer {
-            it.doOnSubscribe { if (!NetUtils.isOnline) throw ApiException("网络无链接，请检查网络") }
         }
     }
 

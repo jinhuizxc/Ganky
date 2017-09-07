@@ -8,5 +8,4 @@ interface IView {
 
     fun hideLoading()
 
-    fun onError()
 }

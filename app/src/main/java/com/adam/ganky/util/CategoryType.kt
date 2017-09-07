@@ -13,13 +13,12 @@ object CategoryType {
     const val IOS_STR = "iOS"
     const val GIRLS_STR = "福利"
 
-    fun getPageTitleByPosition(position: Int): String {
-        return when (position) {
-            0 -> ANDROID_STR
-            1 -> IOS_STR
-            2 -> GIRLS_STR
-            else -> ""
-        }
+    fun getPageTitleByPosition(position: Int): String
+            = when (position) {
+        0 -> ANDROID_STR
+        1 -> IOS_STR
+        2 -> GIRLS_STR
+        else -> ""
     }
 
     fun getTypeByName(name: String?): Int {

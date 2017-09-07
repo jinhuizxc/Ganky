@@ -6,6 +6,7 @@ import android.widget.Toast
 
 
 /**
+ * ToastUtils
  * Created by tanchuanzhi on 2015/5/8.
  */
 object ToastUtils {

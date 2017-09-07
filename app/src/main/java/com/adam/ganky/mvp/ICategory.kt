@@ -1,9 +1,9 @@
 package com.adam.ganky.mvp
 
+import com.adam.ganky.base.IModel
 import com.adam.ganky.base.IPresenter
 import com.adam.ganky.base.IView
 import com.adam.ganky.entity.GankEntity
-import com.yu.gank4k2.base.IModel
 import io.reactivex.Observable
 
 /**

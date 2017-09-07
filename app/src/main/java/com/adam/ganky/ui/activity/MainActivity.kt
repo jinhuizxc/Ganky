@@ -24,10 +24,11 @@ class MainActivity : BaseActivity() {
         fab.setOnClickListener { jump(CollectionActivity::class.java) }
 
     }
+
 }
 
 class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-    val fmList: List<BaseFragment> by lazy {
+    private val fmList: List<BaseFragment> by lazy {
         listOf(
                 CategoryFragment.newInstance(CategoryType.ANDROID_STR),
                 CategoryFragment.newInstance(CategoryType.IOS_STR),
@@ -35,15 +36,9 @@ class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         )
     }
 
-    override fun getItem(position: Int): Fragment {
-        return fmList.get(position)
-    }
+    override fun getItem(position: Int): Fragment = fmList[position]
 
-    override fun getCount(): Int {
-        return fmList.size
-    }
+    override fun getCount(): Int = fmList.size
 
-    override fun getPageTitle(position: Int): CharSequence {
-        return CategoryType.getPageTitleByPosition(position)
-    }
+    override fun getPageTitle(position: Int): CharSequence = CategoryType.getPageTitleByPosition(position)
 }

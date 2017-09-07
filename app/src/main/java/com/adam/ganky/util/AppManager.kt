@@ -75,10 +75,7 @@ object AppManager {
 
     fun isExists(clazz: Class<out Activity>): Boolean {
         synchronized(LOCK) {
-            for (aty in STACK) {
-                if (aty.javaClass.name == clazz.name) return true
-            }
-            return false
+            return STACK.any { it.javaClass.name == clazz.name }
         }
     }
 
@@ -97,9 +94,8 @@ object AppManager {
     fun finishExcept(clazz: Class<out Activity>) {
         synchronized(LOCK) {
             val copy = LinkedList(STACK)
-            for (aty in copy) {
-                if (aty.javaClass != clazz) aty.finish()
-            }
+            copy.filter { it.javaClass != clazz }
+                    .forEach { it.finish() }
             copy.clear()
         }
     }

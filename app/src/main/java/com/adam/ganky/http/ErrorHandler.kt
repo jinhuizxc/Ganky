@@ -14,7 +14,7 @@ import java.text.ParseException
  */
 object ErrorHandler {
 
-    fun handleException(e: Throwable?, showToast: Boolean) {
+    fun handleException(e: Throwable?, showToast: Boolean = true) {
         val exception = parseException(e)
         if (showToast)
             ToastUtils.show(exception?.message)

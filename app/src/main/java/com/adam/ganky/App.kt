@@ -13,6 +13,7 @@ import okhttp3.Interceptor
 import kotlin.properties.Delegates
 
 /**
+ * app
  * Created by yu on 2017/6/20.
  */
 class App : Application() {
@@ -31,7 +32,7 @@ class App : Application() {
     }
 
     // 添加okhttp拦截器，这里只是个示例...
-    val interceptors: List<Interceptor> = listOf(
+    private val interceptors: List<Interceptor> = listOf(
             Interceptor {
                 val request = it.request().newBuilder()
                         .addHeader("token", "this is a token for test")
@@ -41,7 +42,7 @@ class App : Application() {
     )
 
     companion object {
-        var context: Context by Delegates.notNull<Context>()
+        var context: Context by Delegates.notNull()
             private set
         var appComponent: AppComponent? = null
             private set

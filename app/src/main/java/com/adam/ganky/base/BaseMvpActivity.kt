@@ -5,7 +5,7 @@ import javax.inject.Inject
 /**
  * Created by yu on 2017/6/20.
  */
-abstract class BaseMvpActivity<P : IPresenter> : BaseActivity(), IView {
+abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity(), IView {
 
     @Inject lateinit var mPresenter: P
 
@@ -18,10 +18,6 @@ abstract class BaseMvpActivity<P : IPresenter> : BaseActivity(), IView {
     }
 
     override fun hideLoading() {
-
-    }
-
-    override fun onError() {
 
     }
 
