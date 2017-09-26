@@ -12,14 +12,20 @@ import com.adam.ganky.util.CategoryType
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
+
     override fun getLayoutId(): Int = R.layout.activity_main
 
     override fun initView() {
-        toolbar.title = getString(R.string.app_name)
-        setSupportActionBar(toolbar)
+        toolbar.apply {
+            title = getString(R.string.app_name)
+        }.let {
+            setSupportActionBar(it)
+        }
 
-        mainPager.adapter = MainAdapter(supportFragmentManager)
-        tabs.setupWithViewPager(mainPager)
+        with(mainPager) {
+            this.adapter = MainAdapter(supportFragmentManager)
+            tabs.setupWithViewPager(this)
+        }
 
         fab.setOnClickListener { jump(CollectionActivity::class.java) }
 
