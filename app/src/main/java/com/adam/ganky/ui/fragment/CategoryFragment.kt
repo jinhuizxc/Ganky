@@ -46,7 +46,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
     override fun getLayoutId(): Int = R.layout.layout_refresh_list
     override fun initView() {
 
-        adapter = CategoryAdapter(activity, null) { adapter, _, position ->
+        adapter = CategoryAdapter(this@CategoryFragment, null) { adapter, _, position ->
             if (type != CategoryType.GIRLS_STR)
                 jump(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
         }.apply {

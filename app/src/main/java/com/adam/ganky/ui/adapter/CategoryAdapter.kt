@@ -1,13 +1,12 @@
 package com.adam.ganky.ui.adapter
 
-import android.content.Context
+import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.view.View
 import com.adam.ganky.R
 import com.adam.ganky.entity.GankEntity
-import com.adam.ganky.ui.widget.RoundImageView
+import com.adam.ganky.http.displayImage
 import com.adam.ganky.util.CategoryType
-import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -16,7 +15,7 @@ import com.chad.library.adapter.base.BaseViewHolder
  * @author yu
  * Create on 2017/6/22.
  */
-class CategoryAdapter(val context: Context, data: List<GankEntity>?,
+class CategoryAdapter(val fragment: Fragment, data: List<GankEntity>?,
                       listener: (adapter: BaseQuickAdapter<*, *>, view: View, position: Int) -> Unit)
     : BaseMultiItemQuickAdapter<GankEntity, BaseViewHolder>(data) {
 
@@ -37,8 +36,14 @@ class CategoryAdapter(val context: Context, data: List<GankEntity>?,
                                 else R.mipmap.icon_apple)
             }
             else -> {
-                val iv: RoundImageView = helper.getView(R.id.ivImage)
-                Glide.with(context).load(item.url).centerCrop().into(iv)
+//                val iv: RoundImageView = helper.getView(R.id.ivImage)
+//                Glide.with(fragment).load(item.url).centerCrop().into(iv)
+                // 演示简单封装的DSL风格图片显示，内部其实还是Glide
+                displayImage {
+                    imageView = helper.getView(R.id.ivImage)
+                    url = item.url
+                    this.fragment = this@CategoryAdapter.fragment
+                }
             }
         }
     }
