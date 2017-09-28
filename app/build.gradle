@@ -43,6 +43,7 @@ dependencies {
 
     kapt dependencies.daggerCompiler
     compile dependencies.dagger
+
 //    kapt dependencies.roomCompiler
 //    compile dependencies.roomRuntime
 
@@ -53,16 +54,16 @@ dependencies {
     compile dependencies.rxJava2
     compile dependencies.rxAndroid2
 //    compile dependencies.rxLifecycle2
-    compile dependencies.rxBinding2
+//    compile dependencies.rxBinding2
     compile dependencies.rxPermission2
     compile dependencies.adapterHelper
-
     compile dependencies.timber
+
+    kapt dependencies.glideCompiler
     compile dependencies.glide
 
     compile dependencies.kotlinStdlib
     compile dependencies.kotlinReflect
-
 
     testCompile 'junit:junit:4.12'
 }

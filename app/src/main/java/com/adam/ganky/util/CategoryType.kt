@@ -4,28 +4,25 @@ package com.adam.ganky.util
  * 列表的分类
  * Created by yu on 2017/6/20.
  */
-object CategoryType {
+enum class CategoryType(val type: Int, val nameStr: String, val position: Int) {
 
-    const val ANDROID_IOS = 1
-    const val GIRLS = 2
+    ANDROID(1, "Android", 0),
+    IOS(1, "iOS", 1),
+    GIRLS(2, "福利", 2);
 
-    const val ANDROID_STR = "Android"
-    const val IOS_STR = "iOS"
-    const val GIRLS_STR = "福利"
+    companion object {
+        fun getPageTitleByPosition(position: Int): String = when (position) {
+            0 -> ANDROID.nameStr
+            1 -> IOS.nameStr
+            2 -> GIRLS.nameStr
+            else -> ""
+        }
 
-    fun getPageTitleByPosition(position: Int): String
-            = when (position) {
-        0 -> ANDROID_STR
-        1 -> IOS_STR
-        2 -> GIRLS_STR
-        else -> ""
-    }
 
-    fun getTypeByName(name: String?): Int {
-        return if (name.equals(ANDROID_STR) || name.equals(IOS_STR)) {
-            ANDROID_IOS
-        } else {
-            GIRLS
+        fun getTypeByName(name: String?): Int = when (name) {
+            ANDROID.nameStr -> ANDROID.type
+            IOS.nameStr -> IOS.type
+            else -> GIRLS.type
         }
     }
 }

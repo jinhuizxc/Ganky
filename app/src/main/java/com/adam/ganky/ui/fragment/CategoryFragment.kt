@@ -47,7 +47,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
     override fun initView() {
 
         adapter = CategoryAdapter(this@CategoryFragment, null) { adapter, _, position ->
-            if (type != CategoryType.GIRLS_STR)
+            if (type != CategoryType.GIRLS.nameStr)
                 jump(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
         }.apply {
             // apply 调用对象的方法（内部隐含this），返回对象自己
@@ -66,7 +66,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
             setHasFixedSize(true)
             adapter = this@CategoryFragment.adapter
 
-            if (type == CategoryType.GIRLS_STR)
+            if (type == CategoryType.GIRLS.nameStr)
                 PagerSnapHelper().attachToRecyclerView(this)
         }
 

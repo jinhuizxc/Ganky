@@ -1,7 +1,6 @@
 package com.adam.ganky.ui.activity
 
 import android.content.res.ColorStateList
-import android.graphics.Bitmap
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
@@ -13,10 +12,11 @@ import com.adam.ganky.base.BaseMvpActivity
 import com.adam.ganky.di.component.DaggerDetailComponent
 import com.adam.ganky.di.moudle.DetailModule
 import com.adam.ganky.entity.GankEntity
+import com.adam.ganky.http.ScaleType
+import com.adam.ganky.http.displayImage
 import com.adam.ganky.mvp.IDetail
 import com.adam.ganky.mvp.presenter.DetailPresenter
 import com.adam.ganky.util.ToastUtils
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.web_activity.*
 import kotlin.properties.Delegates
 
@@ -72,22 +72,10 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
                 it.builtInZoomControls = true
                 it.displayZoomControls = false
             }
-            setWebViewClient(object : WebViewClient() {
-                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                    super.onPageStarted(view, url, favicon)
-                }
-
-                override fun onPageFinished(view: WebView?, url: String?) {
-                    super.onPageFinished(view, url)
-                }
-
+            webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest?): Boolean = true
-            })
-            setWebChromeClient(object : WebChromeClient() {
-                override fun onProgressChanged(view: WebView?, newProgress: Int) {
-                    super.onProgressChanged(view, newProgress)
-                }
-            })
+            }
+            webChromeClient = object : WebChromeClient() {}
         }.loadUrl(entity.url)
 
     }
@@ -105,7 +93,12 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
     }
 
     override fun showGirl(url: String) {
-        Glide.with(this).load(url).fitCenter().into(imageView)
+        displayImage {
+            activity = this@DetailActivity
+            this.url = url
+            this.imageView = this@DetailActivity.imageView
+            scaleType = ScaleType.FIT_CENTER
+        }
     }
 
     override fun onBackPressed() {

@@ -36,9 +36,9 @@ class MainActivity : BaseActivity() {
 class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     private val fmList: List<BaseFragment> by lazy {
         listOf(
-                CategoryFragment.newInstance(CategoryType.ANDROID_STR),
-                CategoryFragment.newInstance(CategoryType.IOS_STR),
-                CategoryFragment.newInstance(CategoryType.GIRLS_STR)
+                CategoryFragment.newInstance(CategoryType.ANDROID.nameStr),
+                CategoryFragment.newInstance(CategoryType.IOS.nameStr),
+                CategoryFragment.newInstance(CategoryType.GIRLS.nameStr)
         )
     }
 

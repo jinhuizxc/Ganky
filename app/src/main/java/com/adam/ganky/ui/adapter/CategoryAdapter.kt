@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.view.View
 import com.adam.ganky.R
 import com.adam.ganky.entity.GankEntity
+import com.adam.ganky.http.ScaleType
 import com.adam.ganky.http.displayImage
 import com.adam.ganky.util.CategoryType
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
@@ -20,19 +21,19 @@ class CategoryAdapter(val fragment: Fragment, data: List<GankEntity>?,
     : BaseMultiItemQuickAdapter<GankEntity, BaseViewHolder>(data) {
 
     init {
-        addItemType(CategoryType.ANDROID_IOS, R.layout.item_android)
-        addItemType(CategoryType.GIRLS, R.layout.item_girls)
+        addItemType(CategoryType.ANDROID.type, R.layout.item_android)// android he iOS采用相同的type
+        addItemType(CategoryType.GIRLS.type, R.layout.item_girls)
         setOnItemClickListener { adapter, view, position -> listener(adapter, view, position) }
     }
 
     override fun convert(helper: BaseViewHolder, item: GankEntity) {
         when (helper.itemViewType) {
-            CategoryType.ANDROID_IOS -> {
+            CategoryType.ANDROID.type -> {
                 helper.setText(R.id.tvDesc, item.desc)
                         .setText(R.id.tvAuthor, if (TextUtils.isEmpty(item.who)) "UnKnow" else item.who)
                         .setText(R.id.tvDate, item.publishedAt)
                         .setImageResource(R.id.ivImage,
-                                if (item.type == CategoryType.ANDROID_STR) R.mipmap.icon_android
+                                if (item.type == CategoryType.ANDROID.nameStr) R.mipmap.icon_android
                                 else R.mipmap.icon_apple)
             }
             else -> {
@@ -40,9 +41,10 @@ class CategoryAdapter(val fragment: Fragment, data: List<GankEntity>?,
 //                Glide.with(fragment).load(item.url).centerCrop().into(iv)
                 // 演示简单封装的DSL风格图片显示，内部其实还是Glide
                 displayImage {
-                    imageView = helper.getView(R.id.ivImage)
-                    url = item.url
                     this.fragment = this@CategoryAdapter.fragment
+                    url = item.url
+                    imageView = helper.getView(R.id.ivImage)
+                    scaleType = ScaleType.CENTER_CROP
                 }
             }
         }
