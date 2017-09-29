@@ -21,13 +21,14 @@ class CategoryAdapter(val fragment: Fragment, data: List<GankEntity>?,
     : BaseMultiItemQuickAdapter<GankEntity, BaseViewHolder>(data) {
 
     init {
-        addItemType(CategoryType.ANDROID.type, R.layout.item_android)// android he iOS采用相同的type
+        addItemType(CategoryType.ANDROID.type, R.layout.item_android)// android iOS web采用相同的type
         addItemType(CategoryType.GIRLS.type, R.layout.item_girls)
         setOnItemClickListener { adapter, view, position -> listener(adapter, view, position) }
     }
 
     override fun convert(helper: BaseViewHolder, item: GankEntity) {
         when (helper.itemViewType) {
+            // android iOS web三个的type是一样的
             CategoryType.ANDROID.type -> {
                 helper.setText(R.id.tvDesc, item.desc)
                         .setText(R.id.tvAuthor, if (TextUtils.isEmpty(item.who)) "UnKnow" else item.who)
@@ -37,8 +38,6 @@ class CategoryAdapter(val fragment: Fragment, data: List<GankEntity>?,
                                 else R.mipmap.icon_apple)
             }
             else -> {
-//                val iv: RoundImageView = helper.getView(R.id.ivImage)
-//                Glide.with(fragment).load(item.url).centerCrop().into(iv)
                 // 演示简单封装的DSL风格图片显示，内部其实还是Glide
                 displayImage {
                     this.fragment = this@CategoryAdapter.fragment

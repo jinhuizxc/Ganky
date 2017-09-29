@@ -2,7 +2,6 @@ package com.adam.ganky.ui.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.PagerSnapHelper
 import android.util.Log
 import com.adam.ganky.App
 import com.adam.ganky.R
@@ -15,7 +14,6 @@ import com.adam.ganky.mvp.ICategory
 import com.adam.ganky.mvp.presenter.CategoryPresenter
 import com.adam.ganky.ui.activity.DetailActivity
 import com.adam.ganky.ui.adapter.CategoryAdapter
-import com.adam.ganky.util.CategoryType
 import com.chad.library.adapter.base.BaseQuickAdapter
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 
@@ -47,8 +45,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
     override fun initView() {
 
         adapter = CategoryAdapter(this@CategoryFragment, null) { adapter, _, position ->
-            if (type != CategoryType.GIRLS.nameStr)
-                jump(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
+            jump(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
         }.apply {
             // apply 调用对象的方法（内部隐含this），返回对象自己
             openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM)
@@ -66,8 +63,8 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
             setHasFixedSize(true)
             adapter = this@CategoryFragment.adapter
 
-            if (type == CategoryType.GIRLS.nameStr)
-                PagerSnapHelper().attachToRecyclerView(this)
+//            if (type == CategoryType.GIRLS.nameStr)
+//                PagerSnapHelper().attachToRecyclerView(this)
         }
 
         refreshLayout.setOnRefreshListener {

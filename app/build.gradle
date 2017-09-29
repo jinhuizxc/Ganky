@@ -65,6 +65,8 @@ dependencies {
     compile dependencies.kotlinStdlib
     compile dependencies.kotlinReflect
 
+    compile 'com.gyf.barlibrary:barlibrary:2.3.0'// 沉浸式状态栏和导航栏
+
     testCompile 'junit:junit:4.12'
 }
 

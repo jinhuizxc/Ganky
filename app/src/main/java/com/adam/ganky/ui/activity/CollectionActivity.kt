@@ -13,7 +13,7 @@ import com.adam.ganky.mvp.ICollection
 import com.adam.ganky.mvp.presenter.CollectionPresenter
 import com.adam.ganky.ui.adapter.CollectionAdapter
 import com.adam.ganky.util.ToastUtils
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_collection.*
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 
 class CollectionActivity : BaseMvpActivity<CollectionPresenter>(), ICollection.View {

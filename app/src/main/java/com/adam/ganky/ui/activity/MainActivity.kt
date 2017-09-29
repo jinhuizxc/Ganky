@@ -3,27 +3,42 @@ package com.adam.ganky.ui.activity
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v7.app.ActionBarDrawerToggle
 import com.adam.ganky.R
 import com.adam.ganky.base.BaseActivity
 import com.adam.ganky.base.BaseFragment
 import com.adam.ganky.jump
 import com.adam.ganky.ui.fragment.CategoryFragment
+import com.adam.ganky.util.AppUtils
 import com.adam.ganky.util.CategoryType
+import com.adam.ganky.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
+    override fun setupStatusBar() {
+
+    }
+
     override fun initView() {
+        supportActionBar?.apply {
+            setHomeButtonEnabled(true)
+            setDisplayHomeAsUpEnabled(true)
+        }
         toolbar.apply {
             title = getString(R.string.app_name)
-        }.let {
-            setSupportActionBar(it)
+            setSupportActionBar(this)
+            ActionBarDrawerToggle(this@MainActivity, drawerLayout, this,
+                    R.string.app_name, R.string.app_name).apply {
+                syncState()
+                drawerLayout.addDrawerListener(this)
+            }
         }
 
         with(mainPager) {
-            this.adapter = MainAdapter(supportFragmentManager)
+            this.adapter = HomeAdapter(supportFragmentManager)
             tabs.setupWithViewPager(this)
         }
 
@@ -31,14 +46,21 @@ class MainActivity : BaseActivity() {
 
     }
 
+    override fun onBackPressed() {
+        if (AppUtils.exitTwice())
+            super.onBackPressed()
+        else
+            ToastUtils.show("再按一次退出")
+    }
+
 }
 
-class MainAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class HomeAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     private val fmList: List<BaseFragment> by lazy {
         listOf(
                 CategoryFragment.newInstance(CategoryType.ANDROID.nameStr),
                 CategoryFragment.newInstance(CategoryType.IOS.nameStr),
-                CategoryFragment.newInstance(CategoryType.GIRLS.nameStr)
+                CategoryFragment.newInstance(CategoryType.WEB.nameStr)
         )
     }
 
