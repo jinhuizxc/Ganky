@@ -7,8 +7,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.50"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:1.1.50"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.51"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:1.1.51"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -28,7 +28,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    kotlinVersion = "1.1.50"
+    kotlinVersion = "1.1.51"
     // Sdk and tools
     buildToolsVersion = "26.0.2"
     compileSdkVersion = 26
@@ -68,7 +68,11 @@ ext {
             javaxAnnotation         : "org.glassfish:javax.annotation:$javaxAnnotationVersion",
             butterKnife             : "com.jakewharton:butterknife:$butterKnifeVersion",
             butterKnifeCompiler     : "com.jakewharton:butterknife-compiler:$butterKnifeVersion",
+
             timber                  : "com.jakewharton.timber:timber:$timberVersion",
+            adapterHelper           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$adapterHelperVersion",
+            glide                   : "com.github.bumptech.glide:glide:$glideVersion",
+            glideCompiler           : "com.github.bumptech.glide:compiler:$glideVersion",
 
             // Rx
             rxJava2                 : "io.reactivex.rxjava2:rxjava:$rxjava2Version",
@@ -83,8 +87,10 @@ ext {
             retrofit                : "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitGsonConverter   : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             retrofitRxjavaAdapter2  : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
-            glide                   : "com.github.bumptech.glide:glide:$glideVersion",
-            glideCompiler           : "com.github.bumptech.glide:compiler:$glideVersion",
+
+            // kotlin
+            kotlinStdlib            : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion",
+            kotlinReflect           : "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",
 
             // support
             supportMultidex         : "com.android.support:multidex:$multidexVersion",
@@ -95,13 +101,10 @@ ext {
             supportCardView         : "com.android.support:cardview-v7:$supportLibVersion",
             constraintLayout        : "com.android.support.constraint:constraint-layout:$constraintLayout",
 
-            // kotlin
-            kotlinStdlib            : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion",
-            kotlinReflect           : "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",
-
-            adapterHelper           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$adapterHelperVersion",
-
-            // room
+            // arch
+            archRuntime             : "android.arch.lifecycle:runtime:$archVersion",
+            archExtensions          : "android.arch.lifecycle:extensions:$archVersion",
+            archCompiler            : "android.arch.lifecycle:compiler:$archVersion",
             roomRuntime             : "android.arch.persistence.room:runtime:$archVersion",
             roomCompiler            : "android.arch.persistence.room:compiler:$archVersion"
 

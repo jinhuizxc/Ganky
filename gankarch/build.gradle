@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -8,12 +7,13 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.adam.ganky"
+        applicationId "com.adam.gankarch"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -21,18 +21,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     repositories {
         flatDir {
             dirs 'libs'
         }
     }
 }
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    testCompile 'junit:junit:4.12'
 
     def dependencies = rootProject.ext.dependencies
 
@@ -40,32 +41,31 @@ dependencies {
     compile dependencies.supportRecyclerview
     compile dependencies.supportCardView
     compile dependencies.supportDesign
-
-    kapt dependencies.daggerCompiler
-    compile dependencies.dagger
-
-//    kapt dependencies.roomCompiler
-//    compile dependencies.roomRuntime
+    compile dependencies.constraintLayout
 
     compile dependencies.retrofit
     compile dependencies.retrofitGsonConverter
-    compile dependencies.retrofitRxjavaAdapter2
     compile dependencies.okhttpLoggingInterceptor
-    compile dependencies.rxJava2
-    compile dependencies.rxAndroid2
+
+//    compile dependencies.retrofitRxjavaAdapter2
+//    compile dependencies.rxJava2
+//    compile dependencies.rxAndroid2
 //    compile dependencies.rxLifecycle2
 //    compile dependencies.rxBinding2
-    compile dependencies.rxPermission2
+//    compile dependencies.rxPermission2
+
     compile dependencies.adapterHelper
     compile dependencies.timber
-
-    kapt dependencies.glideCompiler
     compile dependencies.glide
 
     compile dependencies.kotlinStdlib
     compile dependencies.kotlinReflect
 
-    testCompile 'junit:junit:4.12'
+    // arch
+    compile dependencies.archRuntime
+    compile dependencies.archExtensions
+    kapt dependencies.archCompiler
+
 }
 
 kotlin {

@@ -18,10 +18,6 @@ class MainActivity : BaseActivity() {
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
-    override fun setupStatusBar() {
-
-    }
-
     override fun initView() {
         supportActionBar?.apply {
             setHomeButtonEnabled(true)

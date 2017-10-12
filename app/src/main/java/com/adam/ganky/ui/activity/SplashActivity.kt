@@ -8,7 +8,6 @@ import com.adam.ganky.base.BaseActivity
 import com.adam.ganky.http.ScaleType
 import com.adam.ganky.http.displayImage
 import com.adam.ganky.jump
-import com.gyf.barlibrary.ImmersionBar
 import kotlinx.android.synthetic.main.activity_splash.*
 
 /**
@@ -18,10 +17,6 @@ import kotlinx.android.synthetic.main.activity_splash.*
 class SplashActivity : BaseActivity() {
 
     override fun getLayoutId(): Int = R.layout.activity_splash
-
-    override fun setupStatusBar() {
-        immersionBar = ImmersionBar.with(this).apply { init() }
-    }
 
     override fun initView() {
         displayImage {

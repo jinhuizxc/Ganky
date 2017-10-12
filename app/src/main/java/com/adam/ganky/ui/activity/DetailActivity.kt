@@ -17,7 +17,6 @@ import com.adam.ganky.http.displayImage
 import com.adam.ganky.mvp.IDetail
 import com.adam.ganky.mvp.presenter.DetailPresenter
 import com.adam.ganky.util.ToastUtils
-import com.gyf.barlibrary.ImmersionBar
 import kotlinx.android.synthetic.main.web_activity.*
 import kotlin.properties.Delegates
 
@@ -35,10 +34,6 @@ class DetailActivity : BaseMvpActivity<DetailPresenter>(), IDetail.View {
     }
 
     override fun getLayoutId(): Int = R.layout.web_activity
-
-    override fun setupStatusBar() {
-        immersionBar = ImmersionBar.with(this).apply { init() }
-    }
 
     override fun initView() {
         with(toolbar) {

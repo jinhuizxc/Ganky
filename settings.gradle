@@ -1,1 +1,1 @@
-include ':app', ':gankmvvm'
+include ':app', ':gankarch'
