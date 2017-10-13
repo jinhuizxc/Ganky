@@ -1,4 +1,4 @@
-package com.adam.gankarch.extensions
+package com.adam.gankarch.common.extensions
 
 import android.content.Context
 import android.os.Bundle
