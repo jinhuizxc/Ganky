@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -15,9 +16,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-    dataBinding {
-        enabled = true
-    }
+//    dataBinding {
+//        enabled = true
+//    }
     buildTypes {
         release {
             minifyEnabled false
@@ -52,22 +53,24 @@ dependencies {
 
     compile dependencies.rxJava2
     compile dependencies.rxAndroid2
-//    compile dependencies.retrofitRxjavaAdapter2
+    compile dependencies.retrofitRxjavaAdapter2
 //    compile dependencies.rxLifecycle2
 //    compile dependencies.rxBinding2
 //    compile dependencies.rxPermission2
 
     compile dependencies.adapterHelper
     compile dependencies.timber
+    kapt dependencies.glideCompiler
     compile dependencies.glide
+    compile dependencies.utilCode
 
     compile dependencies.kotlinStdlib
     compile dependencies.kotlinReflect
 
     // arch
+    kapt dependencies.archCompiler
     compile dependencies.archRuntime
     compile dependencies.archExtensions
-    kapt dependencies.archCompiler
 
 }
 

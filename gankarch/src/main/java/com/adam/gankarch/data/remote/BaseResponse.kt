@@ -10,4 +10,7 @@ class BaseResponse<R> : Serializable {
     // 以下gank.io接口中判断业务是否成功的字段，根据自己的接口修改
     var error: Boolean = false
     var results: R? = null
+
+
+    fun isSuccess() = !error
 }

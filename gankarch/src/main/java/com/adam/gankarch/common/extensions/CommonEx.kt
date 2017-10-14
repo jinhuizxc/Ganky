@@ -1,26 +1,25 @@
 package com.adam.gankarch.common.extensions
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
 import android.support.v4.app.Fragment
-import android.widget.Toast
 import java.io.Serializable
 
 /**
  * Created by yu on 2017/10/12.
  */
 
+val mainHandler = Handler(Looper.getMainLooper())
 val emptyString = ""
 
-fun Context.showToast(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-}
-
-fun Fragment.showToast(message: String) {
-    Toast.makeText(this.activity.applicationContext, message, Toast.LENGTH_SHORT).show()
+fun onUiThread(task: () -> Unit) {
+    if (Looper.myLooper() == Looper.getMainLooper()) {
+        task()
+    } else {
+        mainHandler.post { task() }
+    }
 }
 
 fun Fragment.withArgument(key: String, value: Any): Fragment {

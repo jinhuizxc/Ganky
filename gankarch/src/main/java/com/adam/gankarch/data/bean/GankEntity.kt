@@ -24,6 +24,6 @@ data class GankEntity(
 ) : MultiItemEntity, Serializable {
 
     override fun getItemType(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return 0
     }
 }

@@ -1,4 +1,4 @@
-package com.adam.gankarch.data.remote
+package com.adam.gankarch.data.remote.calladapter
 
 
 import android.arch.lifecycle.LiveData
@@ -9,18 +9,19 @@ import retrofit2.Response
 import java.lang.reflect.Type
 import java.util.concurrent.atomic.AtomicBoolean
 
-class LiveDataCallAdapter<R>(private val responseType: Type) : CallAdapter<R, LiveData<R>> {
+/**
+ * 自定义CallAdapter将接口返回类型适配为LiveData
+ * 但是不推荐这么做，因为没有处理错误情况
+ */
+class LiveDataCallAdapter<R>(private val responseType: Type) : CallAdapter<R, Any> {
 
-    override fun responseType(): Type {
-        return responseType
-    }
+    override fun responseType(): Type = responseType
 
-    override fun adapt(call: Call<R>): LiveData<R> {
+    override fun adapt(call: Call<R>): Any {
         return object : LiveData<R>() {
             internal var started = AtomicBoolean(false)
 
             override fun onActive() {
-                super.onActive()
                 if (started.compareAndSet(false, true)) {
                     call.enqueue(object : Callback<R> {
                         override fun onResponse(call: Call<R>, response: Response<R>) {
