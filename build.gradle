@@ -41,7 +41,7 @@ ext {
     javaVersion = JavaVersion.VERSION_1_8
 
     supportLibVersion = "26.+"
-    constraintLayout = '1.0.2'
+    constraintLayoutVersion = '1.0.2'
     multidexVersion = "1.0.1"
     daggerVersion = "2.11"
     javaxAnnotationVersion = "10.0-b28"
@@ -103,7 +103,7 @@ ext {
             supportRecyclerview     : "com.android.support:recyclerview-v7:$supportLibVersion",
             supportAnnotations      : "com.android.support:support-annotations:$supportLibVersion",
             supportCardView         : "com.android.support:cardview-v7:$supportLibVersion",
-            constraintLayout        : "com.android.support.constraint:constraint-layout:$constraintLayout",
+            constraintLayout        : "com.android.support.constraint:constraint-layout:$constraintLayoutVersion",
 
             // arch
             archRuntime             : "android.arch.lifecycle:runtime:$archVersion",
