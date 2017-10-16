@@ -1,20 +1,13 @@
 package com.adam.gankarch.ui
 
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import com.adam.gankarch.R
+import com.adam.gankarch.common.base.ArchBaseActivity
+import com.adam.gankarch.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-//    : ArchBaseActivity<ActivityMainBinding>() {
-//
-//    override fun getLayoutId(): Int = R.layout.activity_main
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//
-//    }
+class MainActivity : ArchBaseActivity<ActivityMainBinding>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    override fun getLayoutId(): Int = R.layout.activity_main
+
+
+
 }

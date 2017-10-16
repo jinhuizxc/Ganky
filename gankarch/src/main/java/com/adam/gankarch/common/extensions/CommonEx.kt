@@ -5,6 +5,8 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
 import android.support.v4.app.Fragment
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import java.io.Serializable
 
 /**
@@ -13,6 +15,13 @@ import java.io.Serializable
 
 val mainHandler = Handler(Looper.getMainLooper())
 val emptyString = ""
+
+/**
+ * 添加到指定的CompositeDisposable，便于统一取消订阅
+ */
+fun Disposable.addToLifecycle(disposables: CompositeDisposable) {
+    disposables.add(this)
+}
 
 fun onUiThread(task: () -> Unit) {
     if (Looper.myLooper() == Looper.getMainLooper()) {
