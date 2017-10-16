@@ -16,9 +16,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-//    dataBinding {
-//        enabled = true
-//    }
+    dataBinding {
+        enabled = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -37,6 +37,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+//    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 
     def dependencies = rootProject.ext.dependencies
@@ -45,7 +47,7 @@ dependencies {
     compile dependencies.supportRecyclerview
     compile dependencies.supportCardView
     compile dependencies.supportDesign
-    compile dependencies.constraintLayout
+//    compile dependencies.constraintLayout
 
     compile dependencies.retrofit
     compile dependencies.retrofitGsonConverter
@@ -54,9 +56,6 @@ dependencies {
     compile dependencies.rxJava2
     compile dependencies.rxAndroid2
     compile dependencies.retrofitRxjavaAdapter2
-//    compile dependencies.rxLifecycle2
-//    compile dependencies.rxBinding2
-//    compile dependencies.rxPermission2
 
     compile dependencies.adapterHelper
     compile dependencies.timber
