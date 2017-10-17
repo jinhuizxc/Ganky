@@ -12,11 +12,16 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         initTimber()
     }
 
     private fun initTimber() {
         Timber.plant(DebugTree())
+    }
+
+    companion object {
+        lateinit var instance: App
     }
 
 }

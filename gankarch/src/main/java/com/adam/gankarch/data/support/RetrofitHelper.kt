@@ -1,4 +1,4 @@
-package com.adam.gankarch.data.remote
+package com.adam.gankarch.data.support
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

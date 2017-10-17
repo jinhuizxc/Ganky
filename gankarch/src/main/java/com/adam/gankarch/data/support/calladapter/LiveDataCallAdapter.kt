@@ -1,4 +1,4 @@
-package com.adam.gankarch.data.remote.calladapter
+package com.adam.gankarch.data.support.calladapter
 
 
 import android.arch.lifecycle.LiveData

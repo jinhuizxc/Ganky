@@ -1,7 +1,7 @@
-package com.adam.gankarch.data.remote.calladapter
+package com.adam.gankarch.data.support.calladapter
 
 import android.arch.lifecycle.LiveData
-import com.adam.gankarch.data.remote.BaseResponse
+import com.adam.gankarch.data.support.BaseResponse
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType

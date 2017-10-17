@@ -14,7 +14,7 @@ import java.io.Serializable
  */
 
 val mainHandler = Handler(Looper.getMainLooper())
-val emptyString = ""
+val EMPTY_STRING = ""
 
 /**
  * 添加到指定的CompositeDisposable，便于统一取消订阅
