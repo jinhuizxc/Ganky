@@ -9,15 +9,15 @@ import android.support.v7.app.AppCompatActivity
  */
 abstract class BaseActivity : AppCompatActivity() {
 
+    abstract val layoutId: Int
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initContentView()
     }
 
     open fun initContentView() {
-        setContentView(getLayoutId())
+        setContentView(layoutId)
     }
-
-    abstract fun getLayoutId(): Int
 
 }

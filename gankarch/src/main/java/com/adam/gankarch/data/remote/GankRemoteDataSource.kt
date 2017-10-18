@@ -3,8 +3,9 @@ package com.adam.gankarch.data.remote
 import com.adam.gankarch.data.GankRepository
 import com.adam.gankarch.data.api.GankApi
 import com.adam.gankarch.data.bean.GankEntity
-import com.adam.gankarch.data.support.DataCallback
 import com.adam.gankarch.data.support.GankException
+import com.adam.gankarch.data.support.ModuleCallback
+import com.adam.gankarch.data.support.ModuleResult
 import com.adam.gankarch.data.support.RetrofitHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -17,37 +18,37 @@ class GankRemoteDataSource : GankRepository {
 
     private val apiService: GankApi = RetrofitHelper.instance.createService(GankApi::class.java)
 
-    override fun getGuideGirl(callback: DataCallback<GankEntity>) {
+    override fun getGuideGirl(callback: ModuleCallback<GankEntity>) {
         getRandomGirl(callback)
     }
 
-    override fun getRandomGirl(callback: DataCallback<GankEntity>) {
+    override fun getRandomGirl(callback: ModuleCallback<GankEntity>) {
         apiService.getRandomGirl()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it.isSuccess()) {
-                        callback.onSuccess(it.results!![0])
+                        callback.onResultBack(ModuleResult(it.results!![0]))
                     } else {
-                        callback.onFail(GankException())
+                        callback.onResultBack(ModuleResult(null, GankException(errorMessage = it.message())))
                     }
                 }, {
-                    callback.onFail(GankException(GankException.CODE_HTTP_EX, it.message ?: it.toString()))
+                    callback.onResultBack(ModuleResult(null, it))
                 })
     }
 
-    override fun getListData(type: String, pageSize: String, page: String, callback: DataCallback<List<GankEntity>>) {
+    override fun getListData(type: String, pageSize: String, page: String, callback: ModuleCallback<List<GankEntity>>) {
         apiService.gank(type, pageSize, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     if (it.isSuccess()) {
-                        callback.onSuccess(it.results!!)
+                        callback.onResultBack(ModuleResult(it.results))
                     } else {
-                        callback.onFail(GankException())
+                        callback.onResultBack(ModuleResult(null, GankException(errorMessage = it.message())))
                     }
                 }, {
-                    callback.onFail(GankException(GankException.CODE_HTTP_EX, it.message ?: it.toString()))
+                    callback.onResultBack(ModuleResult(null, it))
                 })
     }
 

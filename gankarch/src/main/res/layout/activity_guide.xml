@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="girl"
             type="com.adam.gankarch.data.bean.GankEntity" />
@@ -12,14 +11,15 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/ivSplash"
-            imageUrl="@{girl.url}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:scaleType="fitCenter" />
+            android:scaleType="centerCrop"
+            app:imageUrl="@{girl.url}" />
     </FrameLayout>
 </layout>

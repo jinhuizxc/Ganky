@@ -1,5 +1,7 @@
 package com.adam.gankarch.common.extensions
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -21,6 +23,20 @@ val EMPTY_STRING = ""
  */
 fun Disposable.addToLifecycle(disposables: CompositeDisposable) {
     disposables.add(this)
+}
+
+fun <T : Activity> Activity.jumpTo(clazz: Class<T>, key: String? = null, value: Any? = null) {
+    Intent(this, clazz).apply {
+        if (key != null && value != null) {
+            when (value) {
+                is Parcelable -> putExtra(key, value)
+                is Serializable -> putExtra(key, value)
+                else -> throw IllegalArgumentException("not support the value type:" + value.javaClass.name)
+            }
+        }
+    }.let {
+        startActivity(it)
+    }
 }
 
 fun onUiThread(task: () -> Unit) {
@@ -63,11 +79,5 @@ inline fun delay(milliseconds: Long, mainThread: Boolean = true, crossinline act
         postDelayed({
             action()
         }, milliseconds)
-    }
-}
-
-fun <T> nonSafeLazy(initializer: () -> T): Lazy<T> {
-    return lazy(LazyThreadSafetyMode.NONE) {
-        initializer()
     }
 }

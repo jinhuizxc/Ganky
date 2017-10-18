@@ -13,4 +13,5 @@ class BaseResponse<R> : Serializable {
 
 
     fun isSuccess() = !error
+    fun message(): String = "接口请求失败..."
 }

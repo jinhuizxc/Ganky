@@ -31,13 +31,15 @@ android {
         }
     }
 }
+kapt {
+    generateStubs = true
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
 
     def dependencies = rootProject.ext.dependencies
 
@@ -69,10 +71,7 @@ dependencies {
     compile dependencies.archRuntime
     compile dependencies.archExtensions
 
-}
-
-kotlin {
-    experimental {
-        coroutines "error"
-    }
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    kapt 'com.android.databinding:compiler:2.3.3'
 }

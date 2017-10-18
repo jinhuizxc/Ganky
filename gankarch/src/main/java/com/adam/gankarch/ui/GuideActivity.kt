@@ -1,22 +1,39 @@
 package com.adam.gankarch.ui
 
-import android.databinding.DataBindingUtil
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
+import android.arch.lifecycle.Observer
+import android.os.Bundle
 import com.adam.gankarch.R
-import com.adam.gankarch.common.base.BaseActivity
+import com.adam.gankarch.common.base.ArchBaseActivity
+import com.adam.gankarch.common.extensions.jumpTo
+import com.adam.gankarch.data.bean.GankEntity
 import com.adam.gankarch.databinding.ActivityGuideBinding
+import com.blankj.utilcode.util.BarUtils
 
-class GuideActivity : BaseActivity() {
+class GuideActivity : ArchBaseActivity<ActivityGuideBinding>() {
 
-    override fun getLayoutId(): Int = R.layout.activity_guide
+    override val layoutId: Int
+        get() = R.layout.activity_guide
 
-    override fun initContentView() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        val binding = DataBindingUtil.setContentView<ActivityGuideBinding>(this, getLayoutId())
+        BarUtils.setStatusBarAlpha(this, 0)
 
-//        val viewModel = ViewModelProviders.of(this, ViewModelFactory.instance).get(GuideViewModel::class.java)
-//
-//        viewModel.girl.observe(this, Observer<GankEntity> {
-//            binding.girl = it
-//        })
+        val viewModel = createViewModel(GuideViewModel::class.java)
+        viewModel.girl.observe(this, Observer<GankEntity> { mBinding.girl = it })
+
+        ObjectAnimator.ofFloat(mBinding.ivSplash, "alpha", 0f, 1f)
+                .setDuration(2000)
+                .apply {
+                    addListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            jumpTo(MainActivity::class.java)
+                            finish()
+                        }
+                    })
+                }.start()
     }
 }
