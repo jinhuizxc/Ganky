@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData
 import com.adam.gankarch.common.base.BaseViewModel
 import com.adam.gankarch.data.GankRepository
 import com.adam.gankarch.data.bean.GankEntity
-import com.adam.gankarch.data.support.SimpleModuleCallback
 
 /**
  * @author yu
@@ -15,10 +14,13 @@ class GuideViewModel(private val repository: GankRepository) : BaseViewModel() {
     val girl: MutableLiveData<GankEntity> = MutableLiveData()
 
     init {
-        repository.getGuideGirl(object : SimpleModuleCallback<GankEntity>() {
-            override fun doSuccess(data: GankEntity) {
-                girl.postValue(data)
+        repository.getGuideGirl {
+            if (it.isSuccess()) {
+                girl.postValue(it.data)
+            } else {
+                doError(it.error!!)
             }
-        })
+        }
     }
+
 }

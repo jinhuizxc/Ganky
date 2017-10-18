@@ -26,7 +26,7 @@ class GuideActivity : ArchBaseActivity<ActivityGuideBinding>() {
         viewModel.girl.observe(this, Observer<GankEntity> { mBinding.girl = it })
 
         ObjectAnimator.ofFloat(mBinding.ivSplash, "alpha", 0f, 1f)
-                .setDuration(2000)
+                .setDuration(3000)
                 .apply {
                     addListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator?) {
