@@ -1,5 +1,6 @@
-package com.adam.gankarch.data.support
+package com.adam.gankarch.common.call
 
+import com.adam.gankarch.data.support.GankException
 import com.blankj.utilcode.util.ToastUtils
 
 /**

@@ -3,7 +3,7 @@ package com.adam.gankarch.data.datasource
 import com.adam.gankarch.data.support.SpConstants
 import com.adam.gankarch.data.bean.GankEntity
 import com.adam.gankarch.data.support.GankException
-import com.adam.gankarch.data.support.ModuleResult
+import com.adam.gankarch.common.call.ModuleResult
 import com.blankj.utilcode.util.EmptyUtils
 import com.blankj.utilcode.util.SPUtils
 import com.google.gson.Gson

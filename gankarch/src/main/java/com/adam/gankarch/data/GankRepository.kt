@@ -1,13 +1,12 @@
 package com.adam.gankarch.data
 
-import com.adam.gankarch.common.base.BaseRepository
+import com.adam.gankarch.common.call.ModuleCall
 import com.adam.gankarch.data.bean.GankEntity
-import com.adam.gankarch.data.support.ModuleCall
 
 /**
  * Created by yu on 2017/10/17.
  */
-interface GankRepository : BaseRepository {
+interface GankRepository {
 
     fun getGuideGirl(): ModuleCall<GankEntity>
 

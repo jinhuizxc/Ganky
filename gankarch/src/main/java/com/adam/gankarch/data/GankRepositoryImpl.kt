@@ -1,9 +1,10 @@
 package com.adam.gankarch.data
 
+import com.adam.gankarch.common.base.BaseRepository
+import com.adam.gankarch.common.call.ModuleCall
 import com.adam.gankarch.data.bean.GankEntity
 import com.adam.gankarch.data.datasource.GankLocalDataSource
 import com.adam.gankarch.data.datasource.GankRemoteDataSource
-import com.adam.gankarch.data.support.ModuleCall
 import com.adam.gankarch.data.support.SpConstants
 import com.blankj.utilcode.util.EmptyUtils
 import com.blankj.utilcode.util.SPUtils
@@ -11,7 +12,7 @@ import com.blankj.utilcode.util.SPUtils
 /**
  * Created by yu on 2017/10/17.
  */
-class GankRepositoryImpl : GankRepository {
+class GankRepositoryImpl : BaseRepository(), GankRepository {
 
     private val localDataSource: GankLocalDataSource by lazy { GankLocalDataSource() }
     private val remoteDataSource: GankRemoteDataSource by lazy { GankRemoteDataSource() }
