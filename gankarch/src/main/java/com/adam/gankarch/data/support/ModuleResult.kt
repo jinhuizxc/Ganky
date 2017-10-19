@@ -7,5 +7,5 @@ package com.adam.gankarch.data.support
  */
 class ModuleResult<out T>(val data: T?, val error: Throwable? = null) {
 
-    fun isSuccess() = data != null
+    fun isSuccess() = error == null
 }

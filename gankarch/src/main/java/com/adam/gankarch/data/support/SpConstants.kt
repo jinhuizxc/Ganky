@@ -1,4 +1,4 @@
-package com.adam.gankarch.data
+package com.adam.gankarch.data.support
 
 /**
  * sp的key

@@ -3,8 +3,6 @@ package com.adam.gankarch.common
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.adam.gankarch.data.GankRepositoryImpl
-import com.adam.gankarch.data.local.GankLocalDataSource
-import com.adam.gankarch.data.remote.GankRemoteDataSource
 import com.adam.gankarch.ui.GuideViewModel
 
 /**
