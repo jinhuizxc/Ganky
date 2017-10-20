@@ -1,6 +1,7 @@
 package com.adam.gankarch.common.call
 
 import android.util.Log
+import com.adam.gankarch.common.base.BaseRepository
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
@@ -17,15 +18,20 @@ class RepositoryDelegate {
     private val mRepositoryCache = ConcurrentHashMap<Class<*>, Any>()
     private val mModuleCalls = ModuleCalls()
 
-    fun <T> getRepository(interfaceClz: Class<T>, impl: Any): T {
+    fun <T : BaseRepository> getRepository(interfaceClz: Class<T>): T {
         synchronized(mRepositoryCache) {
             val repository = mRepositoryCache[interfaceClz]
             return if (repository != null) {
                 repository as T
             } else {
-                val invocationHandler = ModuleInvocationHandler(impl, mModuleCalls)
-                Proxy.newProxyInstance(impl.javaClass.classLoader,
-                        impl.javaClass.interfaces, invocationHandler)
+                val proxyTarget = interfaceClz.getAnnotation(ProxyTarget::class.java)
+                        ?: throw IllegalStateException("@@@必须用ProxyTarget注解标注出实现类")
+
+                val implClz = proxyTarget.implClz
+
+                val invocationHandler = ModuleInvocationHandler(implClz.java.newInstance(), mModuleCalls)
+                Proxy.newProxyInstance(implClz.java.classLoader,
+                        implClz.java.interfaces, invocationHandler)
                         .apply {
                             mRepositoryCache.put(interfaceClz, this)
                         } as T
@@ -51,8 +57,6 @@ class RepositoryDelegate {
                 method.invoke(target)
             else
                 method.invoke(target, args)
-
-            Log.i("delegate", "###进入代理方法###")
 
             if (ModuleCall::class.java == method.returnType) { // 收集返回的moduleCall
                 moduleCalls.add(res as ModuleCall<*>)
@@ -92,7 +96,7 @@ class RepositoryDelegate {
             synchronized(this) {
                 mModuleCalls!!.add(call)
             }
-            Log.i("delegate", "###增加一个ModuleCall###")
+            Log.i("delegate", "<${this}>增加一个ModuleCall[$call],当前数量:[${mModuleCalls!!.size}]")
         }
 
         fun cancel() {
@@ -102,7 +106,7 @@ class RepositoryDelegate {
             synchronized(this) {
                 for (call in mModuleCalls!!) {
                     call.cancel()
-                    Log.i("delegate", "@@@取消了一个ModuleCall@@@")
+                    Log.i("delegate", "<${this}>取消了所有ModuleCall")
                 }
                 mModuleCalls!!.clear()
             }

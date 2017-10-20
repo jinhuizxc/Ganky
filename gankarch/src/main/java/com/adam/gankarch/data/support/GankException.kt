@@ -7,6 +7,5 @@ class GankException(val code: Int = CODE_DEFAULT, val errorMessage: String = "")
 
     companion object {
         val CODE_DEFAULT = 0
-        val CODE_HTTP_EX = 1
     }
 }
