@@ -1,35 +1,34 @@
 package com.adam.gankarch.common.call
 
-import com.adam.gankarch.common.base.BaseRepository
-import com.blankj.utilcode.util.LogUtils
+import android.util.Log
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 
 /**
- * 通过这个管理类获取的BaseRepository子类，将自动收集mModuleCalls，用于统一取消请求
+ * 通过这个管理类获取的Repository子类，将自动收集mModuleCalls，用于统一取消请求
  * @author yu
  * Create on 2017/10/19.
  */
 class RepositoryDelegate {
 
-    private val mRepositoryCache = ConcurrentHashMap<Class<*>, BaseRepository>()
+    private val mRepositoryCache = ConcurrentHashMap<Class<*>, Any>()
     private val mModuleCalls = ModuleCalls()
 
-    fun <T : BaseRepository> getRepository(clazz: Class<T>): T {
+    fun <T> getRepository(interfaceClz: Class<T>, impl: Any): T {
         synchronized(mRepositoryCache) {
-            var repository = mRepositoryCache[clazz]
+            val repository = mRepositoryCache[interfaceClz]
             return if (repository != null) {
                 repository as T
             } else {
-                val invocationHandler = ModuleInvocationHandler(clazz.newInstance(), mModuleCalls)
-                val t: T = Proxy.newProxyInstance(clazz.classLoader, clazz.interfaces, invocationHandler) as T
-                mRepositoryCache.put(clazz, t)
-
-                t
+                val invocationHandler = ModuleInvocationHandler(impl, mModuleCalls)
+                Proxy.newProxyInstance(impl.javaClass.classLoader,
+                        impl.javaClass.interfaces, invocationHandler)
+                        .apply {
+                            mRepositoryCache.put(interfaceClz, this)
+                        } as T
             }
         }
     }
@@ -45,11 +44,17 @@ class RepositoryDelegate {
     /**
      * 自动收集返回的ModuleCall
      */
-    class ModuleInvocationHandler(private val target: Any, private val moduleCalls: ModuleCalls) : InvocationHandler {
+    class ModuleInvocationHandler(private val target: Any?, private val moduleCalls: ModuleCalls) : InvocationHandler {
 
         override fun invoke(proxy: Any?, method: Method, args: Array<out Any>?): Any {
-            val res = method.invoke(target, args)
-            if (ModuleCall.javaClass == method.returnType) { // 收集返回的moduleCall
+            val res = if (args == null)
+                method.invoke(target)
+            else
+                method.invoke(target, args)
+
+            Log.i("delegate", "###进入代理方法###")
+
+            if (ModuleCall::class.java == method.returnType) { // 收集返回的moduleCall
                 moduleCalls.add(res as ModuleCall<*>)
             }
             return res
@@ -66,7 +71,7 @@ class RepositoryDelegate {
             if (mModuleCalls == null) {
                 synchronized(this) {
                     if (mModuleCalls == null) {
-                        mModuleCalls = LinkedList()
+                        mModuleCalls = mutableListOf()
                     }
                 }
             }
@@ -86,8 +91,8 @@ class RepositoryDelegate {
 
             synchronized(this) {
                 mModuleCalls!!.add(call)
-                LogUtils.i("###增加一个ModuleCall###")
             }
+            Log.i("delegate", "###增加一个ModuleCall###")
         }
 
         fun cancel() {
@@ -97,7 +102,7 @@ class RepositoryDelegate {
             synchronized(this) {
                 for (call in mModuleCalls!!) {
                     call.cancel()
-                    LogUtils.i("@@@取消了一个ModuleCall@@@")
+                    Log.i("delegate", "@@@取消了一个ModuleCall@@@")
                 }
                 mModuleCalls!!.clear()
             }

@@ -17,8 +17,8 @@ open class BaseViewModel : ViewModel() {
     /**
      * 获取repository用此方法，方便统一取消请求
      */
-    fun <T : BaseRepository> getRepository(clazz: Class<T>): T {
-        return mRepositoryDelegate.getRepository(clazz)
+    fun <T> createRepository(interfaceClz: Class<T>, impl: Any): T {
+        return mRepositoryDelegate.getRepository(interfaceClz, impl)
     }
 
     override fun onCleared() {
