@@ -2,7 +2,7 @@ package com.adam.gankarch.common
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.adam.gankarch.ui.GuideViewModel
+import com.adam.gankarch.viewmodel.GuideViewModel
 
 /**
  * ViewModelFactory

@@ -1,4 +1,4 @@
-package com.adam.gankarch.ui
+package com.adam.gankarch.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import com.adam.gankarch.common.base.BaseViewModel
@@ -15,13 +15,11 @@ class GuideViewModel : BaseViewModel() {
     val girl: MutableLiveData<GankEntity> = MutableLiveData()
 
     private val repository: GankRepository by lazy {
-        createRepository(GankRepository::class.java)
+        getRepository(GankRepository::class.java)
     }
 
     init {
         repository.getGuideGirl()
-                .enqueue(SimpleModuleCallback {
-                    girl.postValue(it)
-                })
+                .enqueue(SimpleModuleCallback { girl.postValue(it) })
     }
 }

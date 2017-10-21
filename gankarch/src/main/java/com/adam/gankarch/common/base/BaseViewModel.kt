@@ -3,6 +3,7 @@ package com.adam.gankarch.common.base
 import android.arch.lifecycle.ViewModel
 import com.adam.gankarch.common.call.RepositoryDelegate
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 /**
  * @author yu
@@ -12,19 +13,22 @@ open class BaseViewModel : ViewModel() {
 
     private val mRepositoryDelegate = RepositoryDelegate()
 
-    val mDisposables: CompositeDisposable = CompositeDisposable()
+    protected val mDisposables: CompositeDisposable = CompositeDisposable()
 
     /**
      * 获取repository用此方法，方便统一取消请求
      */
-    fun <T : BaseRepository> createRepository(interfaceClz: Class<T>): T {
-        return mRepositoryDelegate.getRepository(interfaceClz)
+    protected fun <T : BaseRepository> getRepository(interfaceClz: Class<T>): T =
+            mRepositoryDelegate.getRepository(interfaceClz)
+
+    protected fun addDisposables(disposable: Disposable) {
+        mDisposables.add(disposable)
     }
 
     override fun onCleared() {
-        super.onCleared()
         mRepositoryDelegate.cancelAll()
         mDisposables.clear()
+        super.onCleared()
     }
 
 }

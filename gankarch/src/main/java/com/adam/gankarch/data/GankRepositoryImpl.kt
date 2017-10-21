@@ -2,8 +2,8 @@ package com.adam.gankarch.data
 
 import com.adam.gankarch.common.call.ModuleCall
 import com.adam.gankarch.data.bean.GankEntity
-import com.adam.gankarch.data.datasource.GankLocalDataSource
-import com.adam.gankarch.data.datasource.GankRemoteDataSource
+import com.adam.gankarch.data.datasource.loacl.GankLocalDataSource
+import com.adam.gankarch.data.datasource.remote.GankRemoteDataSource
 import com.adam.gankarch.data.support.SpConstants
 import com.blankj.utilcode.util.EmptyUtils
 import com.blankj.utilcode.util.SPUtils
@@ -28,7 +28,8 @@ class GankRepositoryImpl : GankRepository {
             remoteDataSource.getGuideGirl()
                     .doOnNext {
                         // 刷新本地缓存
-                        if (it.isSuccess()) localDataSource.refreshGuideGirl(it.data!!)
+                        if (it.isSuccess())
+                            localDataSource.refreshGuideGirl(it.data!!)
                     }
         } else {
             localDataSource.getGuideGirl()

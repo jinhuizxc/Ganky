@@ -71,7 +71,7 @@ dependencies {
     compile dependencies.archRuntime
     compile dependencies.archExtensions
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    kapt 'com.android.databinding:compiler:2.3.3'// databinding adapters
+
     testCompile 'junit:junit:4.12'
-    kapt 'com.android.databinding:compiler:2.3.3'
 }

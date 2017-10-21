@@ -1,7 +1,7 @@
 package com.adam.gankarch.data.datasource
 
-import com.adam.gankarch.data.bean.GankEntity
 import com.adam.gankarch.common.call.ModuleResult
+import com.adam.gankarch.data.bean.GankEntity
 import io.reactivex.Observable
 
 /**
@@ -12,8 +12,8 @@ interface GankDataSource {
 
     fun getGuideGirl(): Observable<ModuleResult<GankEntity>>
 
-    fun getRandomGirl(): Observable<ModuleResult<GankEntity>>?
+    fun getRandomGirl(): Observable<ModuleResult<GankEntity>>
 
     fun getListData(type: String, pageSize: String, page: String)
-            : Observable<ModuleResult<List<GankEntity>>>?
+            : Observable<ModuleResult<List<GankEntity>>>
 }

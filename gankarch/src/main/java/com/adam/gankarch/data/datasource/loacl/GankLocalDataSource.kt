@@ -1,9 +1,10 @@
-package com.adam.gankarch.data.datasource
+package com.adam.gankarch.data.datasource.loacl
 
-import com.adam.gankarch.data.support.SpConstants
-import com.adam.gankarch.data.bean.GankEntity
-import com.adam.gankarch.data.support.GankException
 import com.adam.gankarch.common.call.ModuleResult
+import com.adam.gankarch.data.bean.GankEntity
+import com.adam.gankarch.data.datasource.GankDataSource
+import com.adam.gankarch.data.support.GankException
+import com.adam.gankarch.data.support.SpConstants
 import com.blankj.utilcode.util.EmptyUtils
 import com.blankj.utilcode.util.SPUtils
 import com.google.gson.Gson
@@ -39,14 +40,14 @@ class GankLocalDataSource : GankDataSource {
         }
     }
 
-    override fun getRandomGirl(): Observable<ModuleResult<GankEntity>>? {
+    override fun getRandomGirl(): Observable<ModuleResult<GankEntity>> {
         // no use
-        return null
+        throw RuntimeException("not support")
     }
 
     override fun getListData(type: String, pageSize: String, page: String)
-            : Observable<ModuleResult<List<GankEntity>>>? {
+            : Observable<ModuleResult<List<GankEntity>>> {
         // no use
-        return null
+        throw RuntimeException("not support")
     }
 }
