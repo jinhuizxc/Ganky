@@ -1,5 +1,7 @@
 package com.adam.gankarch.data.bean
 
+import com.adam.gankarch.util.TabType
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -20,4 +22,6 @@ data class GankEntity(
 
         var used: Boolean?,
         var who: String?
-) : Serializable
+) : Serializable, MultiItemEntity {
+    override fun getItemType(): Int = TabType.getTypeByName(type)
+}

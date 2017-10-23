@@ -1,4 +1,4 @@
-package com.adam.gankarch.ui
+package com.adam.gankarch.ui.activity
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter

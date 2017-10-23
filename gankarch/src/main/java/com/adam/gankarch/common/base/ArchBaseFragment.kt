@@ -27,6 +27,4 @@ abstract class ArchBaseFragment<T : ViewDataBinding> : BaseFragment() {
         // lifecycle.addObserver(lifecycleObserver)
     }
 
-    fun <V : ViewModel> getViewModel(clazz: Class<V>): V =
-            ViewModelProviders.of(this, ViewModelFactory.instance).get(clazz)
 }

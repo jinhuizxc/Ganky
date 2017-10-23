@@ -1,7 +1,10 @@
 package com.adam.gankarch.common.base
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.adam.gankarch.common.ViewModelFactory
 
 /**
  * BaseActivity
@@ -19,5 +22,8 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun initContentView() {
         setContentView(layoutId)
     }
+
+    fun <VM : ViewModel> createViewModel(clazz: Class<VM>): VM =
+            ViewModelProviders.of(this, ViewModelFactory.instance).get(clazz)
 
 }
