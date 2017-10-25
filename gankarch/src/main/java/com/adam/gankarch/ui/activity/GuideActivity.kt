@@ -8,7 +8,7 @@ import android.os.Bundle
 import com.adam.gankarch.R
 import com.adam.gankarch.common.base.ArchBaseActivity
 import com.adam.gankarch.common.extensions.jumpTo
-import com.adam.gankarch.data.bean.GankEntity
+import com.adam.gankarch.data.entity.GankEntity
 import com.adam.gankarch.databinding.ActivityGuideBinding
 import com.adam.gankarch.viewmodel.GuideViewModel
 import com.blankj.utilcode.util.BarUtils

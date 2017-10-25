@@ -1,6 +1,6 @@
 package com.adam.gankarch.common.call
 
-import com.adam.gankarch.data.support.GankException
+import com.adam.gankarch.data.http.GankException
 import org.json.JSONException
 import java.io.InterruptedIOException
 import java.net.ConnectException

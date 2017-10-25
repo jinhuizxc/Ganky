@@ -1,7 +1,7 @@
-package com.adam.gankarch.data.api
+package com.adam.gankarch.data.http.api
 
-import com.adam.gankarch.data.bean.GankEntity
-import com.adam.gankarch.data.support.BaseResponse
+import com.adam.gankarch.data.entity.GankEntity
+import com.adam.gankarch.data.http.BaseResponse
 import io.reactivex.Flowable
 import retrofit2.http.GET
 import retrofit2.http.Path

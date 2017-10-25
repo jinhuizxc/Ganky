@@ -14,6 +14,7 @@ class CategoryFragment : BaseFragment() {
 
     override fun initView() {
         val random = Random()
+        // coming soon
         recyclerView.setBackgroundColor(
                 Color.rgb(44 + random.nextInt(200),
                         44 + random.nextInt(200),

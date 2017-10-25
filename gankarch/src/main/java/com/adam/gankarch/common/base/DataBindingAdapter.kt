@@ -11,10 +11,11 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
 
 
 /**
+ * 基于BRAH扩展的DataBindingAdapter
  * Created by yu on 2017/10/23.
  */
 abstract class DataBindingAdapter<T : MultiItemEntity>(data: List<T>?)
-    : BaseMultiItemQuickAdapter<T, MyViewHolder>(data) {
+    : BaseMultiItemQuickAdapter<T, DatabindingViewHolder>(data) {
 
     override fun getItemView(layoutResId: Int, parent: ViewGroup): View {
         val binding = DataBindingUtil.inflate<ViewDataBinding>(mLayoutInflater, layoutResId, parent, false)
@@ -23,16 +24,16 @@ abstract class DataBindingAdapter<T : MultiItemEntity>(data: List<T>?)
         return binding.root.apply { setTag(R.id.BaseQuickAdapter_databinding_support, binding) }
     }
 
-    override final fun convert(helper: MyViewHolder, item: T) {
+    override final fun convert(helper: DatabindingViewHolder, item: T) {
         convert(helper, item, helper.getBinding())
     }
 
-    abstract fun convert(helper: MyViewHolder, item: T, binding: ViewDataBinding)
+    abstract fun convert(helper: DatabindingViewHolder, item: T, binding: ViewDataBinding)
 }
 
-public class MyViewHolder(view: View) : BaseViewHolder(view) {
+class DatabindingViewHolder(view: View) : BaseViewHolder(view) {
 
-    public fun getBinding(): ViewDataBinding {
+    fun getBinding(): ViewDataBinding {
         return itemView.getTag(R.id.BaseQuickAdapter_databinding_support) as ViewDataBinding
     }
 }

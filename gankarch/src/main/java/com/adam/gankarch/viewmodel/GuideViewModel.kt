@@ -4,7 +4,8 @@ import android.arch.lifecycle.MutableLiveData
 import com.adam.gankarch.common.base.BaseViewModel
 import com.adam.gankarch.common.call.SimpleModuleCallback
 import com.adam.gankarch.data.GankRepository
-import com.adam.gankarch.data.bean.GankEntity
+import com.adam.gankarch.data.GankRepositoryImpl
+import com.adam.gankarch.data.entity.GankEntity
 
 /**
  * @author yu
@@ -15,7 +16,8 @@ class GuideViewModel : BaseViewModel() {
     val girl: MutableLiveData<GankEntity> = MutableLiveData()
 
     private val repository: GankRepository by lazy {
-        getRepository(GankRepository::class.java)
+        // 通过这个方法获取的代理，调用数据层的call将会自动取消
+        getRepositoryDelegate(GankRepository::class.java, GankRepositoryImpl())
     }
 
     init {

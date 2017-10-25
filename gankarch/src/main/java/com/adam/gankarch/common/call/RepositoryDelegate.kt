@@ -18,20 +18,15 @@ class RepositoryDelegate {
     private val mRepositoryCache = ConcurrentHashMap<Class<*>, Any>()
     private val mModuleCalls = ModuleCalls()
 
-    fun <T : BaseRepository> getRepository(interfaceClz: Class<T>): T {
+    fun <T : BaseRepository> getDelegate(interfaceClz: Class<T>, impl: T): T {
         synchronized(mRepositoryCache) {
             val repository = mRepositoryCache[interfaceClz]
             return if (repository != null) {
                 repository as T
             } else {
-                val proxyTarget = interfaceClz.getAnnotation(ProxyTarget::class.java)
-                        ?: throw IllegalStateException("@@@必须用ProxyTarget注解标注出实现类")
-
-                val implClz = proxyTarget.implClz
-
-                val invocationHandler = ModuleInvocationHandler(implClz.java.newInstance(), mModuleCalls)
-                Proxy.newProxyInstance(implClz.java.classLoader,
-                        implClz.java.interfaces, invocationHandler)
+                val invocationHandler = ModuleInvocationHandler(impl, mModuleCalls)
+                Proxy.newProxyInstance(interfaceClz.classLoader,
+                        interfaceClz.interfaces, invocationHandler)
                         .apply {
                             mRepositoryCache.put(interfaceClz, this)
                         } as T

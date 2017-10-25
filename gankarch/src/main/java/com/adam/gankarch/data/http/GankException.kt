@@ -1,4 +1,4 @@
-package com.adam.gankarch.data.support
+package com.adam.gankarch.data.http
 
 /**
  * Created by yu on 2017/10/17.

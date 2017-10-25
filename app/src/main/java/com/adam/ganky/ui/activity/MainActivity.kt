@@ -3,7 +3,6 @@ package com.adam.ganky.ui.activity
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v7.app.ActionBarDrawerToggle
 import com.adam.ganky.R
 import com.adam.ganky.base.BaseActivity
 import com.adam.ganky.base.BaseFragment
@@ -26,11 +25,6 @@ class MainActivity : BaseActivity() {
         toolbar.apply {
             title = getString(R.string.app_name)
             setSupportActionBar(this)
-            ActionBarDrawerToggle(this@MainActivity, drawerLayout, this,
-                    R.string.app_name, R.string.app_name).apply {
-                syncState()
-                drawerLayout.addDrawerListener(this)
-            }
         }
 
         with(mainPager) {

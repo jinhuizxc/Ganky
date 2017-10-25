@@ -6,7 +6,7 @@
     <data>
         <variable
             name="girl"
-            type="com.adam.gankarch.data.bean.GankEntity" />
+            type="com.adam.gankarch.data.entity.GankEntity" />
     </data>
 
     <FrameLayout

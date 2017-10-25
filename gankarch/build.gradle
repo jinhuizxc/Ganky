@@ -50,12 +50,13 @@ dependencies {
     compile dependencies.constraintLayout
 
     compile dependencies.retrofit
-    compile dependencies.retrofitGsonConverter
     compile dependencies.okhttpLoggingInterceptor
+    compile dependencies.retrofitRxjavaAdapter2
+//    compile dependencies.retrofitGsonConverter
+    compile dependencies.fastJson // 用fastJson替换gson
 
     compile dependencies.rxJava2
     compile dependencies.rxAndroid2
-    compile dependencies.retrofitRxjavaAdapter2
 
     compile dependencies.adapterHelper
     compile dependencies.timber

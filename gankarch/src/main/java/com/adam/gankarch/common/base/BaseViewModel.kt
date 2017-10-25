@@ -18,8 +18,8 @@ open class BaseViewModel : ViewModel() {
     /**
      * 获取repository用此方法，方便统一取消请求
      */
-    protected fun <T : BaseRepository> getRepository(interfaceClz: Class<T>): T =
-            mRepositoryDelegate.getRepository(interfaceClz)
+    protected fun <T : BaseRepository> getRepositoryDelegate(interfaceClz: Class<T>, impl: T): T
+            = mRepositoryDelegate.getDelegate(interfaceClz, impl)
 
     protected fun addDisposables(disposable: Disposable) {
         mDisposables.add(disposable)

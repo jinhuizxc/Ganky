@@ -1,7 +1,7 @@
-package com.adam.gankarch.data.datasource
+package com.adam.gankarch.data
 
 import com.adam.gankarch.common.call.ModuleResult
-import com.adam.gankarch.data.bean.GankEntity
+import com.adam.gankarch.data.entity.GankEntity
 import io.reactivex.Observable
 
 /**

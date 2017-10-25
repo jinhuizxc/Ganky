@@ -1,12 +1,12 @@
-package com.adam.gankarch.data.datasource.remote
+package com.adam.gankarch.data.remote
 
 import com.adam.gankarch.common.call.ModuleResult
-import com.adam.gankarch.data.api.GankApi
-import com.adam.gankarch.data.bean.GankEntity
-import com.adam.gankarch.data.datasource.GankDataSource
-import com.adam.gankarch.data.support.GankException
-import com.adam.gankarch.data.support.RetrofitHelper
-import com.adam.gankarch.data.support.RxUtil
+import com.adam.gankarch.data.http.api.GankApi
+import com.adam.gankarch.data.entity.GankEntity
+import com.adam.gankarch.data.GankDataSource
+import com.adam.gankarch.data.http.GankException
+import com.adam.gankarch.data.http.RetrofitHelper
+import com.adam.gankarch.data.http.RxUtil
 import io.reactivex.Observable
 
 /**

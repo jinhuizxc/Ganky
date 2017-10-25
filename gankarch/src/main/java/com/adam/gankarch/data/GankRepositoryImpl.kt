@@ -1,10 +1,10 @@
 package com.adam.gankarch.data
 
 import com.adam.gankarch.common.call.ModuleCall
-import com.adam.gankarch.data.bean.GankEntity
-import com.adam.gankarch.data.datasource.loacl.GankLocalDataSource
-import com.adam.gankarch.data.datasource.remote.GankRemoteDataSource
-import com.adam.gankarch.data.support.SpConstants
+import com.adam.gankarch.data.entity.GankEntity
+import com.adam.gankarch.data.http.SpConstants
+import com.adam.gankarch.data.loacl.GankLocalDataSource
+import com.adam.gankarch.data.remote.GankRemoteDataSource
 import com.blankj.utilcode.util.EmptyUtils
 import com.blankj.utilcode.util.SPUtils
 

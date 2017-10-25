@@ -63,6 +63,7 @@ ext {
     adapterHelperVersion = "2.9.31"
     archVersion = 'latest.release'
     utilCodeVersion = '1.9.3'
+    fastJsonVersion = '1.1.52.android'
 
     dependencies = [
             // tools
@@ -91,6 +92,7 @@ ext {
             retrofit                : "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitGsonConverter   : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             retrofitRxjavaAdapter2  : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+            fastJson                : "com.alibaba:fastjson:$fastJsonVersion",
 
             // kotlin
             kotlinStdlib            : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion",

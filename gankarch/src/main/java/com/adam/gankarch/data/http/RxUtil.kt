@@ -1,4 +1,4 @@
-package com.adam.gankarch.data.support
+package com.adam.gankarch.data.http
 
 import com.adam.gankarch.common.call.ModuleResult
 import io.reactivex.Observable
