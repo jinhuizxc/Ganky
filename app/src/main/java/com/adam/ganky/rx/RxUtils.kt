@@ -26,7 +26,7 @@ object RxUtils {
                     }
                     .subscribeOn(AndroidSchedulers.mainThread())// 指定doOnSubscribe的线程
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doAfterTerminate { view?.hideLoading() }
+                    .doFinally { view?.hideLoading() }
         }
     }
 
