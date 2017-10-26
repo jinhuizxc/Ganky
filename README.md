@@ -1,7 +1,7 @@
 # Ganky
 一个简单的Gank.io客户端，完全是拿来练手的，包含两个部分， fully written in Kotlin :)
 * 第一个是之前写的mvp架构的，主要演示了一些kotlin语法的使用，函数扩展，委托等等
-* 第二个是最近研究android-architecture-components架构的产物，使用了LiveData+DataBinding（目前未完成）
+* 第二个是最近研究android-architecture-components架构的产物，使用了LiveData+DataBinding，布局也尽量使用ConstraintLayout减少嵌套（目前未完成）
 
 ## 演示
 
