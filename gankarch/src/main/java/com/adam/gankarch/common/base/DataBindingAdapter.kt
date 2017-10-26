@@ -23,17 +23,16 @@ abstract class DataBindingAdapter<T : MultiItemEntity>(data: List<T>?)
 
         return binding.root.apply { setTag(R.id.BaseQuickAdapter_databinding_support, binding) }
     }
-
-    override final fun convert(helper: DatabindingViewHolder, item: T) {
-        convert(helper, item, helper.getBinding())
-    }
-
-    abstract fun convert(helper: DatabindingViewHolder, item: T, binding: ViewDataBinding)
 }
 
 class DatabindingViewHolder(view: View) : BaseViewHolder(view) {
 
-    fun getBinding(): ViewDataBinding {
-        return itemView.getTag(R.id.BaseQuickAdapter_databinding_support) as ViewDataBinding
+    fun getBinding(): ViewDataBinding? {
+        val tag = itemView.getTag(R.id.BaseQuickAdapter_databinding_support)
+        return if (tag != null) {
+            tag as ViewDataBinding
+        } else {
+            null
+        }
     }
 }

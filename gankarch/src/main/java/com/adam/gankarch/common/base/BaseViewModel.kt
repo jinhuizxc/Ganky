@@ -1,6 +1,7 @@
 package com.adam.gankarch.common.base
 
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 import com.adam.gankarch.common.call.RepositoryDelegate
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -29,6 +30,7 @@ open class BaseViewModel : ViewModel() {
         mRepositoryDelegate.cancelAll()
         mDisposables.clear()
         super.onCleared()
+        Log.i("BaseViewModel", "${this.javaClass.simpleName} onCleared...")
     }
 
 }

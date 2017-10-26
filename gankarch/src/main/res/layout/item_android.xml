@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="entity"
+            type="com.adam.gankarch.data.entity.GankEntity" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/m16"
+        android:layout_marginRight="@dimen/m16"
+        android:layout_marginTop="@dimen/m12"
+        android:background="@drawable/shape_list_item_bg"
+        app:cardCornerRadius="@dimen/m8"
+        app:cardElevation="@dimen/m10">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/m15">
+
+            <com.adam.gankarch.ui.widget.RoundImageView
+                android:id="@+id/ivImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shape_mode="circle" />
+
+            <TextView
+                android:id="@+id/tvDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:padding="10dp"
+                android:text="@{entity.desc}"
+                android:textColor="@color/C5"
+                android:textSize="@dimen/f6"
+                app:layout_constraintBottom_toBottomOf="@+id/ivImage"
+                app:layout_constraintLeft_toRightOf="@+id/ivImage"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="desc" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/common_divider"
+                android:layout_marginTop="@dimen/m8"
+                android:background="@color/C1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivImage" />
+
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical|start"
+                android:maxLines="1"
+                android:text="@{entity.who}"
+                android:textColor="@color/C12"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/tvDate"
+                app:layout_constraintTop_toBottomOf="@id/line"
+                tools:text="yu" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical|end"
+                android:maxLines="1"
+                android:text="@{entity.publishedAt}"
+                android:textColor="@color/C12"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@id/tvAuthor"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line"
+                tools:text="2017-6-20" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</layout>

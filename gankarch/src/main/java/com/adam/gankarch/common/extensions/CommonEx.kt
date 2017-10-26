@@ -39,6 +39,20 @@ fun <T : Activity> Activity.jumpTo(clazz: Class<T>, key: String? = null, value: 
     }
 }
 
+fun <T : Activity> Fragment.jumpTo(clazz: Class<T>, key: String? = null, value: Any? = null) {
+    Intent(activity, clazz).apply {
+        if (key != null && value != null) {
+            when (value) {
+                is Parcelable -> putExtra(key, value)
+                is Serializable -> putExtra(key, value)
+                else -> throw IllegalArgumentException("not support the value type:" + value.javaClass.name)
+            }
+        }
+    }.let {
+        startActivity(it)
+    }
+}
+
 fun onUiThread(task: () -> Unit) {
     if (Looper.myLooper() == Looper.getMainLooper()) {
         task()
@@ -47,7 +61,7 @@ fun onUiThread(task: () -> Unit) {
     }
 }
 
-fun Fragment.withArgument(key: String, value: Any): Fragment {
+fun <T : Fragment> T.withArgument(key: String, value: Any): T {
     val hasArguments = arguments != null
 
     val args = if (hasArguments) {

@@ -52,8 +52,7 @@ dependencies {
     compile dependencies.retrofit
     compile dependencies.okhttpLoggingInterceptor
     compile dependencies.retrofitRxjavaAdapter2
-//    compile dependencies.retrofitGsonConverter
-    compile dependencies.fastJson // 用fastJson替换gson
+    compile dependencies.retrofitGsonConverter
 
     compile dependencies.rxJava2
     compile dependencies.rxAndroid2

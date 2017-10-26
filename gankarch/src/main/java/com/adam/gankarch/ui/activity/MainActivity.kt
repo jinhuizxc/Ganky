@@ -7,8 +7,12 @@ import android.support.v4.app.FragmentPagerAdapter
 import com.adam.gankarch.R
 import com.adam.gankarch.common.base.BaseActivity
 import com.adam.gankarch.common.base.BaseFragment
+import com.adam.gankarch.common.extensions.jumpTo
+import com.adam.gankarch.ui.adapter.HomeAdapter
 import com.adam.gankarch.ui.fragment.CategoryFragment
+import com.adam.gankarch.util.BackPressUtil
 import com.adam.gankarch.util.TabType
+import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -34,24 +38,14 @@ class MainActivity : BaseActivity() {
             tabs.setupWithViewPager(this)
         }
 
-        fab.setOnClickListener { TODO() }
+        fab.setOnClickListener { jumpTo(CollectionActivity::class.java) }
 
     }
 
-}
-
-class HomeAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-    private val fmList: List<BaseFragment> by lazy {
-        listOf(
-                CategoryFragment(),
-                CategoryFragment(),
-                CategoryFragment()
-        )
+    override fun onBackPressed() {
+        if (BackPressUtil.exitTwice())
+            super.onBackPressed()
+        else
+            ToastUtils.showShort("再按一次退出")
     }
-
-    override fun getItem(position: Int): Fragment = fmList[position]
-
-    override fun getCount(): Int = fmList.size
-
-    override fun getPageTitle(position: Int): CharSequence = TabType.getPageTitleByPosition(position)
 }

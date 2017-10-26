@@ -3,9 +3,8 @@ package com.adam.gankarch.data
 import com.adam.gankarch.common.call.ModuleCall
 import com.adam.gankarch.data.entity.GankEntity
 import com.adam.gankarch.data.http.SpConstants
-import com.adam.gankarch.data.loacl.GankLocalDataSource
-import com.adam.gankarch.data.remote.GankRemoteDataSource
-import com.blankj.utilcode.util.EmptyUtils
+import com.adam.gankarch.data.source.loacl.GankLocalDataSource
+import com.adam.gankarch.data.source.remote.GankRemoteDataSource
 import com.blankj.utilcode.util.SPUtils
 
 /**
@@ -19,8 +18,7 @@ class GankRepositoryImpl : GankRepository {
     private fun guideGirlCacheIsDirty(): Boolean {
         // 开始页面的美女图片每使用3次就换一个
         val count = SPUtils.getInstance().getInt(SpConstants.GUIDE_GIRL_USED_TIME, 0)
-        val str = SPUtils.getInstance().getString(SpConstants.GUIDE_GIRL_ENTITY_STR)
-        return count >= 3 || EmptyUtils.isEmpty(str)
+        return count >= 3
     }
 
     override fun getGuideGirl(): ModuleCall<GankEntity> {

@@ -1,4 +1,4 @@
-package com.adam.gankarch.data
+package com.adam.gankarch.data.source
 
 import com.adam.gankarch.common.call.ModuleResult
 import com.adam.gankarch.data.entity.GankEntity

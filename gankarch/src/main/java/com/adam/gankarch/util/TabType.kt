@@ -9,14 +9,17 @@ object TabType {
             when (position) {
                 0 -> "Android"
                 1 -> "iOS"
-                2 -> "web"
+                2 -> "福利"
                 else -> throw IllegalStateException("wrong position: $position")
             }
 
+    /**
+     * 列表条目类型
+     */
     fun getTypeByName(name: String?): Int =
             when (name) {
-                "Android", "iOS", "前端" -> 1
-                "福利" -> 2
+                "Android", "iOS" -> 0
+                "福利" -> 1
                 else -> throw IllegalStateException("wrong type: $name")
             }
 

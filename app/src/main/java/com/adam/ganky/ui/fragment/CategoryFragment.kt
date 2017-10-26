@@ -25,11 +25,11 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
 
     companion object {
         fun newInstance(type: String): CategoryFragment {
-            val fragment = CategoryFragment()
-            val bundle = Bundle()
-            bundle.putString("type", type)
-            fragment.arguments = bundle
-            return fragment
+            return CategoryFragment().apply {
+                arguments = Bundle().apply {
+                    putString("type", type)
+                }
+            }
         }
     }
 

@@ -1,23 +1,20 @@
 package com.adam.gankarch.common.base
 
 import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.view.View
-import com.adam.gankarch.common.ViewModelFactory
 
 /**
  * Created by yu on 2017/10/13.
  */
 abstract class ArchBaseFragment<T : ViewDataBinding> : BaseFragment() {
 
-    lateinit var binding: T
+    lateinit var mBinding: T
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        binding = DataBindingUtil.bind(view)
+        mBinding = DataBindingUtil.bind(view)
         registerLifecycle(lifecycle)
         super.onViewCreated(view, savedInstanceState)
     }

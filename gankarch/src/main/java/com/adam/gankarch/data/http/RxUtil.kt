@@ -13,13 +13,17 @@ object RxUtil {
         return Function {
             val response = it
             Observable.create<ModuleResult<T>> {
-                val result = if (response.isSuccess()) {
-                    ModuleResult(response.results)
-                } else {
-                    ModuleResult(null, GankException(errorMessage = response.message()))
+                try {
+                    val result = if (response.isSuccess()) {
+                        ModuleResult(response.results)
+                    } else {
+                        ModuleResult(null, GankException(errorMessage = response.message()))
+                    }
+                    it.onNext(result)
+                    it.onComplete()
+                } catch (e: Throwable) {
+                    it.onError(e)
                 }
-                it.onNext(result)
-                it.onComplete()
             }
         }
     }

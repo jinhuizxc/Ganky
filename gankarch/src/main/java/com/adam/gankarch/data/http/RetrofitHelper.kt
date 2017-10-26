@@ -1,11 +1,11 @@
 package com.adam.gankarch.data.http
 
 import android.util.Log
-import com.adam.gankarch.data.http.fastjson.FastJsonConverterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
@@ -19,8 +19,7 @@ class RetrofitHelper private constructor() {
         retrofit = Retrofit.Builder()
                 .baseUrl("http://gank.io/")
                 .client(genericClient())
-//                .addConverterFactory(GsonConverterFactory.create())
-                .addConverterFactory(FastJsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
     }
@@ -28,7 +27,7 @@ class RetrofitHelper private constructor() {
     private fun genericClient(): OkHttpClient {
         return OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
-                .addInterceptor(HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Log.w("okhttp",it) })
+                .addInterceptor(HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Log.e("okhttp",it) })
                         .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
     }

@@ -1,15 +1,15 @@
 package com.adam.gankarch.data.entity
 
 import com.adam.gankarch.util.TabType
-import com.alibaba.fastjson.annotation.JSONField
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 /**
  * Created by yu on 2017/10/13.
  */
 data class GankEntity(
-        @JSONField(name = "_id")
+        @SerializedName("_id")
         var id: String?,
         var createdAt: String?,
         var desc: String?,

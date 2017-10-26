@@ -63,7 +63,7 @@ ext {
     adapterHelperVersion = "2.9.31"
     archVersion = 'latest.release'
     utilCodeVersion = '1.9.3'
-    fastJsonVersion = '1.1.52.android'
+    fastJsonVersion = '1.1.64.android'
 
     dependencies = [
             // tools

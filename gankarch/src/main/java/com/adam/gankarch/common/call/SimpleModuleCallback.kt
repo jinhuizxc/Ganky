@@ -1,6 +1,7 @@
 package com.adam.gankarch.common.call
 
 import com.adam.gankarch.data.http.GankException
+import com.blankj.utilcode.util.ToastUtils
 import org.json.JSONException
 import java.io.InterruptedIOException
 import java.net.ConnectException
@@ -27,7 +28,8 @@ open class SimpleModuleCallback<in T>(private val success: (T?) -> Unit) : Modul
     }
 
     open fun onFail(ex: Throwable?) {
-        val message: String = when (ex) {
+        ex?.printStackTrace()
+        when (ex) {
             is GankException -> ex.errorMessage
             is ConnectException -> "Connect Fail"
             is UnknownHostException -> "Unknown Host"
@@ -35,6 +37,8 @@ open class SimpleModuleCallback<in T>(private val success: (T?) -> Unit) : Modul
             is InterruptedIOException -> "Time out"
             is JSONException -> "Json error"
             else -> "网络繁忙，请稍后再试！"
+        }.let {
+            ToastUtils.showShort(it)
         }
     }
 

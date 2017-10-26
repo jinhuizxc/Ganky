@@ -31,6 +31,14 @@ object BindingAdapters {
         }
     }
 
+    @BindingAdapter("imageUrlCenterCrop")
+    @JvmStatic
+    fun bindImageCenterCrop(icon: ImageView, url: String?) {
+        if (!TextUtils.isEmpty(url)) {
+            GlideApp.with(icon.context).load(url).centerCrop().into(icon)
+        }
+    }
+
     @BindingAdapter("html")
     @JvmStatic
     fun html(webView: WebView, html: String?) {

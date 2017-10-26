@@ -50,7 +50,7 @@ class HomeAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         listOf(
                 CategoryFragment.newInstance(CategoryType.ANDROID.nameStr),
                 CategoryFragment.newInstance(CategoryType.IOS.nameStr),
-                CategoryFragment.newInstance(CategoryType.WEB.nameStr)
+                CategoryFragment.newInstance(CategoryType.GIRLS.nameStr)
         )
     }
 

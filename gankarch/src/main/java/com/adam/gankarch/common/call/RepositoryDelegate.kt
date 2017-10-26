@@ -25,10 +25,10 @@ class RepositoryDelegate {
                 repository as T
             } else {
                 val invocationHandler = ModuleInvocationHandler(impl, mModuleCalls)
-                Proxy.newProxyInstance(interfaceClz.classLoader,
-                        interfaceClz.interfaces, invocationHandler)
+                Proxy.newProxyInstance(impl.javaClass.classLoader,
+                        impl.javaClass.interfaces, invocationHandler)
                         .apply {
-                            mRepositoryCache.put(interfaceClz, this)
+                            mRepositoryCache.put(impl.javaClass, this)
                         } as T
             }
         }
@@ -51,11 +51,11 @@ class RepositoryDelegate {
             val res = if (args == null)
                 method.invoke(target)
             else
-                method.invoke(target, args)
+                method.invoke(target, *args)
 
-            if (ModuleCall::class.java == method.returnType) { // 收集返回的moduleCall
+            if (ModuleCall::class.java == method.returnType)// 收集返回的moduleCall
                 moduleCalls.add(res as ModuleCall<*>)
-            }
+
             return res
         }
     }
