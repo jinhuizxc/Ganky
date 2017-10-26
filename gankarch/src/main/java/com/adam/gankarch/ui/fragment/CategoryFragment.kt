@@ -36,7 +36,8 @@ class CategoryFragment : ArchBaseFragment<FragmentCategoryBinding>() {
         type = arguments.getString("type")
 
         mAdapter = CategoryAdapter(null) { adapter, _, position ->
-            jumpTo(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
+            if (type != "福利")
+                jumpTo(DetailActivity::class.java, "entity", adapter.getItem(position) as GankEntity)
         }.apply {
             openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM)
             setEnableLoadMore(true)
