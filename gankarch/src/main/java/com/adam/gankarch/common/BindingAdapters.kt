@@ -39,11 +39,12 @@ object BindingAdapters {
         }
     }
 
-    @BindingAdapter("html")
+    @BindingAdapter("targetUrl")
     @JvmStatic
-    fun html(webView: WebView, html: String?) {
-        if (!TextUtils.isEmpty(html)) {
-            webView.loadDataWithBaseURL(null, html, "text/html", "utf8", null)
+    fun html(webView: WebView, url: String?) {
+        if (!TextUtils.isEmpty(url)) {
+//            webView.loadDataWithBaseURL(null, html, "text/html", "utf8", null)
+            webView.loadUrl(url)
         }
     }
 
