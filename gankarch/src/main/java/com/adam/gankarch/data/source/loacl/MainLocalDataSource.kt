@@ -5,7 +5,7 @@ import com.adam.gankarch.common.call.ModuleResult
 import com.adam.gankarch.data.entity.GankEntity
 import com.adam.gankarch.data.http.GankException
 import com.adam.gankarch.data.http.SpConstants
-import com.adam.gankarch.data.source.GankDataSource
+import com.adam.gankarch.data.source.MainDataSource
 import com.blankj.utilcode.util.EmptyUtils
 import com.blankj.utilcode.util.SPUtils
 import com.google.gson.Gson
@@ -15,7 +15,7 @@ import io.reactivex.Observable
  * 本地DataSource
  * Created by yu on 2017/10/17.
  */
-class GankLocalDataSource : GankDataSource {
+class MainLocalDataSource : MainDataSource {
 
     fun refreshGuideGirl(entity: GankEntity) {
         SPUtils.getInstance().put(SpConstants.GUIDE_GIRL_USED_TIME, 0)
