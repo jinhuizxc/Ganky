@@ -1,11 +1,10 @@
 package com.adam.gankarch.viewmodel
 
-import android.arch.lifecycle.MutableLiveData
+import android.databinding.ObservableField
 import com.adam.gankarch.common.base.BaseViewModel
 import com.adam.gankarch.common.call.SimpleModuleCallback
 import com.adam.gankarch.data.repository.MainRepository
 import com.adam.gankarch.data.repository.impl.MainRepositoryImpl
-import com.adam.gankarch.data.entity.GankEntity
 
 /**
  * @author yu
@@ -13,7 +12,7 @@ import com.adam.gankarch.data.entity.GankEntity
  */
 class GuideViewModel : BaseViewModel() {
 
-    val girl: MutableLiveData<GankEntity> = MutableLiveData()
+    val girl = ObservableField<String>()
 
     private val repository: MainRepository by lazy {
         // 通过这个方法获取的代理，调用数据层的call将会自动取消
@@ -22,6 +21,6 @@ class GuideViewModel : BaseViewModel() {
 
     init {
         repository.getGuideGirl()
-                .enqueue(SimpleModuleCallback { girl.postValue(it) })
+                .enqueue(SimpleModuleCallback { girl.set(it!!.url) })
     }
 }

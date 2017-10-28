@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="girl"
-            type="com.adam.gankarch.data.entity.GankEntity" />
+            name="viewModel"
+            type="com.adam.gankarch.viewmodel.GuideViewModel" />
     </data>
 
     <FrameLayout
@@ -20,6 +20,6 @@
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
-            app:imageUrl="@{girl.url}" />
+            app:imageUrl="@{viewModel.girl}" />
     </FrameLayout>
 </layout>

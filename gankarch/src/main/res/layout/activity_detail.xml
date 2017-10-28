@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
-            type="com.adam.gankarch.viewmodel.DetailViewModel"/>
-        <variable
-            name="girl"
-            type="com.adam.gankarch.data.entity.GankEntity" />
+            type="com.adam.gankarch.viewmodel.DetailViewModel" />
+
         <variable
             name="entity"
             type="com.adam.gankarch.data.entity.GankEntity" />
@@ -43,7 +42,7 @@
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
-                    app:imageUrlCenterCrop="@{girl.url}"
+                    app:imageUrlCenterCrop="@{vm.girl}"
                     app:layout_collapseMode="parallax" />
 
                 <android.support.v7.widget.Toolbar
@@ -79,9 +78,11 @@
             android:focusable="true"
             android:onClick="@{()->vm.btnCollect(entity)}"
             android:src="@mipmap/ic_heart"
-            app:backgroundTint="@color/C4"
+            app:fabBg="@{vm.isCollected?@color/colorAccent:@color/C4}"
             app:layout_anchor="@id/appbar"
             app:layout_anchorGravity="bottom|right|end" />
+
+        <!--fabBg:这里本来用的属性app:backgroundTint，但是app命名空间会有冲突，所以自定义一个属性-->
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

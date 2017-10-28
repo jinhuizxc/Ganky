@@ -1,6 +1,8 @@
 package com.adam.gankarch.common
 
+import android.content.res.ColorStateList
 import android.databinding.BindingAdapter
+import android.support.design.widget.FloatingActionButton
 import android.text.TextUtils
 import android.view.View
 import android.webkit.WebView
@@ -39,11 +41,18 @@ object BindingAdapters {
         }
     }
 
+    @BindingAdapter("fabBg")
+    @JvmStatic
+    fun fabBackgroundTint(fab: FloatingActionButton, resId: Int?) {
+        if (resId != null) {
+            fab.backgroundTintList = ColorStateList.valueOf(resId)
+        }
+    }
+
     @BindingAdapter("targetUrl")
     @JvmStatic
     fun html(webView: WebView, url: String?) {
         if (!TextUtils.isEmpty(url)) {
-//            webView.loadDataWithBaseURL(null, html, "text/html", "utf8", null)
             webView.loadUrl(url)
         }
     }

@@ -1,6 +1,5 @@
 package com.adam.gankarch.ui.activity
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
@@ -15,6 +14,8 @@ import com.adam.gankarch.viewmodel.DetailViewModel
  * Created by yu on 2017/10/26.
  */
 class DetailActivity : ArchBaseActivity<ActivityDetailBinding>() {
+
+    private val viewModel by lazy { createViewModel(DetailViewModel::class.java) }
 
     override val layoutId: Int
         get() = R.layout.activity_detail
@@ -43,20 +44,10 @@ class DetailActivity : ArchBaseActivity<ActivityDetailBinding>() {
             }
         }
 
-        initData()
-
-    }
-
-    private fun initData() {
-        val viewModel = createViewModel(DetailViewModel::class.java)
-        viewModel.girl.observe(this, Observer { mBinding.girl = it })
-
-        mBinding.vm = viewModel
-
-        val entity = intent.getSerializableExtra("entity") as GankEntity
-        mBinding.entity = entity
-
-
+        with(intent.getSerializableExtra("entity") as GankEntity) {
+            mBinding.vm = viewModel.apply { checkCollected(this@with) }
+            mBinding.entity = this
+        }
     }
 
 }
