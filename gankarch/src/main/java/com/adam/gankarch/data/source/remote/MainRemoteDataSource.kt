@@ -5,14 +5,14 @@ import com.adam.gankarch.data.entity.GankEntity
 import com.adam.gankarch.data.http.RetrofitHelper
 import com.adam.gankarch.data.http.RxUtil
 import com.adam.gankarch.data.http.api.GankApi
-import com.adam.gankarch.data.source.GankDataSource
+import com.adam.gankarch.data.source.MainDataSource
 import io.reactivex.Observable
 
 /**
  * 远程DataSource
  * Created by yu on 2017/10/17.
  */
-class GankRemoteDataSource : GankDataSource {
+class MainRemoteDataSource : MainDataSource {
 
     private val apiService: GankApi by lazy {
         RetrofitHelper.instance.createService(GankApi::class.java)

@@ -70,6 +70,8 @@ dependencies {
     compile dependencies.kotlinReflect
 
     // arch
+//    kapt dependencies.roomCompiler
+//    compile dependencies.roomRuntime
     kapt dependencies.archCompiler
     compile dependencies.archRuntime
     compile dependencies.archExtensions

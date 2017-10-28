@@ -1,19 +1,20 @@
-package com.adam.gankarch.data
+package com.adam.gankarch.data.repository.impl
 
 import com.adam.gankarch.common.call.ModuleCall
 import com.adam.gankarch.data.entity.GankEntity
 import com.adam.gankarch.data.http.SpConstants
-import com.adam.gankarch.data.source.loacl.GankLocalDataSource
-import com.adam.gankarch.data.source.remote.GankRemoteDataSource
+import com.adam.gankarch.data.repository.MainRepository
+import com.adam.gankarch.data.source.loacl.MainLocalDataSource
+import com.adam.gankarch.data.source.remote.MainRemoteDataSource
 import com.blankj.utilcode.util.SPUtils
 
 /**
  * Created by yu on 2017/10/17.
  */
-class GankRepositoryImpl : GankRepository {
+class MainRepositoryImpl : MainRepository {
 
-    private val localDataSource: GankLocalDataSource by lazy { GankLocalDataSource() }
-    private val remoteDataSource: GankRemoteDataSource by lazy { GankRemoteDataSource() }
+    private val localDataSource: MainLocalDataSource by lazy { MainLocalDataSource() }
+    private val remoteDataSource: MainRemoteDataSource by lazy { MainRemoteDataSource() }
 
     private fun guideGirlCacheIsDirty(): Boolean {
         // 开始页面的美女图片每使用3次就换一个

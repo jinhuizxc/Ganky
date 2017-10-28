@@ -8,7 +8,7 @@ import io.reactivex.Observable
  * @author yu
  * Create on 2017/10/19.
  */
-interface GankDataSource {
+interface MainDataSource {
 
     fun getGuideGirl(): Observable<ModuleResult<GankEntity>>
 
