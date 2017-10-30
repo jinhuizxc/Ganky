@@ -60,19 +60,19 @@ class CategoryFragment : ArchBaseFragment<FragmentCategoryBinding>() {
     }
 
     override fun initData() {
-        mViewModel = getViewModel(CategoryViewModel::class.java)
-        mViewModel.dataSet.observe(this, Observer {
-            mAdapter.setNewData(it)
-            mBinding.refreshLayout.isRefreshing = false
-        })
-        mViewModel.loadMoreData.observe(this, Observer {
-            if (it != null && it.isNotEmpty()) {
-                mAdapter.addData(it)
-                mAdapter.loadMoreComplete()
-            } else {
-                mAdapter.loadMoreEnd()
-            }
-        })
-        mViewModel.refresh(type)
+        mViewModel = createViewModel(CategoryViewModel::class.java).apply {
+            dataSet.observe(this@CategoryFragment, Observer {
+                mAdapter.setNewData(it)
+                mBinding.refreshLayout.isRefreshing = false
+            })
+            loadMoreData.observe(this@CategoryFragment, Observer {
+                if (it != null && it.isNotEmpty()) {
+                    mAdapter.addData(it)
+                    mAdapter.loadMoreComplete()
+                } else {
+                    mAdapter.loadMoreEnd()
+                }
+            })
+        }.apply { refresh(type) }
     }
 }

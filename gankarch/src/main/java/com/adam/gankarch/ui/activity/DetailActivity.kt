@@ -45,7 +45,10 @@ class DetailActivity : ArchBaseActivity<ActivityDetailBinding>() {
         }
 
         with(intent.getSerializableExtra("entity") as GankEntity) {
-            mBinding.vm = viewModel.apply { checkCollected(this@with) }
+            mBinding.vm = viewModel.apply {
+                getRandomGirl()
+                checkCollected(this@with)
+            }
             mBinding.entity = this
         }
     }

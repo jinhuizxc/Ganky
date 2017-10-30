@@ -1,5 +1,6 @@
 package com.adam.gankarch.data.repository.impl
 
+import android.text.TextUtils
 import com.adam.gankarch.common.call.ModuleCall
 import com.adam.gankarch.data.entity.GankEntity
 import com.adam.gankarch.data.http.SpConstants
@@ -19,7 +20,8 @@ class MainRepositoryImpl : MainRepository {
     private fun guideGirlCacheIsDirty(): Boolean {
         // 开始页面的美女图片每使用3次就换一个
         val count = SPUtils.getInstance().getInt(SpConstants.GUIDE_GIRL_USED_TIME, 0)
-        return count >= 3
+        val str = SPUtils.getInstance().getString(SpConstants.GUIDE_GIRL_ENTITY_STR, "")
+        return count >= 3 || TextUtils.isEmpty(str)
     }
 
     override fun getGuideGirl(): ModuleCall<GankEntity> {

@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.adam.gankarch.common.ViewModelFactory
+import com.adam.gankarch.viewmodel.ViewModelFactory
 
 /**
  * BaseFragment
@@ -36,6 +36,6 @@ abstract class BaseFragment : Fragment() {
 
     abstract fun initData()
 
-    fun <V : ViewModel> getViewModel(clazz: Class<V>): V =
+    fun <V : ViewModel> createViewModel(clazz: Class<V>): V =
             ViewModelProviders.of(this, ViewModelFactory.instance).get(clazz)
 }

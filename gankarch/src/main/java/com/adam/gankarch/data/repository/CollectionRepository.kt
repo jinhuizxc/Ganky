@@ -11,7 +11,7 @@ import com.adam.gankarch.data.entity.GankEntity
 interface CollectionRepository : BaseRepository {
 
     // 是否已经收藏
-    fun isCollected(id: String): ModuleCall<Boolean>
+    fun isCollected(entity: GankEntity): ModuleCall<Boolean>
 
     // 删除收藏
     fun deleteCollection(entity: GankEntity): ModuleCall<Void>
@@ -19,6 +19,6 @@ interface CollectionRepository : BaseRepository {
     // 添加到收藏
     fun addCollection(entity: GankEntity): ModuleCall<Void>
 
-    // 获取所有收藏
-    fun getAllCollection(): ModuleCall<List<GankEntity>>
+    // 获取收藏
+    fun getCollection(page: Int, pageSize: Int): ModuleCall<List<GankEntity>>
 }
