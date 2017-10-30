@@ -2,11 +2,12 @@ package com.adam.gankarch.viewmodel
 
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
-import android.util.Log
 import com.adam.gankarch.common.base.BaseViewModel
 import com.adam.gankarch.common.call.SimpleModuleCallback
 import com.adam.gankarch.data.entity.GankEntity
+import com.adam.gankarch.data.repository.CollectionRepository
 import com.adam.gankarch.data.repository.MainRepository
+import com.adam.gankarch.data.repository.impl.CollectionRepositoryImpl
 import com.adam.gankarch.data.repository.impl.MainRepositoryImpl
 
 /**
@@ -23,18 +24,27 @@ class DetailViewModel : BaseViewModel() {
         getRepositoryDelegate(MainRepository::class.java, MainRepositoryImpl())
     }
 
-    init {
+    private val collectionRepository: CollectionRepository by lazy {
+        getRepositoryDelegate(CollectionRepository::class.java, CollectionRepositoryImpl())
+    }
+
+    fun getRandomGirl() {
         repository.getGuideGirl()
                 .enqueue(SimpleModuleCallback { girl.set(it!!.url) })
     }
 
     fun checkCollected(entity: GankEntity) {
-        Log.e("qwe", "_____checkCollected______")
-        isCollected.set(true)
+        collectionRepository.isCollected(entity)
+                .enqueue(SimpleModuleCallback { isCollected.set(it!!) })
     }
 
     fun btnCollect(entity: GankEntity) {
-        Log.e("qwe", entity.toString())
-        isCollected.set(!isCollected.get())
+        if (isCollected.get()) {
+            collectionRepository.deleteCollection(entity)
+                    .enqueue(SimpleModuleCallback { isCollected.set(false) })
+        } else {
+            collectionRepository.addCollection(entity)
+                    .enqueue(SimpleModuleCallback { isCollected.set(true) })
+        }
     }
 }

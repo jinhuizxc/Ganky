@@ -1,10 +1,7 @@
-package com.adam.gankarch.common
+package com.adam.gankarch.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.adam.gankarch.viewmodel.CategoryViewModel
-import com.adam.gankarch.viewmodel.DetailViewModel
-import com.adam.gankarch.viewmodel.GuideViewModel
 
 /**
  * ViewModelFactory
@@ -21,6 +18,7 @@ class ViewModelFactory private constructor() : ViewModelProvider.Factory {
             when {
                 modelClass.isAssignableFrom(GuideViewModel::class.java) -> GuideViewModel() as T
                 modelClass.isAssignableFrom(CategoryViewModel::class.java) -> CategoryViewModel() as T
+                modelClass.isAssignableFrom(CollectionViewModel::class.java) -> CollectionViewModel() as T
                 modelClass.isAssignableFrom(DetailViewModel::class.java) -> DetailViewModel() as T
                 else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
             }
