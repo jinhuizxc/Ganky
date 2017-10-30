@@ -70,13 +70,13 @@ dependencies {
     compile dependencies.kotlinReflect
 
     // arch
-//    kapt dependencies.roomCompiler
-//    compile dependencies.roomRuntime
+    kapt dependencies.roomCompiler
+    compile dependencies.roomRuntime
     kapt dependencies.archCompiler
     compile dependencies.archRuntime
     compile dependencies.archExtensions
 
-    kapt 'com.android.databinding:compiler:2.3.3'// databinding adapters
+    kapt 'com.android.databinding:compiler:3.0.0'// databinding adapters
 
     testCompile 'junit:junit:4.12'
 }
