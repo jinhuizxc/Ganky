@@ -1,7 +1,7 @@
 package com.adam.gankarch.data.source.loacl
 
 import android.util.Log
-import com.adam.gankarch.common.call.ModuleResult
+import com.adam.gankarch.common.base.Resp
 import com.adam.gankarch.data.entity.GankEntity
 import com.adam.gankarch.data.http.GankException
 import com.adam.gankarch.data.http.SpConstants
@@ -22,7 +22,7 @@ class MainLocalDataSource : MainDataSource {
         SPUtils.getInstance().put(SpConstants.GUIDE_GIRL_ENTITY_STR, Gson().toJson(entity))
     }
 
-    override fun getGuideGirl(): Observable<ModuleResult<GankEntity>> {
+    override fun getGuideGirl(): Observable<Resp<GankEntity>> {
 
         Log.i("GankLocalDataSource", "get a girl from cache~~~")
 
@@ -30,24 +30,24 @@ class MainLocalDataSource : MainDataSource {
         val count = SPUtils.getInstance().getInt(SpConstants.GUIDE_GIRL_USED_TIME, 0)
         SPUtils.getInstance().put(SpConstants.GUIDE_GIRL_USED_TIME, count + 1)
 
-        return Observable.create<ModuleResult<GankEntity>> {
+        return Observable.create<Resp<GankEntity>> {
             val result = if (EmptyUtils.isNotEmpty(str)) {
-                ModuleResult(Gson().fromJson(str, GankEntity::class.java))
+                Resp(Gson().fromJson(str, GankEntity::class.java))
             } else {
-                ModuleResult(null, GankException(errorMessage = "GuideGirl is not found from cache"))
+                Resp(null, GankException(errorMessage = "GuideGirl is not found from cache"))
             }
             it.onNext(result)
             it.onComplete()
         }
     }
 
-    override fun getRandomGirl(): Observable<ModuleResult<GankEntity>> {
+    override fun getRandomGirl(): Observable<Resp<GankEntity>> {
         // no use
         throw RuntimeException("not support")
     }
 
     override fun getListData(type: String, pageSize: String, page: String)
-            : Observable<ModuleResult<List<GankEntity>>> {
+            : Observable<Resp<List<GankEntity>>> {
         // no use
         throw RuntimeException("not support")
     }

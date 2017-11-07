@@ -1,8 +1,9 @@
 package com.adam.gankarch.data.repository
 
 import com.adam.gankarch.common.base.BaseRepository
-import com.adam.gankarch.common.call.ModuleCall
+import com.adam.gankarch.common.base.Resp
 import com.adam.gankarch.data.entity.GankEntity
+import io.reactivex.Observable
 
 /**
  * @author yu
@@ -11,14 +12,14 @@ import com.adam.gankarch.data.entity.GankEntity
 interface CollectionRepository : BaseRepository {
 
     // 是否已经收藏
-    fun isCollected(entity: GankEntity): ModuleCall<Boolean>
+    fun isCollected(entity: GankEntity): Observable<Boolean>
 
     // 删除收藏
-    fun deleteCollection(entity: GankEntity): ModuleCall<Void>
+    fun deleteCollection(entity: GankEntity): Observable<Boolean>
 
     // 添加到收藏
-    fun addCollection(entity: GankEntity): ModuleCall<Void>
+    fun addCollection(entity: GankEntity): Observable<Boolean>
 
     // 获取收藏
-    fun getCollection(page: Int, pageSize: Int): ModuleCall<List<GankEntity>>
+    fun getCollection(page: Int, pageSize: Int): Observable<Resp<List<GankEntity>>>
 }

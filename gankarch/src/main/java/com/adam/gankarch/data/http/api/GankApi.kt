@@ -1,7 +1,7 @@
 package com.adam.gankarch.data.http.api
 
 import com.adam.gankarch.data.entity.GankEntity
-import com.adam.gankarch.data.http.BaseResponse
+import com.adam.gankarch.data.http.HttpResult
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,10 +15,10 @@ interface GankApi {
     fun gank(@Path("type") type: String,
              @Path("pageSize") pageSize: String,
              @Path("page") page: String
-    ): Observable<BaseResponse<List<GankEntity>>>
+    ): Observable<HttpResult<List<GankEntity>>>
 
     // 随机获取一个妹子
     @GET("api/random/data/福利/1")
-    fun getRandomGirl(): Observable<BaseResponse<List<GankEntity>>>
+    fun getRandomGirl(): Observable<HttpResult<List<GankEntity>>>
 
 }

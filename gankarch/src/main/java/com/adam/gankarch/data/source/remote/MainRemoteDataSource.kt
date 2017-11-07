@@ -1,6 +1,6 @@
 package com.adam.gankarch.data.source.remote
 
-import com.adam.gankarch.common.call.ModuleResult
+import com.adam.gankarch.common.base.Resp
 import com.adam.gankarch.data.entity.GankEntity
 import com.adam.gankarch.data.http.RetrofitHelper
 import com.adam.gankarch.data.http.RxUtil
@@ -18,23 +18,23 @@ class MainRemoteDataSource : MainDataSource {
         RetrofitHelper.instance.createService(GankApi::class.java)
     }
 
-    override fun getGuideGirl(): Observable<ModuleResult<GankEntity>> = getRandomGirl()
+    override fun getGuideGirl(): Observable<Resp<GankEntity>> = getRandomGirl()
 
-    override fun getRandomGirl(): Observable<ModuleResult<GankEntity>> {
+    override fun getRandomGirl(): Observable<Resp<GankEntity>> {
         return apiService.getRandomGirl()
-                .flatMap(RxUtil.parseResult())
+                .compose(RxUtil.httpToResp())
                 .map {
                     if (it.isSuccess()) {
-                        ModuleResult(it.data!![0])
+                        Resp(it.data!![0])
                     } else {
-                        ModuleResult(null, it.error)
+                        Resp(null, it.error)
                     }
                 }
     }
 
-    override fun getListData(type: String, pageSize: String, page: String): Observable<ModuleResult<List<GankEntity>>> {
+    override fun getListData(type: String, pageSize: String, page: String): Observable<Resp<List<GankEntity>>> {
         return apiService.gank(type, pageSize, page)
-                .flatMap(RxUtil.parseResult())
+                .compose(RxUtil.httpToResp())
     }
 
 }

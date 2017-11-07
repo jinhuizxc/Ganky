@@ -2,10 +2,10 @@ package com.adam.gankarch.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import com.adam.gankarch.common.base.BaseViewModel
-import com.adam.gankarch.common.call.SimpleModuleCallback
+import com.adam.gankarch.data.entity.GankEntity
+import com.adam.gankarch.data.http.ApiConsumer
 import com.adam.gankarch.data.repository.MainRepository
 import com.adam.gankarch.data.repository.impl.MainRepositoryImpl
-import com.adam.gankarch.data.entity.GankEntity
 
 /**
  * @author yu
@@ -19,10 +19,7 @@ class CategoryViewModel : BaseViewModel() {
     val dataSet: MutableLiveData<List<GankEntity>> = MutableLiveData()
     val loadMoreData: MutableLiveData<List<GankEntity>> = MutableLiveData()
 
-    private val repository: MainRepository by lazy {
-        // 通过这个方法获取的代理，调用数据层的call将会自动取消
-        getRepositoryDelegate(MainRepository::class.java, MainRepositoryImpl())
-    }
+    private val repository: MainRepository by lazy { MainRepositoryImpl() }
 
     fun refresh(type: String) {
         page = 1
@@ -36,7 +33,7 @@ class CategoryViewModel : BaseViewModel() {
 
     private fun load(type: String, pageSize: String, pageNum: String) {
         repository.getListData(type, pageSize, pageNum)
-                .enqueue(SimpleModuleCallback {
+                .subscribe(ApiConsumer {
                     if (page == 1) {// 刷新
                         dataSet.postValue(it!!)
                     } else { // 加载更多
