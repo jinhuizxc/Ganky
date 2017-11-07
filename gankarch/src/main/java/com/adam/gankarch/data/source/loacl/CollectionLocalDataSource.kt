@@ -1,7 +1,7 @@
 package com.adam.gankarch.data.source.loacl
 
 import com.adam.gankarch.App
-import com.adam.gankarch.common.call.ModuleResult
+import com.adam.gankarch.common.base.Resp
 import com.adam.gankarch.data.db.GankMapper
 import com.adam.gankarch.data.db.MyDb
 import com.adam.gankarch.data.entity.GankEntity
@@ -15,7 +15,7 @@ class CollectionLocalDataSource : CollectionDataSource {
 
     private val db: MyDb by lazy { MyDb(App.instance) }
 
-    override fun getCollection(page: Int, pageSize: Int): Observable<ModuleResult<List<GankEntity>>> {
+    override fun getCollection(page: Int, pageSize: Int): Observable<Resp<List<GankEntity>>> {
 
         return Observable.create {
             try {
@@ -24,7 +24,7 @@ class CollectionLocalDataSource : CollectionDataSource {
                         this@run.mapRevert(it)
                     }
                 }
-                it.onNext(ModuleResult(dataList))
+                it.onNext(Resp(dataList))
                 it.onComplete()
             } catch (e: Throwable) {
                 it.onError(e)
@@ -32,11 +32,11 @@ class CollectionLocalDataSource : CollectionDataSource {
         }
     }
 
-    override fun add(entity: GankEntity): Observable<ModuleResult<Void>> {
+    override fun add(entity: GankEntity): Observable<Boolean> {
         return Observable.create {
             try {
                 db.insert(GankMapper().map(entity))
-                it.onNext(ModuleResult(null))
+                it.onNext(true)
                 it.onComplete()
             } catch (e: Throwable) {
                 it.onError(e)
@@ -44,11 +44,11 @@ class CollectionLocalDataSource : CollectionDataSource {
         }
     }
 
-    override fun delete(entity: GankEntity): Observable<ModuleResult<Void>> {
+    override fun delete(entity: GankEntity): Observable<Boolean> {
         return Observable.create {
             try {
                 db.delete(GankMapper().map(entity))
-                it.onNext(ModuleResult(null))
+                it.onNext(true)
                 it.onComplete()
             } catch (e: Throwable) {
                 it.onError(e)
@@ -56,11 +56,11 @@ class CollectionLocalDataSource : CollectionDataSource {
         }
     }
 
-    override fun isCollected(entity: GankEntity): Observable<ModuleResult<Boolean>> {
+    override fun isCollected(entity: GankEntity): Observable<Boolean> {
         return Observable.create {
             try {
                 val bean = db.queryById(entity.id!!)
-                it.onNext(ModuleResult(bean != null))
+                it.onNext(bean!=null)
                 it.onComplete()
             } catch (e: Throwable) {
                 it.onError(e)

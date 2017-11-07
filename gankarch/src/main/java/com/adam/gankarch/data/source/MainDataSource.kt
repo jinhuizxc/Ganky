@@ -1,6 +1,6 @@
 package com.adam.gankarch.data.source
 
-import com.adam.gankarch.common.call.ModuleResult
+import com.adam.gankarch.common.base.Resp
 import com.adam.gankarch.data.entity.GankEntity
 import io.reactivex.Observable
 
@@ -10,10 +10,10 @@ import io.reactivex.Observable
  */
 interface MainDataSource {
 
-    fun getGuideGirl(): Observable<ModuleResult<GankEntity>>
+    fun getGuideGirl(): Observable<Resp<GankEntity>>
 
-    fun getRandomGirl(): Observable<ModuleResult<GankEntity>>
+    fun getRandomGirl(): Observable<Resp<GankEntity>>
 
     fun getListData(type: String, pageSize: String, page: String)
-            : Observable<ModuleResult<List<GankEntity>>>
+            : Observable<Resp<List<GankEntity>>>
 }

@@ -2,8 +2,8 @@ package com.adam.gankarch.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import com.adam.gankarch.common.base.BaseViewModel
-import com.adam.gankarch.common.call.SimpleModuleCallback
 import com.adam.gankarch.data.entity.GankEntity
+import com.adam.gankarch.data.http.ApiConsumer
 import com.adam.gankarch.data.repository.CollectionRepository
 import com.adam.gankarch.data.repository.impl.CollectionRepositoryImpl
 import com.adam.gankarch.util.SingleLiveEvent
@@ -21,9 +21,7 @@ class CollectionViewModel : BaseViewModel() {
     val dataSet: MutableLiveData<List<GankEntity>> = MutableLiveData()
     val loadMoreData: MutableLiveData<List<GankEntity>> = MutableLiveData()
 
-    private val repository: CollectionRepository by lazy {
-        getRepositoryDelegate(CollectionRepository::class.java, CollectionRepositoryImpl())
-    }
+    private val repository: CollectionRepository by lazy { CollectionRepositoryImpl() }
 
     fun refresh() {
         page = 0
@@ -37,12 +35,12 @@ class CollectionViewModel : BaseViewModel() {
 
     fun delete(entity: GankEntity) {
         repository.deleteCollection(entity)
-                .enqueue(SimpleModuleCallback { deleteSuccess.call() })
+        deleteSuccess.call()
     }
 
     private fun load(pageSize: Int, pageNum: Int) {
         repository.getCollection(pageNum, pageSize)
-                .enqueue(SimpleModuleCallback {
+                .subscribe(ApiConsumer {
                     if (page == 0) {// 刷新
                         dataSet.postValue(it!!)
                     } else { // 加载更多

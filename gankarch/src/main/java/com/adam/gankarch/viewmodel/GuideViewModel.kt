@@ -2,7 +2,7 @@ package com.adam.gankarch.viewmodel
 
 import android.databinding.ObservableField
 import com.adam.gankarch.common.base.BaseViewModel
-import com.adam.gankarch.common.call.SimpleModuleCallback
+import com.adam.gankarch.data.http.ApiConsumer
 import com.adam.gankarch.data.repository.MainRepository
 import com.adam.gankarch.data.repository.impl.MainRepositoryImpl
 
@@ -14,13 +14,10 @@ class GuideViewModel : BaseViewModel() {
 
     val girl = ObservableField<String>()
 
-    private val repository: MainRepository by lazy {
-        // 通过这个方法获取的代理，调用数据层的call将会自动取消
-        getRepositoryDelegate(MainRepository::class.java, MainRepositoryImpl())
-    }
+    private val repository: MainRepository by lazy { MainRepositoryImpl() }
 
     init {
         repository.getGuideGirl()
-                .enqueue(SimpleModuleCallback { girl.set(it!!.url) })
+                .subscribe(ApiConsumer { girl.set(it!!.url) })
     }
 }
