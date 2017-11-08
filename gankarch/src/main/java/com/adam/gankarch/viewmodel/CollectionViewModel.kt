@@ -47,5 +47,6 @@ class CollectionViewModel : BaseViewModel() {
                         loadMoreData.postValue(it!!)
                     }
                 })
+                .apply { addDisposables(this) }
     }
 }

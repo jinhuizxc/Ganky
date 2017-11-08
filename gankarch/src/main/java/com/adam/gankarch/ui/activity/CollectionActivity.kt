@@ -77,8 +77,7 @@ class CollectionActivity : ArchBaseActivity<ActivityCollectionBinding>() {
             })
             deleteSuccess.observe(this@CollectionActivity, Observer { ToastUtils.showShort("已经移除收藏夹") })
 
-            refresh()
-        }
+        }.apply { refresh() }
 
     }
 

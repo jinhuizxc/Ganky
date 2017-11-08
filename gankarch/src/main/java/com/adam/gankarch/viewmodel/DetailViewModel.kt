@@ -3,6 +3,7 @@ package com.adam.gankarch.viewmodel
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import com.adam.gankarch.common.base.BaseViewModel
+import com.adam.gankarch.common.extensions.addToLifecycle
 import com.adam.gankarch.data.entity.GankEntity
 import com.adam.gankarch.data.http.ApiConsumer
 import com.adam.gankarch.data.repository.CollectionRepository
@@ -31,15 +32,18 @@ class DetailViewModel : BaseViewModel() {
     fun checkCollected(entity: GankEntity) {
         collectionRepository.isCollected(entity)
                 .subscribe { isCollected.set(it) }
+                .addToLifecycle(mDisposables)
     }
 
     fun btnCollect(entity: GankEntity) {
         if (isCollected.get()) {
             collectionRepository.deleteCollection(entity)
                     .subscribe { isCollected.set(false) }
+                    .addToLifecycle(mDisposables)
         } else {
             collectionRepository.addCollection(entity)
                     .subscribe { isCollected.set(true) }
+                    .addToLifecycle(mDisposables)
         }
     }
 }

@@ -40,5 +40,6 @@ class CategoryViewModel : BaseViewModel() {
                         loadMoreData.postValue(it!!)
                     }
                 })
+                .apply { addDisposables(this) }
     }
 }
