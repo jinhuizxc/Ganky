@@ -17,12 +17,12 @@ abstract class LazyFragment : Fragment() {
     private var isPrepared: Boolean = false
     private var isFirstLoad = true
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         isFirstLoad = true
-        return inflater?.inflate(getLayoutId(), null)
+        return inflater.inflate(getLayoutId(), null)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
     }

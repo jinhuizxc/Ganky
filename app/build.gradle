@@ -5,7 +5,6 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.adam.ganky"
@@ -27,45 +26,41 @@ android {
             dirs 'libs'
         }
     }
+    buildToolsVersion '27.0.3'
 }
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     def dependencies = rootProject.ext.dependencies
 
-    compile dependencies.supportAppCompat
-    compile dependencies.supportRecyclerview
-    compile dependencies.supportCardView
-    compile dependencies.supportDesign
+    implementation dependencies.supportAppCompat
+    implementation dependencies.supportRecyclerview
+    implementation dependencies.supportCardView
+    implementation dependencies.supportDesign
 
     kapt dependencies.daggerCompiler
-    compile dependencies.dagger
+    implementation dependencies.dagger
 
 //    kapt dependencies.roomCompiler
-//    compile dependencies.roomRuntime
+//    implementation dependencies.roomRuntime
 
-    compile dependencies.retrofit
-    compile dependencies.retrofitGsonConverter
-    compile dependencies.retrofitRxjavaAdapter2
-    compile dependencies.okhttpLoggingInterceptor
-    compile dependencies.rxJava2
-    compile dependencies.rxAndroid2
-//    compile dependencies.rxLifecycle2
-//    compile dependencies.rxBinding2
-    compile dependencies.rxPermission2
-    compile dependencies.adapterHelper
-    compile dependencies.timber
+    implementation dependencies.retrofit
+    implementation dependencies.retrofitGsonConverter
+    implementation dependencies.retrofitRxjavaAdapter2
+    implementation dependencies.okhttpLoggingInterceptor
+    implementation dependencies.rxJava2
+    implementation dependencies.rxAndroid2
+//    implementation dependencies.rxLifecycle2
+//    implementation dependencies.rxBinding2
+    implementation dependencies.rxPermission2
+    implementation dependencies.adapterHelper
+    implementation dependencies.timber
 
     kapt dependencies.glideCompiler
-    compile dependencies.glide
+    implementation dependencies.glide
 
-    compile dependencies.kotlinStdlib
-    compile dependencies.kotlinReflect
-
-    testCompile 'junit:junit:4.12'
+    implementation dependencies.kotlinStdlib
+    implementation dependencies.kotlinReflect
 }
 
 kotlin {

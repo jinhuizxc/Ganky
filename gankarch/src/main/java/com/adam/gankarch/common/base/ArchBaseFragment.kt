@@ -11,9 +11,9 @@ import android.view.View
  */
 abstract class ArchBaseFragment<T : ViewDataBinding> : BaseFragment() {
 
-    lateinit var mBinding: T
+    var mBinding: T? = null
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mBinding = DataBindingUtil.bind(view)
         registerLifecycle(lifecycle)
         super.onViewCreated(view, savedInstanceState)

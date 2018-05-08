@@ -70,11 +70,11 @@ fun <T : Fragment> T.withArgument(key: String, value: Any): T {
         Bundle()
     }.apply {
         when (value) {
-            is Int -> putInt(key, value)
-            is Long -> putLong(key, value)
-            is String -> putString(key, value)
-            is Parcelable -> putParcelable(key, value)
-            is Serializable -> putSerializable(key, value)
+            is Int -> this!!.putInt(key, value)
+            is Long -> this!!.putLong(key, value)
+            is String -> this!!.putString(key, value)
+            is Parcelable -> this!!.putParcelable(key, value)
+            is Serializable -> this!!.putSerializable(key, value)
             else -> throw UnsupportedOperationException("${value.javaClass.simpleName} type not supported yet!!!")
         }
     }

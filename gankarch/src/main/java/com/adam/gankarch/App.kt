@@ -2,6 +2,7 @@ package com.adam.gankarch
 
 import android.app.Application
 import com.blankj.utilcode.util.Utils
+import kotlin.properties.Delegates
 
 
 /**
@@ -17,7 +18,7 @@ class App : Application() {
     }
 
     companion object {
-        lateinit var instance: App
+        var instance: App by Delegates.notNull()
     }
 
 }

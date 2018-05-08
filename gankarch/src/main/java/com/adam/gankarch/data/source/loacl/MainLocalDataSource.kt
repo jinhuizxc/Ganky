@@ -6,7 +6,6 @@ import com.adam.gankarch.data.entity.GankEntity
 import com.adam.gankarch.data.http.GankException
 import com.adam.gankarch.data.http.SpConstants
 import com.adam.gankarch.data.source.MainDataSource
-import com.blankj.utilcode.util.EmptyUtils
 import com.blankj.utilcode.util.SPUtils
 import com.google.gson.Gson
 import io.reactivex.Observable
@@ -31,7 +30,7 @@ class MainLocalDataSource : MainDataSource {
         SPUtils.getInstance().put(SpConstants.GUIDE_GIRL_USED_TIME, count + 1)
 
         return Observable.create<Resp<GankEntity>> {
-            val result = if (EmptyUtils.isNotEmpty(str)) {
+            val result = if (str.isNullOrEmpty()) {
                 Resp(Gson().fromJson(str, GankEntity::class.java))
             } else {
                 Resp(null, GankException(errorMessage = "GuideGirl is not found from cache"))
