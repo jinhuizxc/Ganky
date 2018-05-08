@@ -3,6 +3,7 @@ package com.adam.ganky.ui.activity
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import com.adam.ganky.GlideApp
 import com.adam.ganky.R
 import com.adam.ganky.base.BaseActivity
 import com.adam.ganky.base.BaseFragment
@@ -33,7 +34,7 @@ class MainActivity : BaseActivity() {
         }
 
         fab.setOnClickListener { jump(CollectionActivity::class.java) }
-
+GlideApp.with(this).load("").fitCenter()
     }
 
     override fun onBackPressed() {

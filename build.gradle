@@ -1,13 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.2.30'
     repositories {
         jcenter()
         maven { url 'https://maven.google.com' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -30,17 +30,17 @@ task clean(type: Delete) {
 }
 
 ext {
-    kotlinVersion = "1.1.51"
+    kotlinVersion = "1.2.30"
     // Sdk and tools
-    buildToolsVersion = "26.0.2"
-    compileSdkVersion = 26
+    buildToolsVersion = "27.0.3"
+    compileSdkVersion = 27
     minSdkVersion = 19
-    targetSdkVersion = 26
+    targetSdkVersion = 27
     versionCode = 1
     versionName = "1.0.0"
     javaVersion = JavaVersion.VERSION_1_8
 
-    supportLibVersion = "26.+"
+    supportLibVersion = "27.+"
     constraintLayoutVersion = '1.0.2'
     multidexVersion = "1.0.1"
     daggerVersion = "2.11"
@@ -48,21 +48,21 @@ ext {
     butterKnifeVersion = "8.8.1"
     timberVersion = "4.5.1"
 
-    okhttpVersion = "3.9.0"
-    retrofitVersion = "2.3.0"
-    rxjava2Version = "2.1.4"
-    rxAndroid2Version = "2.0.1"
-    rxLifecycle2Version = "2.2.0"
-    rxBinding2Version = "2.0.0"
+    okhttpVersion = "3.10.0"
+    retrofitVersion = "2.4.0"
+    rxjava2Version = "2.1.12"
+    rxAndroid2Version = "2.0.2"
+    rxLifecycle2Version = "2.2.1"
+    rxBinding2Version = "2.1.0"
     rxPermissionVersion = "0.9.4@aar"
     glideVersion = "4.1.1"
 
     arouterApiVersion = "1.2.1.1"
     arouterCompilerVersion = "1.1.2.1"
 
-    adapterHelperVersion = "2.9.31"
+    adapterHelperVersion = "2.9.38"
     archVersion = 'latest.release'
-    utilCodeVersion = '1.9.3'
+    utilCodeVersion = '1.15.0'
     fastJsonVersion = '1.1.64.android'
 
     dependencies = [

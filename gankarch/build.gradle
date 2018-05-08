@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -39,44 +39,39 @@ kapt {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     def dependencies = rootProject.ext.dependencies
 
-    compile dependencies.supportAppCompat
-    compile dependencies.supportRecyclerview
-    compile dependencies.supportCardView
-    compile dependencies.supportDesign
-    compile dependencies.constraintLayout
+    implementation dependencies.supportAppCompat
+    implementation dependencies.supportRecyclerview
+    implementation dependencies.supportCardView
+    implementation dependencies.supportDesign
+    implementation dependencies.constraintLayout
 
-    compile dependencies.retrofit
-    compile dependencies.okhttpLoggingInterceptor
-    compile dependencies.retrofitRxjavaAdapter2
-    compile dependencies.retrofitGsonConverter
+    implementation dependencies.retrofit
+    implementation dependencies.okhttpLoggingInterceptor
+    implementation dependencies.retrofitRxjavaAdapter2
+    implementation dependencies.retrofitGsonConverter
 
-    compile dependencies.rxJava2
-    compile dependencies.rxAndroid2
+    implementation dependencies.rxJava2
+    implementation dependencies.rxAndroid2
 
-    compile dependencies.adapterHelper
-    compile dependencies.timber
+    implementation dependencies.adapterHelper
+    implementation dependencies.timber
     kapt dependencies.glideCompiler
-    compile dependencies.glide
-    compile dependencies.utilCode
+    implementation dependencies.glide
+    implementation dependencies.utilCode
 
-    compile dependencies.kotlinStdlib
-    compile dependencies.kotlinReflect
+    implementation dependencies.kotlinStdlib
+    implementation dependencies.kotlinReflect
 
     // arch
     kapt dependencies.roomCompiler
-    compile dependencies.roomRuntime
+    implementation dependencies.roomRuntime
     kapt dependencies.archCompiler
-    compile dependencies.archRuntime
-    compile dependencies.archExtensions
+    implementation dependencies.archRuntime
+    implementation dependencies.archExtensions
 
-    kapt 'com.android.databinding:compiler:3.0.0'// databinding adapters
-
-    testCompile 'junit:junit:4.12'
+    kapt 'com.android.databinding:compiler:3.1.2'// databinding adapters
 }

@@ -33,7 +33,7 @@ class CategoryFragment : ArchBaseFragment<FragmentCategoryBinding>() {
 
     override fun initView(view: View?) {
 
-        type = arguments.getString("type")
+        type = arguments?.getString("type")!!
 
         mAdapter = CategoryAdapter(null) { adapter, _, position ->
             if ("福利" != type)
@@ -41,10 +41,10 @@ class CategoryFragment : ArchBaseFragment<FragmentCategoryBinding>() {
         }.apply {
             openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM)
             setEnableLoadMore(true)
-            setOnLoadMoreListener({ mViewModel.loadMore(type) }, mBinding.recyclerView)
+            setOnLoadMoreListener({ mViewModel.loadMore(type) }, mBinding?.recyclerView)
         }
 
-        with(mBinding.recyclerView) {
+        with(mBinding?.recyclerView!!) {
             layoutManager = LinearLayoutManager(activity)
             setHasFixedSize(true)
             adapter = mAdapter
@@ -53,7 +53,7 @@ class CategoryFragment : ArchBaseFragment<FragmentCategoryBinding>() {
                 PagerSnapHelper().attachToRecyclerView(this)
         }
 
-        mBinding.refreshLayout.setOnRefreshListener {
+        mBinding?.refreshLayout?.setOnRefreshListener {
             mViewModel.refresh(type)
             mAdapter.setEnableLoadMore(true)
         }
@@ -63,7 +63,7 @@ class CategoryFragment : ArchBaseFragment<FragmentCategoryBinding>() {
         mViewModel = createViewModel(CategoryViewModel::class.java).apply {
             dataSet.observe(this@CategoryFragment, Observer {
                 mAdapter.setNewData(it)
-                mBinding.refreshLayout.isRefreshing = false
+                mBinding?.refreshLayout?.isRefreshing = false
             })
             loadMoreData.observe(this@CategoryFragment, Observer {
                 if (it != null && it.isNotEmpty()) {

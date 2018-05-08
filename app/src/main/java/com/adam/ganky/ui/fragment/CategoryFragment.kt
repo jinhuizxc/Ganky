@@ -38,7 +38,7 @@ class CategoryFragment : BaseMvpFragment<CategoryPresenter>(), ICategory.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        type = arguments.getString("type")
+        type = arguments?.getString("type")!!
     }
 
     override fun getLayoutId(): Int = R.layout.layout_refresh_list
