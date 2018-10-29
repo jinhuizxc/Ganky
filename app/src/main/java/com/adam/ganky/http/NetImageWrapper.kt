@@ -20,6 +20,34 @@ class NetImageWrapper {
     var scaleType: ScaleType? = ScaleType.CENTER_CROP
     var errorId: Int = 0
     var placeHolder: Int = 0
+
+    fun execute() {
+        if (imageView == null || url == null) {
+            throw NullPointerException("imageView or url is null")
+        }
+        if (fragment == null && activity == null) {
+            throw NullPointerException("fragment 和 activity 至少要有一个啊，兄弟")
+        }
+        var glideRequest: GlideRequest<Drawable> = if (fragment == null) {
+            GlideApp.with(activity).load(url)
+        } else {
+            GlideApp.with(fragment).load(url)
+        }
+
+        if (errorId != 0) {
+            glideRequest = glideRequest.error(errorId)
+        }
+        if (placeHolder != 0) {
+            glideRequest = glideRequest.placeholder(placeHolder)
+        }
+
+        when (scaleType) {
+            ScaleType.CENTER_CROP -> glideRequest.centerCrop().into(imageView)
+            ScaleType.CENTER_INSIDE -> glideRequest.centerInside().into(imageView)
+            ScaleType.FIT_CENTER -> glideRequest.fitCenter().into(imageView)
+        }
+
+    }
 }
 
 enum class ScaleType {
@@ -29,35 +57,6 @@ enum class ScaleType {
 }
 
 fun displayImage(block: NetImageWrapper.() -> Unit) {
-    val wrapper = NetImageWrapper()
-    wrapper.block()
-    execute(wrapper)
+    NetImageWrapper().apply(block).execute()
 }
 
-private fun execute(wrapper: NetImageWrapper) {
-    if (wrapper.imageView == null || wrapper.url == null) {
-        throw NullPointerException("imageView or url is null")
-    }
-    if (wrapper.fragment == null && wrapper.activity == null) {
-        throw NullPointerException("fragment 和 activity 至少要有一个啊，兄弟")
-    }
-    var glideRequest: GlideRequest<Drawable> = if (wrapper.fragment == null) {
-        GlideApp.with(wrapper.activity).load(wrapper.url)
-    } else {
-        GlideApp.with(wrapper.fragment).load(wrapper.url)
-    }
-
-    if (wrapper.errorId != 0) {
-        glideRequest = glideRequest.error(wrapper.errorId)
-    }
-    if (wrapper.placeHolder != 0) {
-        glideRequest = glideRequest.placeholder(wrapper.placeHolder)
-    }
-
-    when (wrapper.scaleType) {
-        ScaleType.CENTER_CROP -> glideRequest.centerCrop().into(wrapper.imageView)
-        ScaleType.CENTER_INSIDE -> glideRequest.centerInside().into(wrapper.imageView)
-        ScaleType.FIT_CENTER -> glideRequest.fitCenter().into(wrapper.imageView)
-    }
-
-}
